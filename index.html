@@ -330,6 +330,7 @@ function SPEEDSExplorer() {
   const [toast,setToast]=useState("");
   const [toastOn,setToastOn]=useState(false);
   const [toastType,setToastType]=useState("correct");
+  const [imgLoaded,setImgLoaded]=useState(false);
   const [scores,setScores]=useState([]);
   const [chunk,setChunk]=useState(0);
   const [zoom,setZoom]=useState(1);
@@ -381,6 +382,8 @@ function SPEEDSExplorer() {
     const t=setInterval(()=>setTimer(p=>{if(p<=1){subRef.current?.();return 0;}return p-1;}),1000);
     return()=>clearInterval(t);
   },[phase]);
+
+  useEffect(()=>{setImgLoaded(false);setZoom(1);setPan({x:0,y:0});},[roundIdx]);
 
   const allObs = useMemo(()=>{
     if(!loc)return [];
@@ -515,8 +518,6 @@ function SPEEDSExplorer() {
   if(!loc)return null;
 
   // ——— IMAGE VIEWER ———
-  const [imgLoaded, setImgLoaded] = useState(false);
-  useEffect(()=>{setImgLoaded(false);setZoom(1);setPan({x:0,y:0});},[roundIdx]);
   const handleTouchStart = (e)=>{if(zoom>1&&e.touches.length===1){setDragging(true);setDragStart({x:e.touches[0].clientX-pan.x,y:e.touches[0].clientY-pan.y});}};
   const handleTouchMove = (e)=>{if(dragging&&e.touches.length===1){e.preventDefault();setPan({x:e.touches[0].clientX-dragStart.x,y:e.touches[0].clientY-dragStart.y});}};
   const handleTouchEnd = ()=>setDragging(false);
