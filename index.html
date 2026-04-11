@@ -398,12 +398,25 @@ function SPEEDSExplorer() {
 
   const submitObs = () => {
     if(!inp.trim()||!loc)return;
-    const found=allObs.find(o=>!matched.some(m=>m.text===o.text)&&fuzzy(inp,o.keywords));
-    if(found){
-      const s3=streak+1>=3;
-      const pts=(found.tier===1?(s3?15:10):(s3?8:5))+(found.geoVocab?2:0);
-      setMatched(p=>[...p,{...found,pts}]);setStreak(p=>p+1);setObs$(p=>p+pts);flash();
-    } else { setStreak(0); flash("Keep looking! Try another angle 👀","wrong"); }
+    if(cat){
+      const found=allObs.find(o=>!matched.some(m=>m.text===o.text)&&o.category===cat&&fuzzy(inp,o.keywords));
+      if(found){
+        const s3=streak+1>=3;
+        const pts=(found.tier===1?(s3?15:10):(s3?8:5))+(found.geoVocab?2:0);
+        setMatched(p=>[...p,{...found,pts}]);setStreak(p=>p+1);setObs$(p=>p+pts);flash();
+      } else {
+        const wrongCat=allObs.find(o=>!matched.some(m=>m.text===o.text)&&o.category!==cat&&fuzzy(inp,o.keywords));
+        if(wrongCat){const sp=SPEEDS.find(s=>s.key===wrongCat.category);setStreak(0);flash(`Right observation, wrong category! Try ${sp.icon} ${sp.label} 🔄`,"wrong");}
+        else{setStreak(0);flash("Keep looking! Try another angle 👀","wrong");}
+      }
+    } else {
+      const found=allObs.find(o=>!matched.some(m=>m.text===o.text)&&fuzzy(inp,o.keywords));
+      if(found){
+        const s3=streak+1>=3;
+        const pts=(found.tier===1?(s3?15:10):(s3?8:5))+(found.geoVocab?2:0);
+        setMatched(p=>[...p,{...found,pts}]);setStreak(p=>p+1);setObs$(p=>p+pts);flash();
+      } else {setStreak(0);flash("Keep looking! Try another angle 👀","wrong");}
+    }
     setInp("");iRef.current?.focus();
   };
 
