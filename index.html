@@ -10,10 +10,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #f5f0e8; min-height: 100vh; }
+    body { background: #F1ECDE; min-height: 100vh; }
   </style>
 </head>
 <body>
@@ -309,6 +309,7 @@ function SPEEDSExplorer() {
   },[]);
 
   const [phase,setPhase]=useState("start");
+  const [howToPlay,setHowToPlay]=useState(false);
   const [roundIdx,setRoundIdx]=useState(0);
   const [order,setOrder]=useState([]);
   const [timer,setTimer]=useState(180);
@@ -484,19 +485,184 @@ function SPEEDSExplorer() {
 
   // ——— START ———
   if(phase==="start") return (
-    <div style={S.pg}>
-      <div style={{...S.bx,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"90vh"}}>
-        <div style={{fontSize:72,marginBottom:8}}>🦏</div>
-        <h1 style={{...S.h1,fontSize:44,marginBottom:4}}>S.P.E.E.D.S. Explorer</h1>
-        <p style={{textAlign:"center",fontSize:18,color:"#666",marginBottom:24,maxWidth:480}}>Train your geographic observation skills for the AP Human Geography exam. Analyze real-world locations using the SPEEDS framework.</p>
-        <div style={{...S.cd,maxWidth:460,textAlign:"center"}}>
-          <div style={{display:"flex",flexWrap:"wrap",gap:8,justifyContent:"center",marginBottom:20}}>
-            {SPEEDS.map(sp=><span key={sp.key} style={{...S.bg,background:sp.color+"18",color:sp.color,border:`1px solid ${sp.color}33`}}>{sp.icon} {sp.label}</span>)}
-          </div>
-          <p style={{fontSize:17,color:"#555",marginBottom:20}}>{ROUNDS} rounds • 3 min observe • Map guess • FRQ + Limitation</p>
-          <button style={{...S.bt,...S.b1,fontSize:21,padding:"16px 48px"}} onClick={start}>Start Exploring 🌍</button>
+    <div style={{background:"#F1ECDE",fontFamily:"'Inter',-apple-system,'Segoe UI',sans-serif",color:"#1A2130",minHeight:"100vh"}}>
+
+      {/* NAV */}
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"20px 48px",maxWidth:1200,margin:"0 auto"}}>
+        <div style={{display:"flex",alignItems:"center",gap:10}}>
+          <svg width="26" height="26" viewBox="0 0 40 40"><path d="M 6 24 Q 6 18 12 16 L 14 13 Q 15 10 18 11 L 19 13 Q 22 12 25 14 L 30 14 Q 34 16 34 22 L 34 26 Q 34 28 32 28 L 30 28 L 30 31 L 27 31 L 27 28 L 16 28 L 16 31 L 13 31 L 13 28 Q 8 28 6 24 Z M 13 16 Q 13 12 16 11 Q 15 14 16 15 Z M 27 20 Q 29 20 29 22 Q 29 24 27 24 Q 25 24 25 22 Q 25 20 27 20 Z" fill="#1A2130"/></svg>
+          <span style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:17,fontWeight:500,letterSpacing:0.3}}>SPEEDS Explorer</span>
+        </div>
+        <div style={{display:"flex",alignItems:"center",gap:28,fontSize:13,color:"rgba(26, 33, 48, 0.6)"}}>
+          <a onClick={()=>setHowToPlay(true)} style={{color:"inherit",textDecoration:"none",cursor:"pointer"}}>How to play</a>
+          <a href="#about" style={{color:"inherit",textDecoration:"none",cursor:"pointer"}}>About</a>
+          <a href="mailto:Colleen.M.Schmidt@gmail.com" style={{color:"inherit",textDecoration:"none",cursor:"pointer"}}>Contact</a>
         </div>
       </div>
+
+      {/* HERO */}
+      <div style={{padding:"88px 48px 80px",textAlign:"center",position:"relative",overflow:"hidden",maxWidth:1200,margin:"0 auto"}}>
+        <svg viewBox="0 0 900 500" style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}} preserveAspectRatio="xMidYMid slice">
+          <g stroke="#1A2130" strokeWidth="0.6" fill="none" opacity="0.07">
+            <path d="M -50 180 Q 150 120 350 160 Q 550 210 750 140 Q 850 100 950 150"/>
+            <path d="M -50 210 Q 170 155 370 195 Q 560 240 740 180 Q 840 140 950 185"/>
+            <path d="M -50 245 Q 190 195 390 230 Q 570 275 730 220 Q 830 185 950 220"/>
+            <path d="M -50 285 Q 220 240 420 270 Q 590 310 720 265 Q 820 230 950 260"/>
+            <path d="M -50 330 Q 250 290 450 315 Q 610 345 710 315 Q 810 285 950 305"/>
+            <path d="M -50 380 Q 290 345 475 360 Q 625 380 700 365 Q 800 345 950 355"/>
+          </g>
+          <g stroke="#A07548" strokeWidth="0.5" fill="none" opacity="0.22">
+            <path d="M 80 420 Q 160 395 230 410 Q 290 425 330 415"/>
+            <path d="M 100 410 Q 170 388 225 402 Q 285 414 325 405"/>
+            <path d="M 120 400 Q 180 383 220 395 Q 275 405 315 398"/>
+            <path d="M 140 390 Q 185 378 215 388 Q 265 398 305 392"/>
+          </g>
+          <g fill="#A07548" opacity="0.55">
+            <circle cx="420" cy="170" r="2.5"/>
+            <circle cx="580" cy="220" r="2.5"/>
+            <circle cx="680" cy="175" r="2.5"/>
+          </g>
+        </svg>
+        <div style={{position:"relative"}}>
+          <div style={{fontSize:12,letterSpacing:2,textTransform:"uppercase",color:"#6B4A2D",marginBottom:24}}>For AP<span style={{fontSize:8,verticalAlign:"super"}}>®</span> Human Geography</div>
+          <h1 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:64,lineHeight:1.05,fontWeight:500,margin:"0 0 22px",letterSpacing:-1,color:"#1A2130"}}>Stimulus skills practice.</h1>
+          <p style={{fontSize:18,lineHeight:1.55,color:"rgba(26, 33, 48, 0.7)",maxWidth:500,margin:"0 auto 48px"}}>Look at a place. Notice what's there. Place it on the map. Explain what it means.</p>
+          <button onClick={start} style={{background:"#1A2130",color:"#F1ECDE",border:"none",padding:"22px 64px",fontSize:18,fontWeight:500,letterSpacing:0.3,borderRadius:4,cursor:"pointer",fontFamily:"inherit"}}>Start a round</button>
+          <div style={{marginTop:18}}>
+            <a onClick={()=>setHowToPlay(true)} style={{fontSize:13,color:"rgba(26, 33, 48, 0.55)",textDecoration:"underline",textDecorationColor:"rgba(26, 33, 48, 0.25)",textUnderlineOffset:3,cursor:"pointer"}}>New here? See how to play.</a>
+          </div>
+        </div>
+      </div>
+
+      {/* HOW A ROUND WORKS */}
+      <div style={{padding:"32px 48px 72px",maxWidth:1100,margin:"0 auto"}}>
+        <div style={{textAlign:"center",marginBottom:48}}>
+          <h2 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:30,fontWeight:500,margin:"0 0 10px",letterSpacing:-0.3}}>How a round works</h2>
+          <p style={{fontSize:15,color:"rgba(26, 33, 48, 0.6)",maxWidth:480,margin:"0 auto",lineHeight:1.6}}>Three short phases. Each one practices a skill the AP<span style={{fontSize:7,verticalAlign:"super"}}>®</span> exam tests.</p>
+        </div>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(3, 1fr)",gap:24}}>
+          <div style={{padding:"32px 28px"}}>
+            <div style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:40,color:"#A07548",lineHeight:1,marginBottom:14}}>01</div>
+            <h3 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:22,fontWeight:500,margin:"0 0 10px"}}>Observe</h3>
+            <p style={{fontSize:14,lineHeight:1.65,color:"rgba(26, 33, 48, 0.7)",margin:0}}>Look at a real street-level photo. Type what you actually see, not what you think it means.</p>
+          </div>
+          <div style={{padding:"32px 28px",borderLeft:"0.5px solid rgba(26, 33, 48, 0.12)",borderRight:"0.5px solid rgba(26, 33, 48, 0.12)"}}>
+            <div style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:40,color:"#A07548",lineHeight:1,marginBottom:14}}>02</div>
+            <h3 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:22,fontWeight:500,margin:"0 0 10px"}}>Locate</h3>
+            <p style={{fontSize:14,lineHeight:1.65,color:"rgba(26, 33, 48, 0.7)",margin:0}}>Drop a pin on the world map. The closer your guess, the more confident your reading of the evidence.</p>
+          </div>
+          <div style={{padding:"32px 28px"}}>
+            <div style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:40,color:"#A07548",lineHeight:1,marginBottom:14}}>03</div>
+            <h3 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:22,fontWeight:500,margin:"0 0 10px"}}>Explain</h3>
+            <p style={{fontSize:14,lineHeight:1.65,color:"rgba(26, 33, 48, 0.7)",margin:0}}>Write a short answer to a stimulus prompt. Self-score with the ACE framework, then move on.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* SIX LENSES */}
+      <div style={{background:"#F7F3E6",padding:"72px 48px",borderTop:"0.5px solid rgba(26, 33, 48, 0.1)",borderBottom:"0.5px solid rgba(26, 33, 48, 0.1)"}}>
+        <div style={{maxWidth:1100,margin:"0 auto"}}>
+          <div style={{textAlign:"center",marginBottom:48}}>
+            <h2 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:30,fontWeight:500,margin:"0 0 10px",letterSpacing:-0.3}}>The six lenses</h2>
+            <p style={{fontSize:15,color:"rgba(26, 33, 48, 0.6)",maxWidth:500,margin:"0 auto",lineHeight:1.6}}>SPEEDS is the College Board's framework for reading a stimulus. Every image in the game is keyed against all six.</p>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(3, 1fr)",gap:16}}>
+            {[["S","Social","Language, religion, dress, cultural landscape"],["P","Political","Flags, borders, who's in charge"],["E","Environmental","Climate, terrain, weather, vegetation"],["E","Economic","Commerce, labor, land use, infrastructure"],["D","Demographic","Who lives here (age, ethnicity, density)"],["S","Spatial","How the place is arranged on the ground"]].map(([L,h,d],i)=>(
+              <div key={i} style={{padding:"22px 24px",border:"0.5px solid rgba(26, 33, 48, 0.12)",borderRadius:4}}>
+                <div style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:38,fontWeight:500,color:"#A07548",lineHeight:1,marginBottom:8}}>{L}</div>
+                <h4 style={{fontSize:14,fontWeight:500,margin:"0 0 4px"}}>{h}</h4>
+                <p style={{fontSize:13,color:"rgba(26, 33, 48, 0.6)",margin:0,lineHeight:1.55}}>{d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ABOUT */}
+      <div id="about" style={{padding:"80px 48px 56px",maxWidth:720,margin:"0 auto"}}>
+        <h2 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:30,fontWeight:500,margin:"0 0 28px",letterSpacing:-0.3,textAlign:"center"}}>About this project</h2>
+        <div style={{fontSize:15.5,lineHeight:1.8,color:"rgba(26, 33, 48, 0.82)"}}>
+          <p style={{margin:"0 0 18px"}}>I'm an AP<span style={{fontSize:8,verticalAlign:"super"}}>®</span> Research teacher at Carnegie Vanguard High School in Houston. A few months ago, getting ready for 211 student research presentations, I knew I'd need a project to work on while I listened. I also wanted to teach myself a little AI. So I went to my former co-teacher Dr. Charlotte Haney and asked what her AP<span style={{fontSize:8,verticalAlign:"super"}}>®</span> Human Geography students needed most before the exam.</p>
+          <p style={{margin:"0 0 18px"}}>Her answer: content's pretty solid. What they need is practice with the SPEEDS skills. The stimulus analysis piece.</p>
+          <p style={{margin:"0 0 26px",fontFamily:"'Playfair Display',Georgia,serif",fontSize:17,fontStyle:"italic",color:"#6B4A2D"}}>So I jumped on it, and this is the result.</p>
+          <p style={{margin:"0 0 18px"}}>Most AP<span style={{fontSize:8,verticalAlign:"super"}}>®</span> prep is content review. This isn't. It's skills practice, specifically the stimulus-reading part of the exam where students tend to lose points. The SPEEDS framework itself comes from <a href="https://library.ncge.org/documents/b26755f7016b46a18d0aa4aeafa01aef" style={{color:"#6B4A2D",textDecoration:"underline",textDecorationColor:"rgba(107, 74, 45, 0.4)",textUnderlineOffset:2}}>Ann Wurst's work</a> through the NCGE. The FRQ side (sticking to College Board task verbs, using the ACE rubric for self-scoring) comes from Dr. Haney's classroom.</p>
+          <p style={{margin:0,fontSize:14.5,color:"rgba(26, 33, 48, 0.7)"}}>Questions, comments, concerns? Reach me at <a href="mailto:Colleen.M.Schmidt@gmail.com" style={{color:"#6B4A2D",textDecoration:"underline",textDecorationColor:"rgba(107, 74, 45, 0.4)",textUnderlineOffset:2}}>Colleen.M.Schmidt@gmail.com</a>.</p>
+        </div>
+      </div>
+
+      {/* ACKNOWLEDGMENTS */}
+      <div style={{background:"#F7F3E6",padding:"56px 48px",borderTop:"0.5px solid rgba(26, 33, 48, 0.1)"}}>
+        <div style={{textAlign:"center",marginBottom:36}}>
+          <h2 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:24,fontWeight:500,margin:0,letterSpacing:-0.2}}>With thanks to</h2>
+        </div>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(2, 1fr)",gap:24,maxWidth:720,margin:"0 auto"}}>
+          <div style={{padding:"24px",border:"0.5px solid rgba(26, 33, 48, 0.12)",borderRadius:4}}>
+            <div style={{fontSize:11,letterSpacing:1.2,textTransform:"uppercase",color:"#6B4A2D",marginBottom:8}}>SPEEDS framework</div>
+            <h4 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:18,fontWeight:500,margin:"0 0 6px"}}>Ann Wurst</h4>
+            <p style={{fontSize:13,lineHeight:1.6,color:"rgba(26, 33, 48, 0.65)",margin:0}}>Whose SPEEDS framework, published through the National Council for Geographic Education, is the structural backbone of every answer key.</p>
+          </div>
+          <div style={{padding:"24px",border:"0.5px solid rgba(26, 33, 48, 0.12)",borderRadius:4}}>
+            <div style={{fontSize:11,letterSpacing:1.2,textTransform:"uppercase",color:"#6B4A2D",marginBottom:8}}>FRQ approach and project genesis</div>
+            <h4 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:18,fontWeight:500,margin:"0 0 6px"}}>Dr. Charlotte Haney</h4>
+            <p style={{fontSize:13,lineHeight:1.6,color:"rgba(26, 33, 48, 0.65)",margin:0}}>Carnegie Vanguard High School. Identified the original gap, shaped the FRQ scoring approach, and consulted on classroom fit.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* FOOTER */}
+      <div style={{padding:"32px 48px",display:"flex",justifyContent:"space-between",alignItems:"center",fontSize:12,color:"rgba(26, 33, 48, 0.55)",borderTop:"0.5px solid rgba(26, 33, 48, 0.1)",flexWrap:"wrap",gap:16}}>
+        <div>
+          <div style={{marginBottom:4}}>Colleen Schmidt · Carnegie Vanguard High School, Houston</div>
+          <div style={{fontSize:11}}>AP<span style={{fontSize:7,verticalAlign:"super"}}>®</span> is a registered trademark of the College Board.</div>
+        </div>
+        <a href="mailto:Colleen.M.Schmidt@gmail.com" style={{color:"inherit",textDecoration:"none"}}>Colleen.M.Schmidt@gmail.com</a>
+      </div>
+
+      {/* HOW TO PLAY MODAL */}
+      {howToPlay && (
+        <div onClick={()=>setHowToPlay(false)} style={{position:"fixed",inset:0,background:"rgba(26, 33, 48, 0.55)",zIndex:1000,display:"flex",alignItems:"center",justifyContent:"center",padding:24}}>
+          <div onClick={e=>e.stopPropagation()} style={{background:"#F1ECDE",maxWidth:580,width:"100%",maxHeight:"90vh",overflow:"auto",borderRadius:6,padding:"36px 40px",position:"relative",boxShadow:"0 10px 40px rgba(0,0,0,0.25)",fontFamily:"'Inter',-apple-system,'Segoe UI',sans-serif"}}>
+            <button onClick={()=>setHowToPlay(false)} aria-label="Close" style={{position:"absolute",top:14,right:16,background:"transparent",border:"none",fontSize:22,color:"rgba(26, 33, 48, 0.55)",cursor:"pointer",padding:4,lineHeight:1}}>×</button>
+            <div style={{fontSize:11,letterSpacing:2,textTransform:"uppercase",color:"#6B4A2D",marginBottom:10}}>Quick read</div>
+            <h2 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:28,fontWeight:500,margin:"0 0 14px",letterSpacing:-0.3,color:"#1A2130"}}>How to play</h2>
+            <p style={{fontSize:14.5,lineHeight:1.65,color:"rgba(26, 33, 48, 0.8)",margin:"0 0 24px"}}>Each round takes about five minutes. You'll look at a real street-level photo, drop a pin on a world map, and write a short answer about what you saw.</p>
+
+            <div style={{display:"flex",flexDirection:"column",gap:18,marginBottom:22}}>
+              <div style={{display:"grid",gridTemplateColumns:"40px 1fr",gap:14}}>
+                <div style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:24,color:"#A07548",lineHeight:1}}>01</div>
+                <div>
+                  <h4 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:17,fontWeight:500,margin:"0 0 5px"}}>Observe <span style={{fontSize:12,color:"rgba(26, 33, 48, 0.5)",fontFamily:"inherit",fontWeight:400,marginLeft:6}}>3 minutes</span></h4>
+                  <p style={{fontSize:13.5,lineHeight:1.6,color:"rgba(26, 33, 48, 0.75)",margin:0}}>Type what you see in the photo. The game matches your words against the answer key and rewards specific observations (hand-painted signs, auto-rickshaws, tangled wires) more than vague ones.</p>
+                </div>
+              </div>
+              <div style={{display:"grid",gridTemplateColumns:"40px 1fr",gap:14}}>
+                <div style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:24,color:"#A07548",lineHeight:1}}>02</div>
+                <div>
+                  <h4 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:17,fontWeight:500,margin:"0 0 5px"}}>Locate <span style={{fontSize:12,color:"rgba(26, 33, 48, 0.5)",fontFamily:"inherit",fontWeight:400,marginLeft:6}}>30 seconds</span></h4>
+                  <p style={{fontSize:13.5,lineHeight:1.6,color:"rgba(26, 33, 48, 0.75)",margin:0}}>Click the world map to drop a pin where you think the photo was taken. The closer your guess, the higher your score. Use the evidence you just named to decide.</p>
+                </div>
+              </div>
+              <div style={{display:"grid",gridTemplateColumns:"40px 1fr",gap:14}}>
+                <div style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:24,color:"#A07548",lineHeight:1}}>03</div>
+                <div>
+                  <h4 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:17,fontWeight:500,margin:"0 0 5px"}}>Explain</h4>
+                  <p style={{fontSize:13.5,lineHeight:1.6,color:"rgba(26, 33, 48, 0.75)",margin:0}}>Write a short answer to an FRQ prompt about the image, then self-score yourself on the ACE framework: did you <strong style={{fontWeight:500}}>Answer</strong> the prompt, <strong style={{fontWeight:500}}>Cite</strong> specific evidence, and <strong style={{fontWeight:500}}>Explain</strong> with geographic reasoning?</p>
+                </div>
+              </div>
+            </div>
+
+            <div style={{padding:"14px 16px",background:"rgba(200, 167, 93, 0.09)",borderLeft:"2px solid #A07548",borderRadius:"0 3px 3px 0",marginBottom:22}}>
+              <div style={{fontSize:11,letterSpacing:1.5,textTransform:"uppercase",color:"#6B4A2D",marginBottom:6}}>One tip</div>
+              <p style={{fontSize:13,lineHeight:1.6,color:"rgba(26, 33, 48, 0.78)",margin:0}}>Describe what's visible, not what you think it means. "Hand-painted signs" is stronger than "informal economy" during Observe. Save the interpretation for the FRQ.</p>
+            </div>
+
+            <div style={{textAlign:"right"}}>
+              <button onClick={()=>setHowToPlay(false)} style={{background:"#1A2130",color:"#F1ECDE",border:"none",padding:"12px 28px",fontSize:14,fontWeight:500,borderRadius:4,cursor:"pointer",fontFamily:"inherit"}}>Got it</button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 
