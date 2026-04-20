@@ -296,7 +296,7 @@ const Toast = ({ msg, show, type }) => (
     borderRadius:16,fontSize:22,fontWeight:700,zIndex:1000,transition:"transform 0.35s cubic-bezier(.4,0,.2,1)",
     boxShadow:"0 4px 16px rgba(0,0,0,0.15)",display:"flex",alignItems:"center",gap:10,
     border:type==="wrong"?"2px solid #e17055":"2px solid #2a9d8f"}}>
-    <img src={type==="wrong" ? "wrong.png" : "correct.png"} style={{width:64,height:64,objectFit:"contain"}} alt=""/>
+    <span style={{fontSize:42,lineHeight:1}}>{type==="wrong" ? "👀" : "✓"}</span>
     {msg}
   </div>
 );
@@ -391,8 +391,8 @@ function SPEEDSExplorer() {
     const r=[];
     SPEEDS.forEach(s=>{
       const c=loc.observations[s.key]||{};
-      (c.tier1||[]).forEach(o=>r.push({...o,category:s.key,tier:1}));
-      (c.tier2||[]).forEach(o=>r.push({...o,category:s.key,tier:2}));
+      (c.tier1||[]).forEach(o=>r.push({...o,text:o.display||o.text||"",category:s.key,tier:1}));
+      (c.tier2||[]).forEach(o=>r.push({...o,text:o.display||o.text||"",category:s.key,tier:2}));
     });
     return r;
   },[loc]);
@@ -625,14 +625,20 @@ function SPEEDSExplorer() {
             <button onClick={()=>setHowToPlay(false)} aria-label="Close" style={{position:"absolute",top:14,right:16,background:"transparent",border:"none",fontSize:22,color:"rgba(26, 33, 48, 0.55)",cursor:"pointer",padding:4,lineHeight:1}}>×</button>
             <div style={{fontSize:11,letterSpacing:2,textTransform:"uppercase",color:"#6B4A2D",marginBottom:10}}>Quick read</div>
             <h2 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:28,fontWeight:500,margin:"0 0 14px",letterSpacing:-0.3,color:"#1A2130"}}>How to play</h2>
-            <p style={{fontSize:14.5,lineHeight:1.65,color:"rgba(26, 33, 48, 0.8)",margin:"0 0 24px"}}>Each round takes about five minutes. You'll look at a real street-level photo, drop a pin on a world map, and write a short answer about what you saw.</p>
+            <p style={{fontSize:14.5,lineHeight:1.65,color:"rgba(26, 33, 48, 0.8)",margin:"0 0 24px"}}>Each round takes about five minutes. You'll look at a real street-level photo, identify what's in it, drop a pin on a world map, and write a short FRQ-style answer.</p>
 
             <div style={{display:"flex",flexDirection:"column",gap:18,marginBottom:22}}>
               <div style={{display:"grid",gridTemplateColumns:"40px 1fr",gap:14}}>
                 <div style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:24,color:"#A07548",lineHeight:1}}>01</div>
                 <div>
-                  <h4 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:17,fontWeight:500,margin:"0 0 5px"}}>Observe <span style={{fontSize:12,color:"rgba(26, 33, 48, 0.5)",fontFamily:"inherit",fontWeight:400,marginLeft:6}}>3 minutes</span></h4>
-                  <p style={{fontSize:13.5,lineHeight:1.6,color:"rgba(26, 33, 48, 0.75)",margin:0}}>Type what you see in the photo. The game matches your words against the answer key and rewards specific observations (hand-painted signs, auto-rickshaws, tangled wires) more than vague ones.</p>
+                  <h4 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:17,fontWeight:500,margin:"0 0 5px"}}>Observe &#8212; identify what you see <span style={{fontSize:12,color:"rgba(26, 33, 48, 0.5)",fontFamily:"inherit",fontWeight:400,marginLeft:6}}>3 minutes</span></h4>
+                  <p style={{fontSize:13.5,lineHeight:1.6,color:"rgba(26, 33, 48, 0.75)",margin:0,marginBottom:8}}>This phase is about <strong style={{fontWeight:600}}>identifying</strong> &#8212; just naming the things you can actually see in the image. Not interpreting. Not explaining. Just naming.</p>
+                  <p style={{fontSize:13.5,lineHeight:1.6,color:"rgba(26, 33, 48, 0.75)",margin:"0 0 8px"}}><strong style={{fontWeight:600}}>Two steps every time:</strong></p>
+                  <ol style={{fontSize:13.5,lineHeight:1.6,color:"rgba(26, 33, 48, 0.75)",margin:0,paddingLeft:20}}>
+                    <li style={{marginBottom:4}}>Click the <strong style={{fontWeight:600}}>category pill</strong> that matches what you're about to name (Social, Political, Environmental, Economic, Demographic, or Spatial).</li>
+                    <li>Then type what you see in the box and submit.</li>
+                  </ol>
+                  <p style={{fontSize:13.5,lineHeight:1.6,color:"rgba(26, 33, 48, 0.75)",margin:"8px 0 0"}}>If what you name belongs in a different SPEEDS category, the game will redirect you &#8212; it'll tell you which category the observation actually fits, so you can switch to that pill and try again.</p>
                 </div>
               </div>
               <div style={{display:"grid",gridTemplateColumns:"40px 1fr",gap:14}}>
@@ -646,14 +652,14 @@ function SPEEDSExplorer() {
                 <div style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:24,color:"#A07548",lineHeight:1}}>03</div>
                 <div>
                   <h4 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:17,fontWeight:500,margin:"0 0 5px"}}>Explain</h4>
-                  <p style={{fontSize:13.5,lineHeight:1.6,color:"rgba(26, 33, 48, 0.75)",margin:0}}>Write a short answer to an FRQ prompt about the image, then self-score yourself on the ACE framework: did you <strong style={{fontWeight:500}}>Answer</strong> the prompt, <strong style={{fontWeight:500}}>Cite</strong> specific evidence, and <strong style={{fontWeight:500}}>Explain</strong> with geographic reasoning?</p>
+                  <p style={{fontSize:13.5,lineHeight:1.6,color:"rgba(26, 33, 48, 0.75)",margin:0}}>Write a short answer to an FRQ prompt about the image, then self-score with the ACE framework: did you <strong style={{fontWeight:600}}>Answer</strong> the prompt, <strong style={{fontWeight:600}}>Cite</strong> specific evidence, and <strong style={{fontWeight:600}}>Explain</strong> with geographic reasoning?</p>
                 </div>
               </div>
             </div>
 
             <div style={{padding:"14px 16px",background:"rgba(200, 167, 93, 0.09)",borderLeft:"2px solid #A07548",borderRadius:"0 3px 3px 0",marginBottom:22}}>
               <div style={{fontSize:11,letterSpacing:1.5,textTransform:"uppercase",color:"#6B4A2D",marginBottom:6}}>One tip</div>
-              <p style={{fontSize:13,lineHeight:1.6,color:"rgba(26, 33, 48, 0.78)",margin:0}}>Describe what's visible, not what you think it means. "Hand-painted signs" is stronger than "informal economy" during Observe. Save the interpretation for the FRQ.</p>
+              <p style={{fontSize:13,lineHeight:1.6,color:"rgba(26, 33, 48, 0.78)",margin:0}}>Identify what's visible, don't interpret what it means. "Hand-painted signs" during Observe &#8212; not "informal economy." Save the interpretation for the FRQ in step 3.</p>
             </div>
 
             <div style={{textAlign:"right"}}>
@@ -820,7 +826,7 @@ function SPEEDSExplorer() {
           <div>
             {SPEEDS.map(sp=>{
               const co=loc.observations[sp.key]||{};
-              const all=[...(co.tier1||[]).map(o=>({...o,t:1})),...(co.tier2||[]).map(o=>({...o,t:2}))];
+              const all=[...(co.tier1||[]).map(o=>({...o,text:o.display||o.text||"",t:1})),...(co.tier2||[]).map(o=>({...o,text:o.display||o.text||"",t:2}))];
               if(!all.length)return null;
               return <div key={sp.key} style={{marginBottom:10}}>
                 <div style={{fontSize:18,fontWeight:700,color:sp.color,marginBottom:4}}>{sp.icon} {sp.label}</div>
@@ -833,7 +839,7 @@ function SPEEDSExplorer() {
         {loc.clueHighlights?.length>0&&<div style={S.cd}>
           <div style={{fontSize:19,fontWeight:700,marginBottom:10,color:"#e9c46a"}}>🔎 Clue Highlights</div>
           {loc.clueHighlights.map((c,i)=><div key={i} style={{marginBottom:10,fontSize:19}}>
-            <span style={{color:"#2a9d8f",fontWeight:700}}>{c.detail}</span>
+            <span style={{color:"#2a9d8f",fontWeight:700}}>{c.clue||c.detail}</span>
             <span style={{color:"#555"}}> → {c.category} → </span>
             <span>{c.inference}</span>
           </div>)}
