@@ -1,0 +1,5360 @@
+[
+  {
+    "id": "lyon",
+    "name": "Lyon, France",
+    "region": "Western Europe",
+    "coordinates": {
+      "lat": 45.764,
+      "lng": 4.8357
+    },
+    "image": "images/lyon.jpg",
+    "unitAlignment": [
+      "6.6",
+      "6.7",
+      "6.8"
+    ],
+    "description": "Quai des Célestins along the Saône River, looking toward Vieux Lyon.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "western clothing",
+              "coats",
+              "jackets"
+            ],
+            "display": "Western-style clothing and coats"
+          },
+          {
+            "keywords": [
+              "latin alphabet",
+              "latin script"
+            ],
+            "display": "Latin alphabet on signs"
+          },
+          {
+            "keywords": [
+              "plane trees",
+              "trees along road",
+              "boulevard trees"
+            ],
+            "display": "Plane trees lining boulevard (French tradition)"
+          },
+          {
+            "keywords": [
+              "church",
+              "church spire",
+              "steeple"
+            ],
+            "display": "Church spire visible in skyline"
+          },
+          {
+            "keywords": [
+              "sculpture",
+              "statue",
+              "public art"
+            ],
+            "display": "Sculpture/public art on bridge"
+          },
+          {
+            "keywords": [
+              "no benches",
+              "hostile architecture",
+              "sitting on wall"
+            ],
+            "display": "People sitting on walls — hostile architecture"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "french culture",
+              "european culture"
+            ],
+            "display": "Western European cultural landscape"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "blue sign",
+              "european sign",
+              "pedestrian sign"
+            ],
+            "display": "European-standard blue pedestrian sign"
+          },
+          {
+            "keywords": [
+              "traffic light",
+              "red light"
+            ],
+            "display": "Red traffic light"
+          },
+          {
+            "keywords": [
+              "yield",
+              "yield sign",
+              "yield triangle"
+            ],
+            "display": "Yield triangle sign"
+          },
+          {
+            "keywords": [
+              "t2",
+              "tram",
+              "tram markings"
+            ],
+            "display": "T2 tram lane markings"
+          },
+          {
+            "keywords": [
+              "bollards",
+              "bollard",
+              "posts"
+            ],
+            "display": "Bollards separating zones"
+          },
+          {
+            "keywords": [
+              "pedestrian bridge",
+              "footbridge"
+            ],
+            "display": "Pedestrian-only bridge"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "government investment",
+              "public investment"
+            ],
+            "display": "Government investment in multi-modal transit"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "river",
+              "water",
+              "waterway",
+              "saone"
+            ],
+            "display": "Saône River"
+          },
+          {
+            "keywords": [
+              "bare trees",
+              "no leaves",
+              "deciduous"
+            ],
+            "display": "Bare deciduous trees (winter/early spring)"
+          },
+          {
+            "keywords": [
+              "overcast",
+              "cloudy",
+              "gray sky"
+            ],
+            "display": "Overcast sky"
+          },
+          {
+            "keywords": [
+              "hillside",
+              "hill",
+              "buildings on hill"
+            ],
+            "display": "Hillside with dense buildings"
+          },
+          {
+            "keywords": [
+              "paved",
+              "pavement",
+              "paved riverbank"
+            ],
+            "display": "Paved riverbank (human alteration)"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "temperate",
+              "temperate climate"
+            ],
+            "display": "Temperate climate zone"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "cable stayed",
+              "cable-stayed bridge"
+            ],
+            "display": "Cable-stayed bridge (capital investment)"
+          },
+          {
+            "keywords": [
+              "bike lane",
+              "bicycle lane",
+              "separated bike lane"
+            ],
+            "display": "Separated bicycle lane"
+          },
+          {
+            "keywords": [
+              "tram",
+              "tram line",
+              "t2",
+              "light rail"
+            ],
+            "display": "T2 tram system"
+          },
+          {
+            "keywords": [
+              "apartments",
+              "multi-story",
+              "tall buildings"
+            ],
+            "display": "Multi-story apartment buildings"
+          },
+          {
+            "keywords": [
+              "compact cars",
+              "small cars",
+              "european cars"
+            ],
+            "display": "Compact European cars"
+          },
+          {
+            "keywords": [
+              "construction",
+              "crane",
+              "cranes"
+            ],
+            "display": "Construction cranes (active development)"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "developed country",
+              "core country"
+            ],
+            "display": "Core/developed country indicators"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "moderate density",
+              "medium density"
+            ],
+            "display": "Moderate pedestrian density"
+          },
+          {
+            "keywords": [
+              "mixed ages",
+              "different ages"
+            ],
+            "display": "Mixed age groups visible"
+          },
+          {
+            "keywords": [
+              "cyclist",
+              "biker",
+              "person on bike"
+            ],
+            "display": "Working-age cyclist with backpack"
+          },
+          {
+            "keywords": [
+              "no children",
+              "no kids"
+            ],
+            "display": "No children visible (aging population)"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "aging population",
+              "european demographic"
+            ],
+            "display": "European aging demographic pattern"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "linear",
+              "along river",
+              "linear pattern"
+            ],
+            "display": "Linear development along river"
+          },
+          {
+            "keywords": [
+              "modal separation",
+              "zones",
+              "lane separation"
+            ],
+            "display": "Five-zone modal separation"
+          },
+          {
+            "keywords": [
+              "two bridges",
+              "multiple bridges"
+            ],
+            "display": "Two bridges connecting river banks"
+          },
+          {
+            "keywords": [
+              "buildings climbing",
+              "hillside buildings"
+            ],
+            "display": "Buildings climbing hillside"
+          },
+          {
+            "keywords": [
+              "tree lined",
+              "boulevard"
+            ],
+            "display": "Tree-lined boulevard pattern"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "compact urban",
+              "european urban form"
+            ],
+            "display": "Compact European urban form"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "Plane trees + European blue signs",
+        "inference": "France",
+        "category": "social"
+      },
+      {
+        "clue": "Cable-stayed pedestrian bridge + vehicle bridge",
+        "inference": "Planned multi-modal infrastructure",
+        "category": "economic"
+      },
+      {
+        "clue": "Separated bike lane + T2 tram + compact cars",
+        "inference": "Developed core country",
+        "category": "spatial"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Explain",
+      "prompt": "Explain how the transportation infrastructure visible in this image reflects the city's level of economic development.",
+      "modelAnswer": "The image shows a separated bicycle lane running parallel to a vehicular road and tram line, indicating a city with resources to invest in multi-modal transportation. This level of transit investment — cable-stayed pedestrian bridge, electrified tram, dedicated cycling lanes — is characteristic of a core country where surplus capital supports quality-of-life infrastructure.",
+      "speedsConnection": "Targets Economic and Spatial categories. Practices the Explain task verb requiring causal reasoning."
+    }
+  },
+  {
+    "id": "istanbul",
+    "name": "Istanbul, Turkey",
+    "region": "Transcontinental (Europe/Asia)",
+    "coordinates": {
+      "lat": 41.0198,
+      "lng": 28.9735
+    },
+    "image": "images/istanbul.jpg",
+    "unitAlignment": [
+      "6.1",
+      "6.3",
+      "6.10"
+    ],
+    "description": "Karaköy waterfront near Galata Bridge, looking across the Golden Horn.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "latin alphabet",
+              "latin script"
+            ],
+            "display": "Latin alphabet on signs (not Arabic)"
+          },
+          {
+            "keywords": [
+              "western clothing",
+              "jeans",
+              "jackets"
+            ],
+            "display": "Western-style casual clothing"
+          },
+          {
+            "keywords": [
+              "graffiti",
+              "street art"
+            ],
+            "display": "Street art/graffiti on walls"
+          },
+          {
+            "keywords": [
+              "vendor",
+              "street vendor",
+              "food cart"
+            ],
+            "display": "Street vendor cart"
+          },
+          {
+            "keywords": [
+              "restaurant",
+              "dersaadet",
+              "galata"
+            ],
+            "display": "GALATA and DERSAADET restaurant signs"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "secular",
+              "secular dress"
+            ],
+            "display": "Secular dress in Muslim-majority country"
+          },
+          {
+            "keywords": [
+              "ottoman",
+              "dersaadet"
+            ],
+            "display": "Dersaadet is Ottoman name for Istanbul"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "tram",
+              "tram wires",
+              "catenary",
+              "overhead wires"
+            ],
+            "display": "Tram catenary wires on bridge"
+          },
+          {
+            "keywords": [
+              "light poles",
+              "street lights"
+            ],
+            "display": "Modern light poles"
+          },
+          {
+            "keywords": [
+              "paved",
+              "promenade",
+              "walkway"
+            ],
+            "display": "Paved pedestrian promenade"
+          },
+          {
+            "keywords": [
+              "escalator",
+              "stairs"
+            ],
+            "display": "Escalators to bridge level"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "tourism investment"
+            ],
+            "display": "Government tourism infrastructure investment"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "water",
+              "waterway",
+              "golden horn",
+              "river",
+              "harbor"
+            ],
+            "display": "Waterway (Golden Horn)"
+          },
+          {
+            "keywords": [
+              "blue sky",
+              "sunny",
+              "cumulus"
+            ],
+            "display": "Blue sky with cumulus clouds"
+          },
+          {
+            "keywords": [
+              "jackets",
+              "light jackets"
+            ],
+            "display": "Light jackets (temperate climate)"
+          },
+          {
+            "keywords": [
+              "green water",
+              "tinted water"
+            ],
+            "display": "Green-tinted water"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "mediterranean",
+              "temperate"
+            ],
+            "display": "Mediterranean climate zone"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "two level bridge",
+              "double deck",
+              "bridge restaurants"
+            ],
+            "display": "Two-level bridge (restaurants below, transit above)"
+          },
+          {
+            "keywords": [
+              "vendor cart",
+              "street vendor",
+              "informal economy"
+            ],
+            "display": "Street vendor (informal economy)"
+          },
+          {
+            "keywords": [
+              "shopping bags",
+              "retail"
+            ],
+            "display": "Shopping bags visible"
+          },
+          {
+            "keywords": [
+              "tram",
+              "public transit"
+            ],
+            "display": "Tram wires (transit investment)"
+          },
+          {
+            "keywords": [
+              "tourism",
+              "tourists",
+              "backpacks"
+            ],
+            "display": "Tourism-driven economic activity"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "dual use",
+              "mixed use bridge"
+            ],
+            "display": "Dual-use bridge maximizes infrastructure"
+          },
+          {
+            "keywords": [
+              "formal informal",
+              "mixed economy"
+            ],
+            "display": "Informal economy alongside formal restaurants"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "high density",
+              "crowded",
+              "packed"
+            ],
+            "display": "Very high pedestrian density"
+          },
+          {
+            "keywords": [
+              "mixed ages",
+              "children",
+              "adults"
+            ],
+            "display": "Mixed ages visible"
+          },
+          {
+            "keywords": [
+              "tourists",
+              "backpacks"
+            ],
+            "display": "Tourist crowd with backpacks"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "megacity"
+            ],
+            "display": "Megacity-level crowd density"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "waterfront",
+              "linear waterfront",
+              "along water"
+            ],
+            "display": "Linear waterfront promenade"
+          },
+          {
+            "keywords": [
+              "bridge",
+              "bridge connecting"
+            ],
+            "display": "Bridge connecting two sides"
+          },
+          {
+            "keywords": [
+              "clustered",
+              "crowd cluster"
+            ],
+            "display": "Clustered crowd at bridge junction"
+          },
+          {
+            "keywords": [
+              "two level",
+              "vertical land use"
+            ],
+            "display": "Two-level vertical land use on bridge"
+          },
+          {
+            "keywords": [
+              "hillside",
+              "buildings on hill"
+            ],
+            "display": "Buildings ascending hillside"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "confluence",
+              "junction"
+            ],
+            "display": "Site at confluence of waterways"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "GALATA + DERSAADET on bridge signage",
+        "inference": "Turkish/Ottoman — Istanbul",
+        "category": "social"
+      },
+      {
+        "clue": "Two-level bridge with tram + restaurants below",
+        "inference": "Galata Bridge",
+        "category": "economic"
+      },
+      {
+        "clue": "Tünel sign visible",
+        "inference": "Karaköy district",
+        "category": "political"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Explain",
+      "prompt": "Explain how the site characteristics visible in this image influenced the historical development of this city as a major trade center.",
+      "modelAnswer": "The image shows a dense urban area at a waterway crossing with a bridge spanning a protected inlet. This site at a natural harbor attracted trade routes, while bridge infrastructure shows ongoing connectivity investment. Water access for maritime trade combined with bridge crossings for overland routes shows how site features at a water confluence create conditions for commercial hub development.",
+      "speedsConnection": "Targets Site and Situation (Topic 6.1) through Environmental and Spatial categories."
+    }
+  },
+  {
+    "id": "nairobi_market",
+    "name": "Nairobi, Kenya — Kibera Area (East)",
+    "region": "Sub-Saharan Africa",
+    "coordinates": {
+      "lat": -1.3115,
+      "lng": 36.7882
+    },
+    "image": "images/nairobi_market.jpg",
+    "unitAlignment": [
+      "6.2",
+      "6.5",
+      "6.10"
+    ],
+    "description": "Street near Kibera informal settlement showing market activity and water collection.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "colorful clothing",
+              "bright clothes",
+              "patterned"
+            ],
+            "display": "Colorful patterned clothing"
+          },
+          {
+            "keywords": [
+              "children",
+              "kids",
+              "young children"
+            ],
+            "display": "Young children on the street"
+          },
+          {
+            "keywords": [
+              "bicycle",
+              "bike"
+            ],
+            "display": "Bicycle used for transport"
+          },
+          {
+            "keywords": [
+              "shops",
+              "market",
+              "stalls"
+            ],
+            "display": "Small market shops along road"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "east african",
+              "kenyan"
+            ],
+            "display": "East African cultural landscape"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "unpaved",
+              "dirt road",
+              "no pavement",
+              "mud road"
+            ],
+            "display": "Unpaved dirt road"
+          },
+          {
+            "keywords": [
+              "power lines",
+              "electric lines",
+              "wires"
+            ],
+            "display": "Power lines (some electrification)"
+          },
+          {
+            "keywords": [
+              "no traffic signs",
+              "no signs",
+              "no road markings"
+            ],
+            "display": "No traffic signs or road markings"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "informal settlement",
+              "unplanned"
+            ],
+            "display": "Informal/unplanned settlement"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "overcast",
+              "hazy",
+              "cloudy"
+            ],
+            "display": "Overcast/hazy sky"
+          },
+          {
+            "keywords": [
+              "tropical trees",
+              "green trees"
+            ],
+            "display": "Tropical vegetation"
+          },
+          {
+            "keywords": [
+              "mud",
+              "muddy",
+              "dirt"
+            ],
+            "display": "Muddy unpaved ground"
+          },
+          {
+            "keywords": [
+              "yellow jugs",
+              "water jugs",
+              "jerry cans",
+              "water containers"
+            ],
+            "display": "Yellow water jerry cans (water access issue)"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "tropical climate",
+              "equatorial"
+            ],
+            "display": "Tropical/equatorial climate"
+          },
+          {
+            "keywords": [
+              "water scarcity",
+              "no running water"
+            ],
+            "display": "Water scarcity — collecting water in containers"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "corrugated",
+              "tin roof",
+              "metal roof",
+              "sheet metal"
+            ],
+            "display": "Corrugated metal roofing (low-cost)"
+          },
+          {
+            "keywords": [
+              "small shops",
+              "market shops",
+              "stalls"
+            ],
+            "display": "Small informal market shops"
+          },
+          {
+            "keywords": [
+              "dirt road",
+              "unpaved road"
+            ],
+            "display": "Unpaved road (limited investment)"
+          },
+          {
+            "keywords": [
+              "bicycle",
+              "bike transport"
+            ],
+            "display": "Bicycle as primary transport"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "developing",
+              "peripheral",
+              "low income"
+            ],
+            "display": "Peripheral/developing economy"
+          },
+          {
+            "keywords": [
+              "informal economy"
+            ],
+            "display": "Informal economy dominates"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "high density",
+              "crowded",
+              "many people"
+            ],
+            "display": "High pedestrian density"
+          },
+          {
+            "keywords": [
+              "children",
+              "kids",
+              "young people",
+              "youth"
+            ],
+            "display": "Many children and young people"
+          },
+          {
+            "keywords": [
+              "mixed gender",
+              "men and women"
+            ],
+            "display": "Mixed gender crowd"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "young population",
+              "high birth rate"
+            ],
+            "display": "Young population suggests high birth rate"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "linear",
+              "along road",
+              "ribbon"
+            ],
+            "display": "Linear settlement along road"
+          },
+          {
+            "keywords": [
+              "dense",
+              "packed together",
+              "close together"
+            ],
+            "display": "Densely packed structures"
+          },
+          {
+            "keywords": [
+              "low rise",
+              "one story",
+              "single story"
+            ],
+            "display": "Low-rise single-story structures"
+          },
+          {
+            "keywords": [
+              "mixed use",
+              "shops and homes"
+            ],
+            "display": "Mixed commercial/residential"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "informal layout",
+              "unplanned",
+              "organic"
+            ],
+            "display": "Organic unplanned layout"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "Yellow water jerry cans + unpaved road",
+        "inference": "Limited water infrastructure — developing area",
+        "category": "environmental"
+      },
+      {
+        "clue": "Corrugated metal roofs + small market stalls",
+        "inference": "Informal settlement economy",
+        "category": "economic"
+      },
+      {
+        "clue": "Many children + high density on narrow road",
+        "inference": "Young population, Sub-Saharan Africa",
+        "category": "demographic"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Describe",
+      "prompt": "Describe TWO characteristics visible in this image that indicate this is a settlement in a peripheral or semi-peripheral country.",
+      "modelAnswer": "The unpaved dirt road with no lane markings or traffic signs indicates limited government investment in transportation infrastructure, common in peripheral countries. The corrugated metal roofing on market structures shows reliance on low-cost building materials, reflecting limited capital for permanent construction typical of informal economies.",
+      "speedsConnection": "Targets Economic and Political categories with a Describe prompt. Students practice naming specific visible characteristics without causal reasoning."
+    }
+  },
+  {
+    "id": "nairobi_mpesa",
+    "name": "Nairobi, Kenya — Kibera Area (West)",
+    "region": "Sub-Saharan Africa",
+    "coordinates": {
+      "lat": -1.3115,
+      "lng": 36.7882
+    },
+    "image": "images/nairobi_mpesa.jpg",
+    "unitAlignment": [
+      "6.2",
+      "6.10",
+      "7.8"
+    ],
+    "description": "Street near Kibera showing M-PESA mobile money, motorcycle taxis, and market activity.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "salon",
+              "hair salon"
+            ],
+            "display": "Hair salon sign"
+          },
+          {
+            "keywords": [
+              "english",
+              "english signs"
+            ],
+            "display": "English-language signage"
+          },
+          {
+            "keywords": [
+              "motorcycle taxi",
+              "boda boda",
+              "motorbike taxi"
+            ],
+            "display": "Motorcycle taxi (boda-boda)"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "colonial language",
+              "british colony"
+            ],
+            "display": "English — British colonial legacy"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "unpaved",
+              "dirt road"
+            ],
+            "display": "Unpaved road"
+          },
+          {
+            "keywords": [
+              "power lines",
+              "electric lines",
+              "utility poles"
+            ],
+            "display": "Overhead power lines"
+          },
+          {
+            "keywords": [
+              "no traffic signs",
+              "no signals"
+            ],
+            "display": "No traffic controls"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "limited regulation"
+            ],
+            "display": "Limited government regulation visible"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "overcast",
+              "hazy",
+              "cloudy"
+            ],
+            "display": "Overcast/hazy sky"
+          },
+          {
+            "keywords": [
+              "trees",
+              "green trees"
+            ],
+            "display": "Green vegetation visible"
+          },
+          {
+            "keywords": [
+              "dirt",
+              "mud",
+              "bare earth"
+            ],
+            "display": "Bare earth ground surface"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "tropical",
+              "equatorial"
+            ],
+            "display": "Tropical climate indicators"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "mpesa",
+              "m-pesa",
+              "mobile money",
+              "safaricom"
+            ],
+            "display": "M-PESA sign (mobile money — leapfrog technology)"
+          },
+          {
+            "keywords": [
+              "milk atm",
+              "milk-atm",
+              "milk vending"
+            ],
+            "display": "MILK-ATM sign (local vending innovation)"
+          },
+          {
+            "keywords": [
+              "corrugated",
+              "tin roof",
+              "metal roof"
+            ],
+            "display": "Corrugated metal roofing"
+          },
+          {
+            "keywords": [
+              "motorcycle",
+              "motorbike",
+              "boda boda"
+            ],
+            "display": "Motorcycle as commercial transport"
+          },
+          {
+            "keywords": [
+              "suv",
+              "white suv",
+              "toyota"
+            ],
+            "display": "Modern SUV (income disparity)"
+          },
+          {
+            "keywords": [
+              "small shops",
+              "informal shops"
+            ],
+            "display": "Small informal commercial shops"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "leapfrog",
+              "leapfrog technology"
+            ],
+            "display": "Leapfrog technology — skipped landline banking"
+          },
+          {
+            "keywords": [
+              "income gap",
+              "inequality"
+            ],
+            "display": "Visible income disparity — SUV vs motorcycle"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "pedestrians",
+              "people walking"
+            ],
+            "display": "Pedestrian activity along road"
+          },
+          {
+            "keywords": [
+              "young people",
+              "youth"
+            ],
+            "display": "Predominantly young population"
+          },
+          {
+            "keywords": [
+              "children",
+              "boys",
+              "kids"
+            ],
+            "display": "Children visible"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "young population",
+              "high birth rate"
+            ],
+            "display": "Youthful population — high birth rate"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "linear",
+              "along road"
+            ],
+            "display": "Linear commercial strip along road"
+          },
+          {
+            "keywords": [
+              "low rise",
+              "one story"
+            ],
+            "display": "Low-rise structures"
+          },
+          {
+            "keywords": [
+              "mixed use",
+              "shops and homes"
+            ],
+            "display": "Mixed commercial/residential"
+          },
+          {
+            "keywords": [
+              "intersection",
+              "junction"
+            ],
+            "display": "Road junction"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "organic layout",
+              "unplanned"
+            ],
+            "display": "Organic unplanned growth"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "M-PESA sign (green booth)",
+        "inference": "Kenya — Safaricom mobile money",
+        "category": "economic"
+      },
+      {
+        "clue": "English signage + unpaved road + corrugated roofs",
+        "inference": "Anglophone East Africa",
+        "category": "social"
+      },
+      {
+        "clue": "MILK-ATM + salon + motorcycle taxis",
+        "inference": "Informal commercial strip near Nairobi",
+        "category": "economic"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Explain",
+      "prompt": "Explain how the M-PESA mobile money service visible in this image is an example of leapfrog technology in a developing country.",
+      "modelAnswer": "The M-PESA booth represents leapfrog technology because it allows residents to conduct banking via mobile phones without first building a network of traditional bank branches. Populations in peripheral countries skipped landline telephone and brick-and-mortar banking stages, moving directly to mobile-based financial services, reducing infrastructure investment needed for economic participation.",
+      "speedsConnection": "Targets Economic category connecting to Topic 7.8 (Technology and development). The Explain verb requires causal reasoning behind leapfrog technology."
+    }
+  },
+  {
+    "id": "hong_kong",
+    "name": "Hong Kong, China",
+    "region": "East Asia",
+    "coordinates": {
+      "lat": 22.3193,
+      "lng": 114.1694
+    },
+    "image": "images/hong_kong.jpg",
+    "unitAlignment": [
+      "6.3",
+      "6.5",
+      "6.6"
+    ],
+    "description": "Mong Kok district intersection with dense urban canyon, bilingual signage, and British-influenced road design.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "chinese characters",
+              "chinese text",
+              "chinese writing"
+            ],
+            "display": "Chinese character signage"
+          },
+          {
+            "keywords": [
+              "english",
+              "bilingual",
+              "two languages"
+            ],
+            "display": "English + Chinese bilingual signs"
+          },
+          {
+            "keywords": [
+              "zoff",
+              "japanese brand"
+            ],
+            "display": "Zoff store (Japanese brand — globalization)"
+          },
+          {
+            "keywords": [
+              "pedestrians",
+              "crowd"
+            ],
+            "display": "Dense pedestrian crowd"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "colonial legacy",
+              "british colonial"
+            ],
+            "display": "British colonial legacy in bilingual signage"
+          },
+          {
+            "keywords": [
+              "globalization",
+              "global brands"
+            ],
+            "display": "Global brand presence (Citibank, Zoff)"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "no entry",
+              "no entry sign",
+              "red circle"
+            ],
+            "display": "No-entry traffic sign"
+          },
+          {
+            "keywords": [
+              "yellow crosswalk",
+              "crosswalk markings"
+            ],
+            "display": "Yellow crosswalk markings (British-style)"
+          },
+          {
+            "keywords": [
+              "left hand",
+              "left side driving",
+              "drive on left"
+            ],
+            "display": "Left-hand traffic (British legacy)"
+          },
+          {
+            "keywords": [
+              "pedestrian railing",
+              "metal railing",
+              "barriers"
+            ],
+            "display": "Pedestrian control railings"
+          },
+          {
+            "keywords": [
+              "traffic cone",
+              "orange cone"
+            ],
+            "display": "Traffic cone"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "british road system"
+            ],
+            "display": "British-influenced road design"
+          },
+          {
+            "keywords": [
+              "one country two systems",
+              "special administration"
+            ],
+            "display": "Distinct governance (SAR)"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "haze",
+              "hazy",
+              "smog",
+              "air pollution"
+            ],
+            "display": "Hazy sky — air quality issue"
+          },
+          {
+            "keywords": [
+              "overcast",
+              "gray sky"
+            ],
+            "display": "Overcast sky"
+          },
+          {
+            "keywords": [
+              "no trees",
+              "no vegetation",
+              "concrete"
+            ],
+            "display": "No visible vegetation — fully built environment"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "urban heat island"
+            ],
+            "display": "Potential urban heat island"
+          },
+          {
+            "keywords": [
+              "subtropical",
+              "humid"
+            ],
+            "display": "Subtropical climate"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "citibank",
+              "bank",
+              "banking"
+            ],
+            "display": "Citibank branch (global financial services)"
+          },
+          {
+            "keywords": [
+              "digital billboard",
+              "led screen",
+              "neon",
+              "billboard"
+            ],
+            "display": "Large digital billboard advertising"
+          },
+          {
+            "keywords": [
+              "double decker",
+              "double-decker bus",
+              "two story bus"
+            ],
+            "display": "Double-decker bus (public transit)"
+          },
+          {
+            "keywords": [
+              "taxi",
+              "red taxi"
+            ],
+            "display": "Red taxi"
+          },
+          {
+            "keywords": [
+              "high rise",
+              "skyscrapers",
+              "tall buildings",
+              "towers"
+            ],
+            "display": "High-rise buildings (high land values)"
+          },
+          {
+            "keywords": [
+              "retail",
+              "shops",
+              "stores"
+            ],
+            "display": "Ground-floor retail activity"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "world city",
+              "global city",
+              "financial center"
+            ],
+            "display": "World city / global financial center"
+          },
+          {
+            "keywords": [
+              "high land value",
+              "bid rent"
+            ],
+            "display": "High land values drive vertical growth"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "high density",
+              "dense crowd",
+              "very crowded"
+            ],
+            "display": "Extremely high pedestrian density"
+          },
+          {
+            "keywords": [
+              "queue",
+              "line",
+              "waiting"
+            ],
+            "display": "Pedestrians queuing at railing"
+          },
+          {
+            "keywords": [
+              "east asian",
+              "asian",
+              "chinese"
+            ],
+            "display": "Predominantly East Asian population"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "highest density",
+              "population density"
+            ],
+            "display": "One of highest population densities on Earth"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "urban canyon",
+              "street canyon",
+              "tall buildings both sides"
+            ],
+            "display": "Urban canyon — tall buildings both sides"
+          },
+          {
+            "keywords": [
+              "vertical",
+              "vertical growth",
+              "high rise"
+            ],
+            "display": "Extreme vertical growth pattern"
+          },
+          {
+            "keywords": [
+              "grid",
+              "grid pattern",
+              "intersection"
+            ],
+            "display": "Grid street pattern"
+          },
+          {
+            "keywords": [
+              "building height gradient",
+              "height gradient"
+            ],
+            "display": "Building height gradient down street"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "bid rent",
+              "bid-rent",
+              "land value"
+            ],
+            "display": "Bid-rent theory visible"
+          },
+          {
+            "keywords": [
+              "compact city",
+              "vertical city"
+            ],
+            "display": "Compact vertical urban form"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "Chinese + English bilingual + left-hand traffic",
+        "inference": "Hong Kong (British colonial legacy)",
+        "category": "political"
+      },
+      {
+        "clue": "Citibank + Zoff (Japanese brand)",
+        "inference": "Global financial/commercial hub",
+        "category": "economic"
+      },
+      {
+        "clue": "Double-decker bus + red taxi + yellow crosswalks",
+        "inference": "British-influenced transport system",
+        "category": "political"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Explain",
+      "prompt": "Explain how the built environment visible in this image reflects bid-rent theory.",
+      "modelAnswer": "The image shows extremely tall commercial buildings at an intersection with ground-floor retail and major banks like Citibank. According to bid-rent theory, commercial activities generating the most revenue per square meter outbid other land uses for central locations, driving buildings upward to maximize floor space on expensive land. The high-rise density indicates this is near the urban core where land values are highest.",
+      "speedsConnection": "Targets Spatial and Economic categories connecting to Topic 6.5. Bid-rent theory appears frequently on the AP exam."
+    }
+  },
+  {
+    "id": "mumbai_dharavi",
+    "name": "Mumbai, India",
+    "region": "South Asia",
+    "coordinates": {
+      "lat": 19.043,
+      "lng": 72.8567
+    },
+    "image": "images/mumbai_dharavi.jpg",
+    "unitAlignment": [
+      "6.2",
+      "6.7",
+      "6.10"
+    ],
+    "description": "Commercial street near Dharavi showing electronics shops, Mumbai taxis, and dense mixed-use development.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "hindi",
+              "hindi script",
+              "devanagari"
+            ],
+            "display": "Hindi/Devanagari script on signs"
+          },
+          {
+            "keywords": [
+              "english",
+              "bilingual",
+              "metro mobile"
+            ],
+            "display": "English + Hindi bilingual signage"
+          },
+          {
+            "keywords": [
+              "electronics",
+              "mobile shop",
+              "metro mobile electronics"
+            ],
+            "display": "METRO MOBILE ELECTRONICS shop"
+          },
+          {
+            "keywords": [
+              "jewelry",
+              "jewellers"
+            ],
+            "display": "Jewellery shop"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "south asian",
+              "indian culture"
+            ],
+            "display": "South Asian cultural landscape"
+          },
+          {
+            "keywords": [
+              "colonial language"
+            ],
+            "display": "English as commercial language — colonial legacy"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "road markings",
+              "yellow line",
+              "center line"
+            ],
+            "display": "Basic road center line marking"
+          },
+          {
+            "keywords": [
+              "power lines",
+              "wires",
+              "tangled wires"
+            ],
+            "display": "Power lines/overhead wires"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "limited regulation",
+              "informal parking"
+            ],
+            "display": "Limited traffic enforcement"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "hazy",
+              "haze",
+              "smog",
+              "air pollution"
+            ],
+            "display": "Hazy sky — poor air quality"
+          },
+          {
+            "keywords": [
+              "hot",
+              "warm",
+              "tropical",
+              "bright sun"
+            ],
+            "display": "Bright/warm tropical conditions"
+          },
+          {
+            "keywords": [
+              "tree",
+              "trees"
+            ],
+            "display": "Scattered trees"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "tropical climate",
+              "monsoon"
+            ],
+            "display": "Tropical monsoon climate"
+          },
+          {
+            "keywords": [
+              "pollution",
+              "urban pollution"
+            ],
+            "display": "Urban air pollution"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "yellow taxi",
+              "black and yellow taxi",
+              "mumbai taxi"
+            ],
+            "display": "Black-and-yellow taxis (iconic Mumbai)"
+          },
+          {
+            "keywords": [
+              "motorcycles",
+              "scooters",
+              "motorbikes",
+              "two wheelers"
+            ],
+            "display": "Dense motorcycle/scooter parking"
+          },
+          {
+            "keywords": [
+              "small shops",
+              "shopfront"
+            ],
+            "display": "Small ground-floor commercial shops"
+          },
+          {
+            "keywords": [
+              "electronics store",
+              "mobile phones"
+            ],
+            "display": "Electronics/mobile phone store"
+          },
+          {
+            "keywords": [
+              "low rise",
+              "two story"
+            ],
+            "display": "Low-rise commercial buildings"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "semi-peripheral",
+              "emerging economy"
+            ],
+            "display": "Semi-peripheral economy mix"
+          },
+          {
+            "keywords": [
+              "motorcycle economy"
+            ],
+            "display": "Motorcycle-dominant transport reflects income level"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "crowded",
+              "busy",
+              "many people"
+            ],
+            "display": "Busy street with many pedestrians"
+          },
+          {
+            "keywords": [
+              "men",
+              "mostly men",
+              "male dominated"
+            ],
+            "display": "Predominantly male pedestrians"
+          },
+          {
+            "keywords": [
+              "working age",
+              "adults"
+            ],
+            "display": "Working-age population dominant"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "megacity"
+            ],
+            "display": "Megacity density"
+          },
+          {
+            "keywords": [
+              "gender ratio",
+              "gender imbalance"
+            ],
+            "display": "Gender imbalance in public space"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "linear",
+              "strip",
+              "commercial strip"
+            ],
+            "display": "Linear commercial strip"
+          },
+          {
+            "keywords": [
+              "mixed use",
+              "shops below homes above"
+            ],
+            "display": "Mixed commercial/residential"
+          },
+          {
+            "keywords": [
+              "dense",
+              "packed",
+              "tight"
+            ],
+            "display": "Densely packed structures"
+          },
+          {
+            "keywords": [
+              "parking chaos",
+              "no organized parking"
+            ],
+            "display": "Informal vehicle parking — no organized lots"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "south asian city model",
+              "bazaar"
+            ],
+            "display": "South Asian city model — bazaar district"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "Hindi + English bilingual signs",
+        "inference": "India",
+        "category": "social"
+      },
+      {
+        "clue": "Black-and-yellow taxis",
+        "inference": "Mumbai specifically",
+        "category": "economic"
+      },
+      {
+        "clue": "Dense motorcycle parking + electronics + jewelry shops",
+        "inference": "Indian commercial district",
+        "category": "spatial"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Compare",
+      "prompt": "Compare TWO visible differences between the infrastructure in this image and what you would expect in a core/developed country.",
+      "modelAnswer": "The minimally maintained road surface with basic center-line markings contrasts with multi-lane paved roads with clear markings, signals, and separated pedestrian infrastructure in core countries. The dense informal motorcycle parking on the roadside differs from organized parking structures in developed cities, reflecting different levels of capital investment in transportation infrastructure.",
+      "speedsConnection": "Targets Economic and Spatial categories with a Compare verb. Students must make explicit comparisons, not parallel descriptions."
+    }
+  },
+  {
+    "id": "detroit",
+    "name": "Detroit, Michigan, USA",
+    "region": "North America",
+    "coordinates": {
+      "lat": 42.3314,
+      "lng": -83.0458
+    },
+    "image": "images/detroit.jpg",
+    "unitAlignment": [
+      "6.1",
+      "6.8",
+      "6.10"
+    ],
+    "description": "Michigan Avenue corridor downtown showing Art Deco architecture and urban renewal indicators.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "fueling the motor city",
+              "motor city"
+            ],
+            "display": "FUELING THE MOTOR CITY sign"
+          },
+          {
+            "keywords": [
+              "english",
+              "english signs"
+            ],
+            "display": "English-language signage"
+          },
+          {
+            "keywords": [
+              "coffee shop",
+              "roasting",
+              "cafe"
+            ],
+            "display": "Coffee roasting shop (gentrification indicator)"
+          },
+          {
+            "keywords": [
+              "art deco",
+              "deco",
+              "ornate building"
+            ],
+            "display": "Art Deco architectural style"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "auto industry",
+              "car culture",
+              "automotive"
+            ],
+            "display": "Motor City identity — auto industry history"
+          },
+          {
+            "keywords": [
+              "gentrification",
+              "hipster",
+              "trendy"
+            ],
+            "display": "Specialty coffee signals gentrification"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "traffic cone",
+              "orange cone"
+            ],
+            "display": "Orange traffic cone"
+          },
+          {
+            "keywords": [
+              "wide sidewalk",
+              "paved sidewalk"
+            ],
+            "display": "Wide paved sidewalk"
+          },
+          {
+            "keywords": [
+              "awning",
+              "building entrance"
+            ],
+            "display": "Formal building entrance with awning"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "urban renewal",
+              "revitalization"
+            ],
+            "display": "Urban renewal effort"
+          },
+          {
+            "keywords": [
+              "historic preservation"
+            ],
+            "display": "Historic building preservation"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "overcast",
+              "cloudy",
+              "gray sky"
+            ],
+            "display": "Overcast sky"
+          },
+          {
+            "keywords": [
+              "planter",
+              "flowers",
+              "flower boxes"
+            ],
+            "display": "Flower planters at entrance"
+          },
+          {
+            "keywords": [
+              "scooter",
+              "electric scooter",
+              "e-scooter"
+            ],
+            "display": "Electric scooter on sidewalk"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "continental climate",
+              "humid continental"
+            ],
+            "display": "Humid continental climate"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "art deco",
+              "historic building",
+              "columns",
+              "stone columns"
+            ],
+            "display": "Art Deco building with columns (1920s prosperity)"
+          },
+          {
+            "keywords": [
+              "coffee shop",
+              "specialty coffee",
+              "roasting"
+            ],
+            "display": "Specialty coffee shop (new investment)"
+          },
+          {
+            "keywords": [
+              "wide street",
+              "empty street",
+              "quiet street"
+            ],
+            "display": "Wide but quiet street (underused)"
+          },
+          {
+            "keywords": [
+              "glass windows",
+              "storefront"
+            ],
+            "display": "Large glass storefronts"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "deindustrialization",
+              "post industrial"
+            ],
+            "display": "Post-industrial city"
+          },
+          {
+            "keywords": [
+              "revitalization",
+              "reinvestment"
+            ],
+            "display": "New business investment"
+          },
+          {
+            "keywords": [
+              "motor city",
+              "auto industry"
+            ],
+            "display": "Historic auto manufacturing center"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "low density",
+              "few people",
+              "empty",
+              "quiet"
+            ],
+            "display": "Very low pedestrian density for downtown"
+          },
+          {
+            "keywords": [
+              "no crowds",
+              "sparse"
+            ],
+            "display": "Sparse population on wide sidewalk"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "population loss",
+              "shrinking city"
+            ],
+            "display": "Evidence of population loss"
+          },
+          {
+            "keywords": [
+              "suburbanization",
+              "white flight"
+            ],
+            "display": "Result of suburbanization"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "wide road",
+              "wide street",
+              "broad avenue"
+            ],
+            "display": "Wide avenue (built for more traffic)"
+          },
+          {
+            "keywords": [
+              "ground floor retail",
+              "street level shops"
+            ],
+            "display": "Ground-floor commercial, upper offices"
+          },
+          {
+            "keywords": [
+              "grid",
+              "straight road"
+            ],
+            "display": "Grid street pattern"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "overbuilt",
+              "excess capacity"
+            ],
+            "display": "Infrastructure overbuilt for current population"
+          },
+          {
+            "keywords": [
+              "cbd",
+              "central business district"
+            ],
+            "display": "Central business district"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "FUELING THE MOTOR CITY coffee sign",
+        "inference": "Detroit, Michigan",
+        "category": "social"
+      },
+      {
+        "clue": "Art Deco columns + wide empty street",
+        "inference": "1920s prosperity then deindustrialization",
+        "category": "economic"
+      },
+      {
+        "clue": "Specialty coffee + e-scooter + renovation",
+        "inference": "Urban renewal/gentrification in progress",
+        "category": "economic"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Explain",
+      "prompt": "Explain how evidence of both urban decline AND urban renewal are visible in this image.",
+      "modelAnswer": "The wide avenue with very few pedestrians and oversized infrastructure indicate population loss from deindustrialization when the auto industry declined. Simultaneously, a specialty coffee shop in a renovated Art Deco building and an electric scooter indicate new investment and gentrification, showing portions of the city center are experiencing reinvestment while the broader core remains underutilized.",
+      "speedsConnection": "Targets Economic and Demographic categories connecting to Topics 6.10-6.11. The Explain verb requires causal reasoning for both decline and renewal."
+    }
+  },
+  {
+    "id": "delhi_chandnichowk",
+    "name": "Delhi, India — Chandni Chowk",
+    "region": "South Asia",
+    "coordinates": {
+      "lat": 28.656,
+      "lng": 77.231
+    },
+    "image": "images/delhi_chandnichowk.jpg",
+    "unitAlignment": [
+      "3.2",
+      "3.8",
+      "6.3"
+    ],
+    "description": "Pedestrianized commercial street in the Chandni Chowk bazaar district, showing Mughal-era heritage signage and recent government redevelopment.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "devanagari",
+              "hindi script",
+              "hindi text"
+            ],
+            "display": "Devanagari (Hindi) script on signs"
+          },
+          {
+            "keywords": [
+              "latin alphabet",
+              "english text",
+              "bilingual signs"
+            ],
+            "display": "Latin alphabet (English) alongside Hindi"
+          },
+          {
+            "keywords": [
+              "lehenga",
+              "sherwani",
+              "bridal wear",
+              "ethnic clothing shop"
+            ],
+            "display": "LEHENGA & SHERWANI bridal-wear sign"
+          },
+          {
+            "keywords": [
+              "laxmi hari",
+              "laxmi",
+              "shop name"
+            ],
+            "display": "\"Laxmi Hari\" shop sign"
+          },
+          {
+            "keywords": [
+              "jain",
+              "kamal kant jain",
+              "shop name"
+            ],
+            "display": "\"Kamal Kant Jain & Co.\" shop sign"
+          },
+          {
+            "keywords": [
+              "raymond",
+              "raymond ad",
+              "clothing brand ad"
+            ],
+            "display": "Raymond brand ad with male portrait"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "hindu goddess name",
+              "hindu commerce"
+            ],
+            "display": "\"Laxmi\" is Hindu goddess of wealth"
+          },
+          {
+            "keywords": [
+              "jain community",
+              "jain business"
+            ],
+            "display": "Jain-community family business"
+          },
+          {
+            "keywords": [
+              "bollywood ad",
+              "celebrity endorsement"
+            ],
+            "display": "Raymond uses Bollywood-style celebrity endorsement"
+          },
+          {
+            "keywords": [
+              "south asian cultural landscape"
+            ],
+            "display": "South Asian cultural landscape"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "pedestrianized",
+              "pedestrian zone",
+              "pedestrian street",
+              "no cars on street"
+            ],
+            "display": "Pedestrianized street"
+          },
+          {
+            "keywords": [
+              "public water kiosk",
+              "water dispenser",
+              "drinking water station"
+            ],
+            "display": "Public water kiosks"
+          },
+          {
+            "keywords": [
+              "ornate lamp post",
+              "decorative street lamp",
+              "heritage lamp"
+            ],
+            "display": "Ornate decorative street lamps"
+          },
+          {
+            "keywords": [
+              "center planters",
+              "raised planters",
+              "planter boxes in road"
+            ],
+            "display": "Raised center planters in roadway"
+          },
+          {
+            "keywords": [
+              "gstin",
+              "gst number",
+              "tax id on sign"
+            ],
+            "display": "\"GSTIN\" tax ID on storefront signage"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "2021 redevelopment",
+              "chandni chowk revitalization"
+            ],
+            "display": "Recent government pedestrianization (2021 project)"
+          },
+          {
+            "keywords": [
+              "indian gst",
+              "federal tax regulation"
+            ],
+            "display": "Indian federal GST regulation (post-2017)"
+          },
+          {
+            "keywords": [
+              "heritage preservation",
+              "municipal heritage policy"
+            ],
+            "display": "Municipal heritage preservation"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "overcast",
+              "cloudy sky",
+              "gray sky"
+            ],
+            "display": "Overcast sky"
+          },
+          {
+            "keywords": [
+              "green netting",
+              "construction netting",
+              "safety mesh"
+            ],
+            "display": "Green construction safety netting"
+          },
+          {
+            "keywords": [
+              "no visible trees",
+              "no tree canopy",
+              "treeless street"
+            ],
+            "display": "No trees in frame"
+          },
+          {
+            "keywords": [
+              "hazy air",
+              "hazy",
+              "atmospheric haze"
+            ],
+            "display": "Hazy air"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "monsoon climate",
+              "subtropical monsoon"
+            ],
+            "display": "Subtropical monsoon climate"
+          },
+          {
+            "keywords": [
+              "urban heat island"
+            ],
+            "display": "Urban heat-island conditions"
+          },
+          {
+            "keywords": [
+              "humidity",
+              "humid conditions"
+            ],
+            "display": "Humid conditions (inferred from haze)"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "american tourister",
+              "luggage brand"
+            ],
+            "display": "\"American Tourister\" luggage brand sign"
+          },
+          {
+            "keywords": [
+              "raymond",
+              "textile brand"
+            ],
+            "display": "\"Raymond\" textile brand sign"
+          },
+          {
+            "keywords": [
+              "porters",
+              "cargo bundles",
+              "headloading",
+              "carrying cargo"
+            ],
+            "display": "Porters carrying cargo bundles"
+          },
+          {
+            "keywords": [
+              "rolling shutters",
+              "metal gates",
+              "security shutters"
+            ],
+            "display": "Metal rolling security gates"
+          },
+          {
+            "keywords": [
+              "multiple shopfronts",
+              "many storefronts",
+              "adjacent shops"
+            ],
+            "display": "Multiple adjacent storefronts"
+          },
+          {
+            "keywords": [
+              "scaffolding",
+              "construction site",
+              "active construction"
+            ],
+            "display": "Active construction scaffolding"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "global brand",
+              "multinational brand"
+            ],
+            "display": "Global brand (American Tourister) present"
+          },
+          {
+            "keywords": [
+              "formal informal economy",
+              "mixed economy"
+            ],
+            "display": "Formal retail + informal porter labor coexist"
+          },
+          {
+            "keywords": [
+              "wholesale bazaar",
+              "wholesale trade"
+            ],
+            "display": "Wholesale textile bazaar"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "dense pedestrian crowd",
+              "many pedestrians",
+              "packed crowd"
+            ],
+            "display": "Dense pedestrian crowd"
+          },
+          {
+            "keywords": [
+              "mostly men",
+              "predominantly male",
+              "male pedestrians"
+            ],
+            "display": "Predominantly male pedestrians"
+          },
+          {
+            "keywords": [
+              "working age adults",
+              "adult workers"
+            ],
+            "display": "Working-age adults visible"
+          },
+          {
+            "keywords": [
+              "porters and shoppers",
+              "workers and shoppers"
+            ],
+            "display": "Porters and shoppers visible together"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "south asian megacity density",
+              "megacity"
+            ],
+            "display": "South Asian megacity density"
+          },
+          {
+            "keywords": [
+              "gender imbalance in public space"
+            ],
+            "display": "Gender imbalance in public commercial space"
+          },
+          {
+            "keywords": [
+              "labor migration",
+              "worker migration"
+            ],
+            "display": "Labor migration for bazaar work"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "linear commercial street",
+              "commercial strip"
+            ],
+            "display": "Linear commercial street"
+          },
+          {
+            "keywords": [
+              "shops below homes above",
+              "mixed use ground floor"
+            ],
+            "display": "Shops below, residential above"
+          },
+          {
+            "keywords": [
+              "pedestrianized corridor",
+              "car free street"
+            ],
+            "display": "Pedestrianized corridor"
+          },
+          {
+            "keywords": [
+              "mid rise buildings",
+              "three to five story"
+            ],
+            "display": "Densely packed mid-rise buildings"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "mughal grid",
+              "historic grid",
+              "shah jahan 1650"
+            ],
+            "display": "Mughal-era street grid (Shah Jahan, 1650)"
+          },
+          {
+            "keywords": [
+              "south asian bazaar",
+              "bazaar district"
+            ],
+            "display": "South Asian bazaar district"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "Devanagari script + LEHENGA & SHERWANI signs",
+        "inference": "North India",
+        "category": "social"
+      },
+      {
+        "clue": "Porters with cargo bundles + rolling security gates",
+        "inference": "Active wholesale bazaar",
+        "category": "economic"
+      },
+      {
+        "clue": "Ornate lamp posts + center planters + no cars",
+        "inference": "Recent government pedestrianization",
+        "category": "political"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Explain",
+      "prompt": "Explain how the visible features in this image reflect BOTH traditional cultural practices AND government urban-renewal investment.",
+      "modelAnswer": "The image shows Hindu-themed shop names such as Laxmi Hari and ethnic-clothing retail for lehengas and sherwanis, reflecting traditional South Asian cultural practices tied to weddings and religious commerce. At the same time, raised center planters, ornate lamp posts, and a fully pedestrianized street show recent municipal investment in the Chandni Chowk redevelopment, which prioritizes pedestrian access and preserves cultural-landscape character while modernizing the bazaar's infrastructure.",
+      "speedsConnection": "Targets Social (cultural landscape) and Political (urban renewal) categories connecting Topic 3.2 with Topic 6.3. The Explain verb requires connecting traditional culture to contemporary policy intervention."
+    }
+  },
+  {
+    "id": "berlin_kreuzberg",
+    "name": "Berlin, Germany — Kottbusser Tor",
+    "region": "Western Europe",
+    "coordinates": {
+      "lat": 52.4994,
+      "lng": 13.4175
+    },
+    "image": "images/berlin_kreuzberg.jpg",
+    "unitAlignment": [
+      "3.2",
+      "2.10",
+      "6.3"
+    ],
+    "description": "Public plaza at Kottbusser Tor in Kreuzberg showing Turkish market commerce alongside German modernist housing and the elevated U-Bahn.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "istanbul supermarkt",
+              "istanbul supermarket",
+              "turkish shop sign"
+            ],
+            "display": "\"ISTANBUL SUPERMARKT\" sign on awning"
+          },
+          {
+            "keywords": [
+              "nachhilfeschule",
+              "german word sign",
+              "german text"
+            ],
+            "display": "\"NACHHILFESCHULE\" German-language sign"
+          },
+          {
+            "keywords": [
+              "produce stalls",
+              "fruit and vegetable stalls",
+              "open market stalls"
+            ],
+            "display": "Fresh produce market stalls"
+          },
+          {
+            "keywords": [
+              "red and white awning",
+              "red awning",
+              "market awning"
+            ],
+            "display": "Red-and-white awning over market"
+          },
+          {
+            "keywords": [
+              "latin alphabet",
+              "european script"
+            ],
+            "display": "Latin-alphabet signage"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "turkish diaspora",
+              "gastarbeiter",
+              "guest workers"
+            ],
+            "display": "Turkish guest-worker diaspora community"
+          },
+          {
+            "keywords": [
+              "turkish cultural marker",
+              "ethnic marker"
+            ],
+            "display": "Red-white matches Turkish flag colors"
+          },
+          {
+            "keywords": [
+              "multicultural neighborhood",
+              "german turkish"
+            ],
+            "display": "Multicultural German-Turkish neighborhood"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "u-bahn viaduct",
+              "elevated train track",
+              "elevated metro",
+              "subway viaduct"
+            ],
+            "display": "Elevated U-Bahn viaduct"
+          },
+          {
+            "keywords": [
+              "black bollards",
+              "metal bollards",
+              "bollards lining plaza"
+            ],
+            "display": "Municipal bollards around plaza"
+          },
+          {
+            "keywords": [
+              "open public plaza",
+              "public square"
+            ],
+            "display": "Open public plaza"
+          },
+          {
+            "keywords": [
+              "large paving stones",
+              "stone paved plaza",
+              "square pavers"
+            ],
+            "display": "Stone-paved pedestrian plaza"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "public transit investment",
+              "federal transit"
+            ],
+            "display": "German federal public-transit investment"
+          },
+          {
+            "keywords": [
+              "post war berlin",
+              "divided berlin",
+              "berlin wall"
+            ],
+            "display": "Post-war reconstruction of divided city"
+          },
+          {
+            "keywords": [
+              "municipal public space policy"
+            ],
+            "display": "German public-space policy"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "bare deciduous trees",
+              "leafless trees",
+              "winter trees"
+            ],
+            "display": "Bare deciduous trees"
+          },
+          {
+            "keywords": [
+              "clear blue sky",
+              "blue sky"
+            ],
+            "display": "Clear blue sky"
+          },
+          {
+            "keywords": [
+              "urban street trees",
+              "mature urban trees"
+            ],
+            "display": "Mature urban street trees"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "temperate climate",
+              "northern european climate"
+            ],
+            "display": "Northern European temperate climate"
+          },
+          {
+            "keywords": [
+              "winter season",
+              "early spring"
+            ],
+            "display": "Winter / early-spring season"
+          },
+          {
+            "keywords": [
+              "urban forestry policy"
+            ],
+            "display": "Urban forestry policy"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "fruit stalls",
+              "vegetable stalls",
+              "produce market"
+            ],
+            "display": "Fresh produce market stalls"
+          },
+          {
+            "keywords": [
+              "parked bicycle",
+              "locked bike",
+              "bicycle on post"
+            ],
+            "display": "Bicycle locked to bollard"
+          },
+          {
+            "keywords": [
+              "cardboard pallets",
+              "stacked cardboard",
+              "recycling piles"
+            ],
+            "display": "Stacked cardboard pallets"
+          },
+          {
+            "keywords": [
+              "modernist mid rise",
+              "concrete mid rise",
+              "mid rise tower"
+            ],
+            "display": "Modernist mid-rise building"
+          },
+          {
+            "keywords": [
+              "ground floor retail",
+              "shops at ground level"
+            ],
+            "display": "Ground-floor retail"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "ethnic economy",
+              "immigrant commerce"
+            ],
+            "display": "Ethnic economy serving diaspora"
+          },
+          {
+            "keywords": [
+              "multi modal transport",
+              "bike and transit"
+            ],
+            "display": "Multi-modal transport (bike + transit)"
+          },
+          {
+            "keywords": [
+              "post war reconstruction"
+            ],
+            "display": "Post-war economic reconstruction"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "multiple pedestrians",
+              "several shoppers"
+            ],
+            "display": "Multiple pedestrians visible"
+          },
+          {
+            "keywords": [
+              "shopper with bag",
+              "woman with shopping bag"
+            ],
+            "display": "Shopper with bag"
+          },
+          {
+            "keywords": [
+              "mixed ages in plaza",
+              "adults and elderly"
+            ],
+            "display": "Mixed adult ages visible"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "turkish heritage clustering",
+              "chain migration"
+            ],
+            "display": "Turkish-heritage neighborhood clustering"
+          },
+          {
+            "keywords": [
+              "aging european city",
+              "aging demographic"
+            ],
+            "display": "Aging European city demographic"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "open plaza",
+              "public square",
+              "paved plaza"
+            ],
+            "display": "Open public plaza"
+          },
+          {
+            "keywords": [
+              "next to metro",
+              "near u-bahn",
+              "transit adjacent"
+            ],
+            "display": "Transit-adjacent (beside U-Bahn)"
+          },
+          {
+            "keywords": [
+              "retail below apartments",
+              "mixed use tower"
+            ],
+            "display": "Retail below residential floors"
+          },
+          {
+            "keywords": [
+              "compact european density"
+            ],
+            "display": "Compact European urban density"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "transit oriented development",
+              "tod"
+            ],
+            "display": "Transit-oriented development"
+          },
+          {
+            "keywords": [
+              "ethnic enclave clustering"
+            ],
+            "display": "Ethnic-enclave spatial clustering"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "\"ISTANBUL SUPERMARKT\" next to German-language \"NACHHILFESCHULE\"",
+        "inference": "Turkish diaspora in German city",
+        "category": "social"
+      },
+      {
+        "clue": "Elevated U-Bahn viaduct + modernist mid-rise",
+        "inference": "Berlin post-war reconstruction",
+        "category": "political"
+      },
+      {
+        "clue": "Bare deciduous trees + light clothing absent",
+        "inference": "Northern European winter",
+        "category": "environmental"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Explain",
+      "prompt": "Explain how the cultural landscape visible in this image reflects international migration patterns into Germany.",
+      "modelAnswer": "The image shows a Turkish-brand supermarket next to a German-language tutoring school within the same plaza, reflecting the Turkish guest-worker migration to Germany that began in the 1960s. The presence of Turkish ethnic retail serving daily shopping needs indicates an established immigrant community that has maintained cultural identity through food, language, and commerce, creating a visible multicultural neighborhood fabric that persists across generations.",
+      "speedsConnection": "Targets Social (cultural landscape) and Demographic (migration patterns) categories connecting Topic 3.2 with Topic 2.10. The Explain verb requires linking migration drivers to visible cultural-landscape outcomes."
+    }
+  },
+  {
+    "id": "varanasi_ghats",
+    "name": "Varanasi, India — Old City",
+    "region": "South Asia",
+    "coordinates": {
+      "lat": 25.3107,
+      "lng": 83.008
+    },
+    "image": "images/varanasi_ghats.jpg",
+    "unitAlignment": [
+      "3.2",
+      "3.7",
+      "7.8"
+    ],
+    "description": "Commercial street near the ghats of Varanasi showing Hindu religious commerce, regional paan culture, and global-brand presence.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "devanagari",
+              "hindi script on sign",
+              "hindi letters"
+            ],
+            "display": "Devanagari (Hindi) script on shops"
+          },
+          {
+            "keywords": [
+              "paan bhandar",
+              "paan shop",
+              "betel leaf shop"
+            ],
+            "display": "\"Paan Bhandar\" (betel-leaf) shop sign"
+          },
+          {
+            "keywords": [
+              "marigold garlands",
+              "orange flower garlands",
+              "hanging flowers"
+            ],
+            "display": "Hanging orange marigold garlands"
+          },
+          {
+            "keywords": [
+              "banarasi paan",
+              "banarasi",
+              "regional specialty name"
+            ],
+            "display": "\"Banarasi Paan\" sign (regional specialty)"
+          },
+          {
+            "keywords": [
+              "checked cloth",
+              "gamcha",
+              "traditional cloth"
+            ],
+            "display": "Traditional checked cloth (gamcha) worn"
+          },
+          {
+            "keywords": [
+              "salmon pink facade",
+              "pink painted walls",
+              "pink buildings"
+            ],
+            "display": "Salmon-pink painted facades"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "hindu worship commerce",
+              "puja offerings"
+            ],
+            "display": "Marigolds used in Hindu worship (puja offerings)"
+          },
+          {
+            "keywords": [
+              "hindu sacred city",
+              "varanasi pilgrimage"
+            ],
+            "display": "Hindu sacred-city cultural landscape"
+          },
+          {
+            "keywords": [
+              "folk food culture",
+              "regional food practice"
+            ],
+            "display": "Paan as South Asian folk-food practice"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "gstin on sign",
+              "gstin tax number",
+              "tax id on storefront"
+            ],
+            "display": "\"GSTIN\" tax ID on shop sign"
+          },
+          {
+            "keywords": [
+              "indian phone number",
+              "phone number format"
+            ],
+            "display": "Indian-format phone numbers on signs"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "indian gst 2017",
+              "gst reform",
+              "federal tax id"
+            ],
+            "display": "Indian federal GST regulation (post-2017)"
+          },
+          {
+            "keywords": [
+              "informal regulation tension"
+            ],
+            "display": "Formal + informal commerce tension"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "dry dusty ground",
+              "dusty street"
+            ],
+            "display": "Dusty dry-season ground"
+          },
+          {
+            "keywords": [
+              "fresh cut flowers",
+              "flowers for sale"
+            ],
+            "display": "Fresh-cut marigold flowers on display"
+          },
+          {
+            "keywords": [
+              "light clothing",
+              "no jackets",
+              "short sleeves"
+            ],
+            "display": "Light clothing (warm weather)"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "tropical climate",
+              "subtropical"
+            ],
+            "display": "Tropical / subtropical climate"
+          },
+          {
+            "keywords": [
+              "local flower supply",
+              "agricultural hinterland"
+            ],
+            "display": "Local agricultural flower supply chain"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "coca cola",
+              "coca-cola sign",
+              "coke logo"
+            ],
+            "display": "Coca-Cola signage on shopfront"
+          },
+          {
+            "keywords": [
+              "vardhman",
+              "vardhman sign",
+              "wool company sign"
+            ],
+            "display": "\"Vardhman\" wool company sign"
+          },
+          {
+            "keywords": [
+              "street vendor",
+              "ground vendor",
+              "informal seller"
+            ],
+            "display": "Ground-level street vendors"
+          },
+          {
+            "keywords": [
+              "trident guest house",
+              "guest house sign",
+              "hotel sign"
+            ],
+            "display": "\"Trident Guest House\" sign"
+          },
+          {
+            "keywords": [
+              "parked motorcycle",
+              "motorbike",
+              "moped"
+            ],
+            "display": "Parked motorcycle"
+          },
+          {
+            "keywords": [
+              "multiple small shops",
+              "dense storefronts"
+            ],
+            "display": "Multiple small storefronts"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "global brand",
+              "multinational"
+            ],
+            "display": "Global brand (Coca-Cola) alongside local commerce"
+          },
+          {
+            "keywords": [
+              "formal informal mix",
+              "mixed economy"
+            ],
+            "display": "Formal retail + informal street vending"
+          },
+          {
+            "keywords": [
+              "pilgrim tourism economy",
+              "religious tourism"
+            ],
+            "display": "Pilgrim + tourist economy"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "mostly men",
+              "male pedestrians",
+              "predominantly male"
+            ],
+            "display": "Multiple adult males visible"
+          },
+          {
+            "keywords": [
+              "vendors and shopkeepers",
+              "workers on street"
+            ],
+            "display": "Vendors and shopkeepers visible"
+          },
+          {
+            "keywords": [
+              "mobile phone use",
+              "man on phone",
+              "cell phone"
+            ],
+            "display": "Young man using mobile phone"
+          },
+          {
+            "keywords": [
+              "working age adults"
+            ],
+            "display": "Working-age adults dominant"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "male public space"
+            ],
+            "display": "Male-dominated commercial public space"
+          },
+          {
+            "keywords": [
+              "technology adoption",
+              "mobile tech leapfrog"
+            ],
+            "display": "Mobile-technology adoption"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "linear commercial frontage",
+              "street of shops"
+            ],
+            "display": "Linear commercial street"
+          },
+          {
+            "keywords": [
+              "shops below residences",
+              "mixed use ground floor"
+            ],
+            "display": "Shops below, residential above"
+          },
+          {
+            "keywords": [
+              "narrow old lanes",
+              "dense old city",
+              "packed buildings"
+            ],
+            "display": "Dense old-city buildings"
+          },
+          {
+            "keywords": [
+              "near ghats",
+              "pilgrim quarter"
+            ],
+            "display": "Near-ghats commercial zone"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "pre modern grid",
+              "organic layout"
+            ],
+            "display": "Pre-modern organic street pattern"
+          },
+          {
+            "keywords": [
+              "south asian bazaar pattern"
+            ],
+            "display": "South Asian bazaar pattern"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "Orange marigold garlands + \"Banarasi Paan\" sign",
+        "inference": "Varanasi (Hindu sacred city)",
+        "category": "social"
+      },
+      {
+        "clue": "Coca-Cola sign + Vardhman wool shop + street vendor together",
+        "inference": "Global brand + formal + informal economy",
+        "category": "economic"
+      },
+      {
+        "clue": "Salmon-pink facades + Devanagari script",
+        "inference": "North Indian vernacular",
+        "category": "social"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Describe",
+      "prompt": "Describe TWO visible characteristics that indicate this street contains BOTH traditional cultural practices AND evidence of globalization.",
+      "modelAnswer": "Hanging orange marigold garlands and a \"Paan Bhandar\" (betel-leaf shop) sign with the regional term \"Banarasi\" show traditional Hindu religious and folk-food practices still embedded in everyday commerce. On the same shopfront, Coca-Cola branding and Latin-alphabet English text show globalization, where an international consumer brand has been integrated into the same vernacular storefront as the traditional products.",
+      "speedsConnection": "Targets Social (cultural landscape) and Economic (globalization) categories connecting Topic 3.2 with Topic 7.8. The Describe verb requires naming specific characteristics without causal reasoning."
+    }
+  },
+  {
+    "id": "cusco_plaza",
+    "name": "Cusco, Peru — Plaza de Armas",
+    "region": "South America",
+    "coordinates": {
+      "lat": -13.5168,
+      "lng": -71.9784
+    },
+    "image": "images/cusco_plaza.jpg",
+    "unitAlignment": [
+      "3.2",
+      "4.1",
+      "3.6"
+    ],
+    "description": "Plaza de Armas showing the Spanish Baroque cathedral built on Inca palace foundations, Andean backdrop, and the Wiphala indigenous flag.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "cathedral",
+              "stone cathedral",
+              "catholic church"
+            ],
+            "display": "Large Catholic cathedral"
+          },
+          {
+            "keywords": [
+              "three doorways",
+              "ornate doors",
+              "baroque doorway"
+            ],
+            "display": "Three-doorway ornate cathedral facade"
+          },
+          {
+            "keywords": [
+              "rainbow flag",
+              "striped flag",
+              "wiphala"
+            ],
+            "display": "Rainbow-striped flag flying"
+          },
+          {
+            "keywords": [
+              "stone baroque church",
+              "ornate stone church",
+              "baroque architecture"
+            ],
+            "display": "Stone Baroque church architecture"
+          },
+          {
+            "keywords": [
+              "arcaded buildings",
+              "arches around plaza",
+              "colonnade perimeter"
+            ],
+            "display": "Arcaded buildings flanking plaza"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "wiphala andean flag",
+              "indigenous andean flag"
+            ],
+            "display": "Rainbow flag is Wiphala (indigenous Andean)"
+          },
+          {
+            "keywords": [
+              "sequent occupancy",
+              "layered history"
+            ],
+            "display": "Sequent occupancy (Inca foundation beneath Spanish cathedral)"
+          },
+          {
+            "keywords": [
+              "catholic universalizing religion",
+              "imposed religion"
+            ],
+            "display": "Catholic universalizing religion imposed by colonization"
+          },
+          {
+            "keywords": [
+              "spanish colonial architecture",
+              "colonial building style"
+            ],
+            "display": "Spanish colonial architectural style"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "flag on cathedral",
+              "flag flying",
+              "official flag"
+            ],
+            "display": "Flag flying on cathedral"
+          },
+          {
+            "keywords": [
+              "municipal worker",
+              "city worker",
+              "blue coveralls"
+            ],
+            "display": "Municipal worker in uniform"
+          },
+          {
+            "keywords": [
+              "flag poles on cathedral"
+            ],
+            "display": "Official flag poles on cathedral"
+          },
+          {
+            "keywords": [
+              "massive stone building",
+              "huge church",
+              "monumental scale"
+            ],
+            "display": "Monumental stone cathedral scale"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "spanish colonialism",
+              "colonial legacy"
+            ],
+            "display": "Spanish colonial political legacy"
+          },
+          {
+            "keywords": [
+              "indigenous recognition",
+              "wiphala cusco flag"
+            ],
+            "display": "Indigenous recognition (Wiphala as official Cusco flag)"
+          },
+          {
+            "keywords": [
+              "church as political institution"
+            ],
+            "display": "Church as political institution"
+          },
+          {
+            "keywords": [
+              "colonial imperial display",
+              "imperial architecture"
+            ],
+            "display": "Monumental scale as colonial imperial display"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "mountain ridge",
+              "mountain backdrop",
+              "andes"
+            ],
+            "display": "Mountain ridge behind cathedral"
+          },
+          {
+            "keywords": [
+              "stone paving",
+              "stone plaza",
+              "cobblestone"
+            ],
+            "display": "Stone-paved plaza"
+          },
+          {
+            "keywords": [
+              "cumulus clouds",
+              "blue sky with clouds"
+            ],
+            "display": "Clear sky with cumulus clouds"
+          },
+          {
+            "keywords": [
+              "thin atmospheric light",
+              "sharp shadows"
+            ],
+            "display": "Sharp high-altitude light and shadows"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "andean altitude",
+              "high altitude environment"
+            ],
+            "display": "Andean high-altitude environment"
+          },
+          {
+            "keywords": [
+              "local stone materials",
+              "local quarried stone"
+            ],
+            "display": "Locally-quarried stone for construction"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "tourist in red coat",
+              "tourist visible"
+            ],
+            "display": "Tourist in bright clothing"
+          },
+          {
+            "keywords": [
+              "municipal cleaner",
+              "uniformed worker"
+            ],
+            "display": "Municipal-services worker"
+          },
+          {
+            "keywords": [
+              "central plaza activity",
+              "plaza gathering"
+            ],
+            "display": "Central plaza as public gathering space"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "tourism economy",
+              "tourism based"
+            ],
+            "display": "Tourism-based local economy"
+          },
+          {
+            "keywords": [
+              "machu picchu gateway",
+              "andean tourism"
+            ],
+            "display": "Cusco as Machu Picchu tourism gateway"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "several pedestrians",
+              "multiple walkers"
+            ],
+            "display": "Multiple pedestrians on plaza"
+          },
+          {
+            "keywords": [
+              "tourists and locals",
+              "mix of visitors"
+            ],
+            "display": "Mix of tourists and locals"
+          },
+          {
+            "keywords": [
+              "working age adults"
+            ],
+            "display": "Working-age adults dominant"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "seasonal tourist mixing"
+            ],
+            "display": "Tourist-local seasonal mixing"
+          },
+          {
+            "keywords": [
+              "mestizo indigenous population"
+            ],
+            "display": "Mestizo-indigenous Peruvian composition"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "central plaza",
+              "cathedral plaza",
+              "main square"
+            ],
+            "display": "Central plaza fronting cathedral"
+          },
+          {
+            "keywords": [
+              "arcades around plaza",
+              "arcaded perimeter",
+              "buildings framing plaza"
+            ],
+            "display": "Arcaded perimeter buildings around plaza"
+          },
+          {
+            "keywords": [
+              "cobblestone street",
+              "cobbled roadway"
+            ],
+            "display": "Cobblestone street at plaza edge"
+          },
+          {
+            "keywords": [
+              "cathedral dominates plaza",
+              "large church centered"
+            ],
+            "display": "Cathedral-dominated plaza"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "laws of the indies",
+              "spanish colonial plan",
+              "1573 urban code"
+            ],
+            "display": "Spanish \"Laws of the Indies\" urban model (1573)"
+          },
+          {
+            "keywords": [
+              "latin american city model"
+            ],
+            "display": "Latin American city model"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "Rainbow-striped flag flying on Spanish colonial cathedral",
+        "inference": "Cusco (Wiphala indigenous flag)",
+        "category": "political"
+      },
+      {
+        "clue": "Three-doorway cathedral + arcaded perimeter + central plaza",
+        "inference": "Spanish Laws of the Indies urban model",
+        "category": "spatial"
+      },
+      {
+        "clue": "Massive stone cathedral + mountain backdrop",
+        "inference": "Andean colonial capital",
+        "category": "environmental"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Explain",
+      "prompt": "Explain how the cultural landscape visible in this image shows BOTH colonial imposition AND indigenous identity assertion.",
+      "modelAnswer": "The massive Spanish Baroque cathedral with its ornate three-doorway facade represents colonial imposition of Catholic universalizing religion, built directly on top of the Inca palace Kiswarkancha as a deliberate display of religious and political dominance. At the same time, the Wiphala rainbow flag flying from the cathedral tower represents contemporary indigenous identity assertion, where the Andean peoples' flag has been officially adopted by the Cusco municipal government, reclaiming indigenous visibility on the very building that once symbolized its suppression.",
+      "speedsConnection": "Targets Social (cultural landscape) and Political (colonial legacy and recognition) categories connecting Topic 3.2 with Topic 4.1. The Explain verb requires reasoning about how a single place can express competing political-cultural forces across centuries."
+    }
+  },
+  {
+    "id": "hongkong_mongkok",
+    "name": "Hong Kong — Mong Kok Crossing",
+    "region": "East Asia",
+    "coordinates": {
+      "lat": 22.3196,
+      "lng": 114.1705
+    },
+    "image": "images/hongkong_mongkok.jpg",
+    "unitAlignment": [
+      "6.3",
+      "6.5",
+      "3.8"
+    ],
+    "description": "Busy Mong Kok street crossing showing extreme vertical density, bilingual signage, and British-legacy road infrastructure.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "chinese characters",
+              "chinese script on sign",
+              "hanzi"
+            ],
+            "display": "Chinese character signage"
+          },
+          {
+            "keywords": [
+              "7-eleven",
+              "seven eleven sign",
+              "7-11"
+            ],
+            "display": "\"7-Eleven\" storefront sign"
+          },
+          {
+            "keywords": [
+              "dense crossing crowd",
+              "many pedestrians crossing"
+            ],
+            "display": "Dense crossing pedestrian crowd"
+          },
+          {
+            "keywords": [
+              "bilingual english chinese signs",
+              "english chinese text"
+            ],
+            "display": "English + Chinese bilingual signage"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "post colonial bilingual",
+              "british legacy language"
+            ],
+            "display": "Bilingual post-colonial linguistic landscape"
+          },
+          {
+            "keywords": [
+              "globalized commerce",
+              "global brands"
+            ],
+            "display": "Global brand alongside local commerce"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "yellow zebra crosswalk",
+              "yellow painted crosswalk"
+            ],
+            "display": "Yellow-striped zebra crosswalk"
+          },
+          {
+            "keywords": [
+              "pink minibus",
+              "red top minibus",
+              "hk minibus"
+            ],
+            "display": "Pink/red-top mini-bus"
+          },
+          {
+            "keywords": [
+              "traffic light with countdown",
+              "pedestrian signal"
+            ],
+            "display": "Pedestrian crossing signal"
+          },
+          {
+            "keywords": [
+              "22a bus sign",
+              "bus route sign"
+            ],
+            "display": "\"22A\" bus route sign"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "british colonial road design"
+            ],
+            "display": "British colonial road-design legacy"
+          },
+          {
+            "keywords": [
+              "left side driving",
+              "drive on left"
+            ],
+            "display": "Left-side driving (UK inheritance)"
+          },
+          {
+            "keywords": [
+              "hk minibus system"
+            ],
+            "display": "Hong Kong semi-formal minibus system"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "caged balcony",
+              "balcony grilles",
+              "shuttered balconies"
+            ],
+            "display": "Caged/shuttered residential balconies"
+          },
+          {
+            "keywords": [
+              "window ac units",
+              "air conditioners on windows"
+            ],
+            "display": "AC units protruding from windows"
+          },
+          {
+            "keywords": [
+              "clear sky",
+              "blue sky"
+            ],
+            "display": "Clear sky"
+          },
+          {
+            "keywords": [
+              "no street trees",
+              "no greenery visible"
+            ],
+            "display": "No greenery in frame"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "subtropical climate",
+              "humid subtropical"
+            ],
+            "display": "Subtropical urban climate"
+          },
+          {
+            "keywords": [
+              "typhoon adaptation",
+              "typhoon country design"
+            ],
+            "display": "Typhoon-country building adaptations"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "7-eleven sign",
+              "convenience store brand"
+            ],
+            "display": "\"7-Eleven\" global convenience brand"
+          },
+          {
+            "keywords": [
+              "mini bus",
+              "passenger van",
+              "public transit vehicle"
+            ],
+            "display": "Mini-bus public transit"
+          },
+          {
+            "keywords": [
+              "high rise buildings",
+              "tall towers",
+              "dense high rise"
+            ],
+            "display": "Dense high-rise commercial buildings"
+          },
+          {
+            "keywords": [
+              "bamboo scaffolding",
+              "bamboo poles"
+            ],
+            "display": "Bamboo scaffolding on building"
+          },
+          {
+            "keywords": [
+              "mixed road vehicles",
+              "cars buses van"
+            ],
+            "display": "Multi-modal street traffic"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "bid rent theory",
+              "vertical land use"
+            ],
+            "display": "Bid-rent theory in vertical buildup"
+          },
+          {
+            "keywords": [
+              "global financial center",
+              "world city"
+            ],
+            "display": "Global financial center"
+          },
+          {
+            "keywords": [
+              "labor intensive construction"
+            ],
+            "display": "Traditional labor-intensive construction (bamboo) alongside modern"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "dense crossing crowd",
+              "crowded crosswalk"
+            ],
+            "display": "Dense pedestrian crowd crossing"
+          },
+          {
+            "keywords": [
+              "working age pedestrians",
+              "working age adults"
+            ],
+            "display": "Working-age adults dominant"
+          },
+          {
+            "keywords": [
+              "light jackets worn",
+              "mild weather clothing"
+            ],
+            "display": "Light jackets worn"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "extreme urban density",
+              "world highest density"
+            ],
+            "display": "Among world's highest urban densities"
+          },
+          {
+            "keywords": [
+              "aging chinese society"
+            ],
+            "display": "Aging Chinese demographic"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "tall buildings both sides",
+              "vertical urbanism",
+              "skyscrapers"
+            ],
+            "display": "Tall buildings flanking street"
+          },
+          {
+            "keywords": [
+              "street intersection",
+              "urban intersection"
+            ],
+            "display": "Dense urban intersection"
+          },
+          {
+            "keywords": [
+              "retail lower floors",
+              "residential upper floors"
+            ],
+            "display": "Retail low, residential high"
+          },
+          {
+            "keywords": [
+              "urban canyon",
+              "street canyon"
+            ],
+            "display": "Urban canyon between towers"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "asian high density city model"
+            ],
+            "display": "Asian high-density urban form"
+          },
+          {
+            "keywords": [
+              "transit oriented",
+              "tod"
+            ],
+            "display": "Transit-oriented development"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "Yellow zebra crosswalk + vehicles on left",
+        "inference": "Former British colony — Hong Kong",
+        "category": "political"
+      },
+      {
+        "clue": "Caged balconies + window AC units on every floor",
+        "inference": "Subtropical high-density housing",
+        "category": "environmental"
+      },
+      {
+        "clue": "7-Eleven + Chinese character signs + mini-bus",
+        "inference": "Globalized Chinese commercial density",
+        "category": "economic"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Explain",
+      "prompt": "Explain how the vertical density visible in this image reflects bid-rent theory in a global financial center.",
+      "modelAnswer": "The image shows buildings rising many stories on both sides of the street with commercial uses at ground level and residential above, at a crossing where land values are among the highest on Earth. Bid-rent theory predicts that when land is expensive, users must maximize floor area per square meter of ground to afford the location, which produces extreme vertical growth; Hong Kong's role as a global financial center combined with its physical constraints drives bid-rent competition to an extreme, causing even residential uses to stack vertically rather than spread horizontally.",
+      "speedsConnection": "Targets Spatial and Economic categories connecting Topic 6.3 with Topic 6.5. The Explain verb requires causal reasoning about how land values drive vertical form."
+    }
+  },
+  {
+    "id": "kl_chinatown",
+    "name": "Kuala Lumpur, Malaysia — Petaling Street",
+    "region": "Southeast Asia",
+    "coordinates": {
+      "lat": 3.1432,
+      "lng": 101.6978
+    },
+    "image": "images/kl_chinatown.jpg",
+    "unitAlignment": [
+      "3.2",
+      "3.8",
+      "6.3"
+    ],
+    "description": "Covered Petaling Street market in KL's Chinatown showing Chinese cultural markers, multi-ethnic Malaysian commerce, and government-renovated tourism infrastructure.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "red chinese lantern",
+              "red lanterns overhead",
+              "paper lanterns"
+            ],
+            "display": "Red Chinese lanterns hanging overhead"
+          },
+          {
+            "keywords": [
+              "chinese characters on signs",
+              "chinese script"
+            ],
+            "display": "Chinese character signage"
+          },
+          {
+            "keywords": [
+              "welcome banner",
+              "b hotel banner",
+              "petaling street banner"
+            ],
+            "display": "\"Welcome to B Hotel, Petaling Street\" English banner"
+          },
+          {
+            "keywords": [
+              "diverse ethnic crowd",
+              "multi ethnic shoppers"
+            ],
+            "display": "Multi-ethnic crowd in market"
+          },
+          {
+            "keywords": [
+              "motorcycle with passenger",
+              "two on moped"
+            ],
+            "display": "Motorcycle with passenger on market street"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "chinese diaspora",
+              "overseas chinese"
+            ],
+            "display": "Chinese diaspora in Muslim-majority Malaysia"
+          },
+          {
+            "keywords": [
+              "malaysian multiculturalism",
+              "malay chinese indian"
+            ],
+            "display": "Multicultural Malaysian pluralism"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "red steel truss",
+              "steel canopy",
+              "red green truss"
+            ],
+            "display": "Red steel truss overhead canopy"
+          },
+          {
+            "keywords": [
+              "covered arcade structure",
+              "roof over market"
+            ],
+            "display": "Covered arcade structure"
+          },
+          {
+            "keywords": [
+              "organized stalls",
+              "formal market stalls"
+            ],
+            "display": "Formally organized market stalls"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "malaysian tourism policy",
+              "government renovation"
+            ],
+            "display": "Government tourism-policy renovation"
+          },
+          {
+            "keywords": [
+              "bumiputera ethnic policy"
+            ],
+            "display": "Bumiputera / multi-ethnic policy context"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "covered canopy",
+              "overhead roof",
+              "sheltered"
+            ],
+            "display": "Covered structure overhead"
+          },
+          {
+            "keywords": [
+              "hazy indoor air",
+              "humid air"
+            ],
+            "display": "Hazy humid air"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "tropical equatorial climate"
+            ],
+            "display": "Tropical equatorial climate"
+          },
+          {
+            "keywords": [
+              "monsoon adaptation",
+              "rain protection"
+            ],
+            "display": "Monsoon rain adaptation via covered market"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "clothing stalls",
+              "t-shirt stalls",
+              "streetwear stall"
+            ],
+            "display": "Clothing stalls with T-shirts and streetwear"
+          },
+          {
+            "keywords": [
+              "souvenir stalls",
+              "trinket stall",
+              "keychain stall"
+            ],
+            "display": "Souvenir stalls with trinkets and keychains"
+          },
+          {
+            "keywords": [
+              "motorcycle on street",
+              "moped in market"
+            ],
+            "display": "Motorcycle used for commercial transport"
+          },
+          {
+            "keywords": [
+              "dense market stalls",
+              "stalls on both sides"
+            ],
+            "display": "Densely packed market stalls"
+          },
+          {
+            "keywords": [
+              "branded apparel",
+              "brand names on clothing"
+            ],
+            "display": "Branded apparel on display"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "tourism based commerce",
+              "tourist economy"
+            ],
+            "display": "Tourism-based market economy"
+          },
+          {
+            "keywords": [
+              "informal formal hybrid"
+            ],
+            "display": "Informal-formal hybrid retail"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "multi ethnic crowd",
+              "diverse shoppers",
+              "mixed ethnicities"
+            ],
+            "display": "Multi-ethnic crowd visible"
+          },
+          {
+            "keywords": [
+              "tourists with bags",
+              "visitors with luggage"
+            ],
+            "display": "Tourists with shopping bags/luggage"
+          },
+          {
+            "keywords": [
+              "working age adults"
+            ],
+            "display": "Working-age adults dominant"
+          },
+          {
+            "keywords": [
+              "dense pedestrian crowd",
+              "packed market"
+            ],
+            "display": "Dense pedestrian crowd"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "malay chinese indian composition"
+            ],
+            "display": "Malay + Chinese + Indian Malaysian composition"
+          },
+          {
+            "keywords": [
+              "tourism driven demographic"
+            ],
+            "display": "Tourism-driven demographic inflow"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "linear covered arcade",
+              "covered corridor"
+            ],
+            "display": "Linear covered arcade"
+          },
+          {
+            "keywords": [
+              "stalls flanking walkway",
+              "stalls on both sides"
+            ],
+            "display": "Stalls flanking central walkway"
+          },
+          {
+            "keywords": [
+              "chinatown enclave",
+              "chinese quarter"
+            ],
+            "display": "Chinatown enclave within KL"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "se asian shophouse",
+              "shophouse form"
+            ],
+            "display": "SE Asian shophouse + covered market hybrid"
+          },
+          {
+            "keywords": [
+              "flow through pedestrian space"
+            ],
+            "display": "Flow-through pedestrian tourism space"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "Red Chinese lanterns + Chinese signage on storefronts",
+        "inference": "Overseas Chinese enclave",
+        "category": "social"
+      },
+      {
+        "clue": "Crowd visibly mixing Chinese, Malay, Indian, and tourist",
+        "inference": "Multicultural Malaysia",
+        "category": "demographic"
+      },
+      {
+        "clue": "Red steel truss canopy over organized stalls",
+        "inference": "Government-renovated tourism market",
+        "category": "political"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Describe",
+      "prompt": "Describe TWO visible characteristics that indicate this market is located in a multi-ethnic country with a Chinese diaspora community.",
+      "modelAnswer": "Red Chinese lanterns hanging overhead and Chinese-character signage on the storefronts show the presence of an established Chinese community with visible cultural markers. The crowd simultaneously contains multiple ethnic groups including Chinese-heritage, Malay, and South Asian shoppers alongside international tourists, showing that this ethnic enclave exists within a larger multi-ethnic national population rather than a monocultural one.",
+      "speedsConnection": "Targets Social (cultural landscape) and Demographic (ethnic composition) categories connecting Topic 3.2 with Topic 3.8. The Describe verb requires naming visible characteristics without causal reasoning."
+    }
+  },
+  {
+    "id": "tokyo_harajuku",
+    "name": "Tokyo, Japan — Harajuku Station area",
+    "region": "East Asia",
+    "coordinates": {
+      "lat": 35.6702,
+      "lng": 139.7028
+    },
+    "image": "images/tokyo_harajuku.jpg",
+    "unitAlignment": [
+      "6.6",
+      "6.8",
+      "7.8"
+    ],
+    "description": "Wide multi-modal street near Harajuku Station showing high-quality Japanese transportation infrastructure, urban tree canopy, and Art Nouveau-inspired street furniture.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "wrought iron railings",
+              "decorative iron railing",
+              "curly metal railing"
+            ],
+            "display": "Wrought-iron decorative pedestrian railings"
+          },
+          {
+            "keywords": [
+              "artificial turf fence",
+              "green astroturf barrier",
+              "fake grass wall"
+            ],
+            "display": "Green astroturf construction fence"
+          },
+          {
+            "keywords": [
+              "tourist with camera",
+              "person photographing"
+            ],
+            "display": "Tourist photographing scene"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "art nouveau style",
+              "heritage inspired design"
+            ],
+            "display": "Art Nouveau heritage-inspired design"
+          },
+          {
+            "keywords": [
+              "japanese public space aesthetic"
+            ],
+            "display": "Japanese attention to public-space aesthetics"
+          },
+          {
+            "keywords": [
+              "international tourism"
+            ],
+            "display": "International tourism presence"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "thick zebra crosswalk",
+              "crisp zebra stripes",
+              "wide crosswalk"
+            ],
+            "display": "Thick crisp zebra crosswalk stripes"
+          },
+          {
+            "keywords": [
+              "blue bike lane markings",
+              "painted bike lane",
+              "blue cycle lane"
+            ],
+            "display": "Blue-painted bicycle lane markings"
+          },
+          {
+            "keywords": [
+              "horizontal traffic signal",
+              "japanese traffic light"
+            ],
+            "display": "Horizontal traffic signal"
+          },
+          {
+            "keywords": [
+              "pedestrian bollards",
+              "protective posts"
+            ],
+            "display": "Pedestrian-protection bollards"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "japanese public works",
+              "infrastructure investment"
+            ],
+            "display": "Strong public-works investment"
+          },
+          {
+            "keywords": [
+              "left side driving",
+              "uk legacy driving side"
+            ],
+            "display": "Left-side driving (UK legacy)"
+          },
+          {
+            "keywords": [
+              "cycling policy",
+              "bike friendly policy"
+            ],
+            "display": "Bicycle-friendly transportation policy"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "mature street trees",
+              "tall leafy trees",
+              "ginkgo trees"
+            ],
+            "display": "Mature street trees in full leaf"
+          },
+          {
+            "keywords": [
+              "clear blue sky",
+              "summer sky"
+            ],
+            "display": "Clear blue sky with cumulus clouds"
+          },
+          {
+            "keywords": [
+              "full summer foliage",
+              "green leafy canopy"
+            ],
+            "display": "Full summer foliage"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "humid subtropical climate"
+            ],
+            "display": "Humid subtropical climate"
+          },
+          {
+            "keywords": [
+              "urban green canopy policy"
+            ],
+            "display": "Urban green-canopy policy"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "smooth maintained road",
+              "clean asphalt"
+            ],
+            "display": "Smooth well-maintained road surface"
+          },
+          {
+            "keywords": [
+              "white sedan car",
+              "small white car"
+            ],
+            "display": "White sedan on road"
+          },
+          {
+            "keywords": [
+              "glass commercial building",
+              "curtain wall building"
+            ],
+            "display": "Modern glass-curtain commercial building"
+          },
+          {
+            "keywords": [
+              "car bike pedestrian",
+              "multi modal street"
+            ],
+            "display": "Multi-modal street organization"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "developed core economy",
+              "core country indicators"
+            ],
+            "display": "Developed-economy infrastructure quality"
+          },
+          {
+            "keywords": [
+              "harajuku fashion commerce"
+            ],
+            "display": "Harajuku as fashion/pop-culture commerce hub"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "few pedestrians",
+              "sparse foot traffic"
+            ],
+            "display": "Few pedestrians visible"
+          },
+          {
+            "keywords": [
+              "tourist visible",
+              "single visitor"
+            ],
+            "display": "Single tourist in frame"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "aging japanese society"
+            ],
+            "display": "Aging Japanese society"
+          },
+          {
+            "keywords": [
+              "off peak moment",
+              "quiet time of day"
+            ],
+            "display": "Low-pedestrian moment (off-peak)"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "wide multilane road",
+              "broad avenue"
+            ],
+            "display": "Wide multi-lane road"
+          },
+          {
+            "keywords": [
+              "separated bike and pedestrian",
+              "modal separation"
+            ],
+            "display": "Separated road, bike, pedestrian zones"
+          },
+          {
+            "keywords": [
+              "near train station",
+              "station adjacent"
+            ],
+            "display": "Transit-adjacent (near Harajuku Station)"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "transit oriented development",
+              "tod"
+            ],
+            "display": "Transit-oriented development"
+          },
+          {
+            "keywords": [
+              "modernist wide avenue planning"
+            ],
+            "display": "Modernist wide-avenue urban planning"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "Crisp thick crosswalk stripes + blue bicycle lane markings",
+        "inference": "Developed-economy infrastructure quality",
+        "category": "economic"
+      },
+      {
+        "clue": "Wrought-iron curvy railings + artificial-turf hoarding",
+        "inference": "Japanese public-space aesthetics",
+        "category": "social"
+      },
+      {
+        "clue": "Car on left side of road + horizontal traffic signal",
+        "inference": "Japan (UK-legacy driving + domestic signal standard)",
+        "category": "political"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Explain",
+      "prompt": "Explain how the transportation infrastructure visible in this image reflects this city's level of economic development.",
+      "modelAnswer": "The image shows a wide road with clearly painted zebra stripes, dedicated blue bicycle-lane markings, protected pedestrian space with decorative railings, and mature urban street trees — all maintained at very high quality. This kind of multi-modal infrastructure requires substantial and sustained public investment, which is characteristic of a core country where surplus capital supports quality-of-life urban design rather than only basic road function. The separation of vehicle, bicycle, and pedestrian zones also signals that transportation policy prioritizes non-car users, a typical pattern in highly developed cities.",
+      "speedsConnection": "Targets Economic (development level) and Spatial (modal separation) categories connecting Topic 6.6 with Topic 7.8. The Explain verb requires causal reasoning linking infrastructure quality to development."
+    }
+  },
+  {
+    "id": "seoul_insadong",
+    "name": "Seoul, South Korea — Insadong",
+    "region": "East Asia",
+    "coordinates": {
+      "lat": 37.5735,
+      "lng": 126.9852
+    },
+    "image": "images/seoul_insadong.jpg",
+    "unitAlignment": [
+      "3.2",
+      "6.3",
+      "7.8"
+    ],
+    "description": "Pedestrianized commercial street in Seoul's Insadong heritage district showing Hangul signage, art-gallery infrastructure, and modern Korean fashion retail.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "hangul script",
+              "korean characters",
+              "korean writing"
+            ],
+            "display": "Hangul (Korean) script on signs"
+          },
+          {
+            "keywords": [
+              "gallery sign",
+              "korean gallery word"
+            ],
+            "display": "\"갤러리\" (gallery) sign"
+          },
+          {
+            "keywords": [
+              "art exhibition banner",
+              "peace art banner"
+            ],
+            "display": "Art-exhibition banner in Hangul"
+          },
+          {
+            "keywords": [
+              "traditional tiled roof",
+              "korean roof",
+              "clay tile roof"
+            ],
+            "display": "Traditional Korean tiled roof"
+          },
+          {
+            "keywords": [
+              "dress display window",
+              "mannequin in window",
+              "fashion display"
+            ],
+            "display": "Dress displays in shop window"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "korean cultural landscape"
+            ],
+            "display": "Korean cultural landscape"
+          },
+          {
+            "keywords": [
+              "peace narrative banner",
+              "korean peninsula peace"
+            ],
+            "display": "Korean Peninsula peace narrative"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "pedestrianized street",
+              "no cars allowed",
+              "pedestrian only street"
+            ],
+            "display": "Pedestrianized commercial street"
+          },
+          {
+            "keywords": [
+              "pink red planters",
+              "flower planters in row"
+            ],
+            "display": "Pink and red flower planters along walkway"
+          },
+          {
+            "keywords": [
+              "stone pedestrian paving",
+              "tile paving"
+            ],
+            "display": "Stone/tile pedestrian paving"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "seoul pedestrianization",
+              "municipal urban policy"
+            ],
+            "display": "Seoul municipal pedestrianization policy"
+          },
+          {
+            "keywords": [
+              "heritage district regulation"
+            ],
+            "display": "Heritage-district preservation regulation"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "decorative planters",
+              "potted flowers in row"
+            ],
+            "display": "Decorative flower planters"
+          },
+          {
+            "keywords": [
+              "artificial turf patches",
+              "fake grass patches"
+            ],
+            "display": "Artificial turf patches on plaza"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "korean temperate climate"
+            ],
+            "display": "Korean temperate climate"
+          },
+          {
+            "keywords": [
+              "decorative not ecological greenery"
+            ],
+            "display": "Decorative, not ecological, urban greenery"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "fashion dress retail",
+              "clothing retail",
+              "dress shop"
+            ],
+            "display": "Korean fashion / dress retail"
+          },
+          {
+            "keywords": [
+              "art gallery commerce",
+              "gallery business"
+            ],
+            "display": "Art gallery commerce"
+          },
+          {
+            "keywords": [
+              "modern mesh clad building",
+              "perforated metal facade"
+            ],
+            "display": "Modern mesh-clad commercial building"
+          },
+          {
+            "keywords": [
+              "high quality paving",
+              "new streetscape"
+            ],
+            "display": "Recent streetscape investment"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "korean developed economy"
+            ],
+            "display": "Korean developed-economy markers"
+          },
+          {
+            "keywords": [
+              "k fashion soft power",
+              "korean fashion industry"
+            ],
+            "display": "Korean fashion as soft-power export"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "few pedestrians",
+              "sparse street",
+              "quiet moment"
+            ],
+            "display": "Few pedestrians visible"
+          },
+          {
+            "keywords": [
+              "adult walker",
+              "working age adults"
+            ],
+            "display": "Adult walkers"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "ethnic korean population"
+            ],
+            "display": "Korean ethnic-homogeneous composition"
+          },
+          {
+            "keywords": [
+              "aging korean society"
+            ],
+            "display": "Aging Korean society"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "pedestrianized commercial",
+              "car free shopping street"
+            ],
+            "display": "Pedestrianized commercial street"
+          },
+          {
+            "keywords": [
+              "traditional next to modern",
+              "mixed heights"
+            ],
+            "display": "Traditional building next to modern"
+          },
+          {
+            "keywords": [
+              "heritage district look",
+              "heritage quarter"
+            ],
+            "display": "Heritage-district organization"
+          },
+          {
+            "keywords": [
+              "high quality pedestrian paving"
+            ],
+            "display": "High-quality pedestrian paving"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "insadong heritage zone"
+            ],
+            "display": "Insadong heritage-zone organization"
+          },
+          {
+            "keywords": [
+              "traditional modern juxtaposition"
+            ],
+            "display": "Traditional-modern spatial juxtaposition"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "Hangul script on multiple signs + \"갤러리\" gallery label",
+        "inference": "South Korea — Seoul art district",
+        "category": "social"
+      },
+      {
+        "clue": "Traditional tiled roof next to modern mesh-clad building",
+        "inference": "Heritage-modern coexistence",
+        "category": "spatial"
+      },
+      {
+        "clue": "Pedestrianized paving + planters + no cars",
+        "inference": "Municipal heritage-district pedestrianization",
+        "category": "political"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Describe",
+      "prompt": "Describe TWO visible characteristics that indicate this is a heritage district in an East Asian developed country.",
+      "modelAnswer": "Hangul script appears on every storefront and on a public-event banner, signaling a culturally specific Korean place. Directly alongside a modern mesh-clad commercial building stands a small building with a traditional Korean tiled roof, showing that heritage-style structures are preserved within active modern commerce — a pattern typical of a developed country that combines heritage-district regulation with ongoing commercial redevelopment.",
+      "speedsConnection": "Targets Social (cultural landscape) and Spatial (heritage-district organization) categories connecting Topic 3.2 with Topic 6.3. The Describe verb requires naming visible characteristics without causal reasoning."
+    }
+  },
+  {
+    "id": "dublin_templebar",
+    "name": "Dublin, Ireland — Temple Bar",
+    "region": "Western Europe",
+    "coordinates": {
+      "lat": 53.3454,
+      "lng": -6.2645
+    },
+    "image": "images/dublin_templebar.jpg",
+    "unitAlignment": [
+      "3.2",
+      "3.6",
+      "6.3"
+    ],
+    "description": "Cobblestone pedestrian street in Dublin's Temple Bar cultural district with colorful Irish pub facades and preserved Georgian architecture.",
+    "observations": {
+      "social": {
+        "tier1": [
+          {
+            "keywords": [
+              "red pub building",
+              "irish pub",
+              "pub with gold lettering"
+            ],
+            "display": "Red-painted Irish pub"
+          },
+          {
+            "keywords": [
+              "colorful shopfronts",
+              "painted commercial facades",
+              "bright storefronts"
+            ],
+            "display": "Colorful painted commercial facades"
+          },
+          {
+            "keywords": [
+              "pharmacy sign",
+              "english pharmacy"
+            ],
+            "display": "\"PHARMACY\" storefront sign"
+          },
+          {
+            "keywords": [
+              "temple sign",
+              "the temple pub"
+            ],
+            "display": "\"The Temple\" pub lettering"
+          },
+          {
+            "keywords": [
+              "hanging flower baskets",
+              "flower pots on wall"
+            ],
+            "display": "Hanging flower baskets on pub"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "irish pub culture"
+            ],
+            "display": "Irish pub culture as central social institution"
+          },
+          {
+            "keywords": [
+              "english dominant ireland",
+              "colonial language"
+            ],
+            "display": "Complex Irish-English linguistic history"
+          }
+        ]
+      },
+      "political": {
+        "tier1": [
+          {
+            "keywords": [
+              "cobblestone street",
+              "cobbles",
+              "cobbled paving"
+            ],
+            "display": "Cobblestone street paving"
+          },
+          {
+            "keywords": [
+              "georgian stone masonry",
+              "stone upper floors"
+            ],
+            "display": "Georgian stone masonry upper floors"
+          },
+          {
+            "keywords": [
+              "no cars on street",
+              "pedestrian only",
+              "car free"
+            ],
+            "display": "No vehicles (pedestrianized)"
+          },
+          {
+            "keywords": [
+              "ornate iron lamp post",
+              "heritage lamp"
+            ],
+            "display": "Ornate iron lamp post"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "british colonial architecture",
+              "georgian british"
+            ],
+            "display": "Georgian architecture (British colonial legacy)"
+          },
+          {
+            "keywords": [
+              "temple bar heritage district"
+            ],
+            "display": "Temple Bar heritage-district designation"
+          }
+        ]
+      },
+      "environmental": {
+        "tier1": [
+          {
+            "keywords": [
+              "ivy cascade",
+              "ivy on wall",
+              "climbing plant"
+            ],
+            "display": "Cascading ivy on pub wall"
+          },
+          {
+            "keywords": [
+              "golden late sun",
+              "warm afternoon light"
+            ],
+            "display": "Golden warm afternoon light"
+          },
+          {
+            "keywords": [
+              "flower baskets",
+              "hanging baskets"
+            ],
+            "display": "Hanging flower baskets"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "temperate maritime climate",
+              "irish climate"
+            ],
+            "display": "Irish temperate maritime climate"
+          },
+          {
+            "keywords": [
+              "year round vegetation"
+            ],
+            "display": "Climate supporting year-round vegetation"
+          }
+        ]
+      },
+      "economic": {
+        "tier1": [
+          {
+            "keywords": [
+              "multiple pubs together",
+              "pub density"
+            ],
+            "display": "Multiple pubs in close proximity"
+          },
+          {
+            "keywords": [
+              "pharmacy retail",
+              "chemist shop"
+            ],
+            "display": "Pharmacy retail"
+          },
+          {
+            "keywords": [
+              "cafe sign",
+              "brick alley cafe",
+              "coffee shop"
+            ],
+            "display": "\"Brick Alley Cafe\" sign"
+          },
+          {
+            "keywords": [
+              "well maintained buildings",
+              "preserved storefronts"
+            ],
+            "display": "Well-maintained heritage buildings"
+          },
+          {
+            "keywords": [
+              "dense tourist shops"
+            ],
+            "display": "Dense tourism-oriented commerce"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "tourism dependent economy"
+            ],
+            "display": "Tourism-economy dependence"
+          },
+          {
+            "keywords": [
+              "dublin high income",
+              "irish high income"
+            ],
+            "display": "High-income European capital"
+          }
+        ]
+      },
+      "demographic": {
+        "tier1": [
+          {
+            "keywords": [
+              "few walkers",
+              "sparse pedestrians"
+            ],
+            "display": "Few pedestrians visible"
+          },
+          {
+            "keywords": [
+              "adult walker",
+              "working age adult"
+            ],
+            "display": "Adult walker"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "tourist local mix"
+            ],
+            "display": "Mix of tourists and locals expected"
+          },
+          {
+            "keywords": [
+              "aging european demographic"
+            ],
+            "display": "Aging European demographic"
+          }
+        ]
+      },
+      "spatial": {
+        "tier1": [
+          {
+            "keywords": [
+              "cobblestone medieval street",
+              "medieval narrow street"
+            ],
+            "display": "Medieval cobblestone street"
+          },
+          {
+            "keywords": [
+              "narrow pedestrian alley",
+              "narrow walkway"
+            ],
+            "display": "Narrow pedestrianized street"
+          },
+          {
+            "keywords": [
+              "shops below homes above",
+              "mixed use ground floor"
+            ],
+            "display": "Shops below, residential above"
+          },
+          {
+            "keywords": [
+              "compact historic core",
+              "dense old buildings"
+            ],
+            "display": "Compact historic core"
+          }
+        ],
+        "tier2": [
+          {
+            "keywords": [
+              "temple bar cultural district"
+            ],
+            "display": "Temple Bar defined cultural district"
+          },
+          {
+            "keywords": [
+              "pre modern european urbanism",
+              "medieval urbanism"
+            ],
+            "display": "Pre-modern European urbanism"
+          }
+        ]
+      }
+    },
+    "clueHighlights": [
+      {
+        "clue": "Cobblestone + colorful pub facades + English signage",
+        "inference": "Irish cultural-commercial district",
+        "category": "social"
+      },
+      {
+        "clue": "Georgian stone upper floors + medieval street width",
+        "inference": "British-colonial architecture on medieval grid",
+        "category": "political"
+      },
+      {
+        "clue": "Multiple pubs + cafe + hanging flower baskets + no cars",
+        "inference": "Pedestrianized tourism district",
+        "category": "economic"
+      }
+    ],
+    "frq": {
+      "taskVerb": "Explain",
+      "prompt": "Explain how the preserved historic urban form visible in this image supports the current tourism-based economy.",
+      "modelAnswer": "The narrow cobblestone street, colorful painted pub facades, and Georgian stone-masonry buildings have been preserved through heritage-district regulation, creating a distinctive visual character that cannot be reproduced elsewhere. Tourists are drawn to this character precisely because it is unique and legible as \"Irish,\" which supports the dense cluster of pubs, cafes, and shops that depend on tourist footfall. The pedestrianization then reinforces the tourist economy by making the heritage character more accessible and pleasant to experience on foot.",
+      "speedsConnection": "Targets Political (heritage preservation) and Economic (tourism economy) categories connecting Topic 3.6 with Topic 6.3. The Explain verb requires causal reasoning linking preservation policy to economic outcomes."
+    }
+  }
+]
