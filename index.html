@@ -32,9 +32,21 @@ const SPEEDS = [
 ];
 
 const RHINO = [
-  "Sharp eye! 🦏","Geo-genius! 🦏","You spotted it! 🦏","Nice find! 🦏",
-  "Keep charging! 🦏","Rhino approved! 🦏","Great catch! 🦏","AP ready! 🦏",
-  "Unstoppable! 🦏","On the map! 🦏","Category covered! 🦏","Geo vocab! 🦏"
+  "Yup.","Nailed it.","Dude, right on.","That's the one.","Big yes.",
+  "Bingo.","Heck yes.","Sweet.","Got it.","6—7."
+];
+
+const WRONG = [
+  "Nah.","Nope.","Nah, bruh.","Nuh-uh.","Try again.",
+  "That don't impress me much.","Whomp whomp.","Negative.",
+  "Dude, you made a kitten cry."
+];
+
+// Loose match (partial credit) gets its own chill voice — must keep the +2 info
+const LOOSE = [
+  "Sorta. +2 — too generic. What kind?",
+  "Ehhh. +2 — get specific.",
+  "Half credit (+2). What's distinctive about it?"
 ];
 
 const HINTS = {
@@ -166,6 +178,124 @@ const fuzzy = (input, keywords) => {
   });
 };
 
+// Like fuzzy() but returns a result object describing HOW it matched.
+// {matched: true, quality: 'specific'|'loose'} or {matched: false}
+// 'loose' means the input was a generic word (one of GENERIC_WORDS, see below)
+// that matched a multi-word keyword. The student named the right *kind* of thing
+// but didn't describe what was distinctive about it. They get partial credit
+// (2 pts, no streak, no coverage credit) and a hint to be more specific.
+const GENERIC_WORDS = new Set([
+  // Generic nouns
+  "buildings","building","houses","house","homes","home","structures","structure",
+  "trees","tree","plants","plant","vegetation","grass",
+  "people","person","pedestrians","crowd","crowds",
+  "cars","car","vehicles","vehicle","trucks","truck",
+  "signs","sign","signage",
+  "road","roads","street","streets","path","paths",
+  "water","river","lake","sea","ocean",
+  "sky","clouds","cloud",
+  "roof","roofs","rooftop","rooftops","walls","wall",
+  "shops","shop","stores","store","market","markets","stalls","stall",
+  "windows","window","doors","door",
+  "men","women","kids","children","child","adults",
+  "things","stuff",
+  "lights","light","poles","pole","wires","wire",
+  "ground","floor","pavement","sidewalk","sidewalks",
+  // Bare modifiers — need a noun to be specific
+  "dense","crowded","packed","tight","compact",
+  "tall","short","big","small","large","huge",
+  "many","few","lots",
+  "old","new","modern","traditional","ancient","historic",
+  "colorful","colourful","bright","dark","clean","dirty","busy","quiet",
+  "wide","narrow","long","high","low","flat",
+]);
+const fuzzyMatch = (input, keywords) => {
+  const s = input.toLowerCase().trim();
+  if (s.length < 3) return {matched: false};
+  const sWords = s.split(/\s+/);
+  const expanded = sWords.flatMap(expand);
+  const phraseTerms = expandPhrase(s);
+  const allTerms = [...expanded, ...phraseTerms];
+  const typoMatch = (a, b) => {
+    if (Math.abs(a.length - b.length) > 2) return false;
+    if (a.length < 6 || b.length < 6) return false;
+    let d = 0, i = 0, j = 0;
+    while (i < a.length && j < b.length) {
+      if (a[i] !== b[j]) {
+        d++;
+        if (d > 2) return false;
+        if (a.length > b.length) i++;
+        else if (b.length > a.length) j++;
+        else { i++; j++; }
+      } else { i++; j++; }
+    }
+    return (d + (a.length - i) + (b.length - j)) <= 2;
+  };
+  // Single-word generic input: every match against a multi-word keyword is LOOSE.
+  // Single-word generic input matching a single-word keyword is also loose
+  // (e.g. typing "trees" when the keyword is just "trees" — they identified the
+  //  category of thing but not what was distinctive about it in this image).
+  const inputIsGeneric = sWords.length === 1 && GENERIC_WORDS.has(sWords[0]);
+  // Track best match found across all keywords for this entry
+  let best = null;
+  for (const k of keywords) {
+    const kl = k.toLowerCase();
+    const kWords = kl.split(/\s+/);
+    // Exact full-phrase match -> SPECIFIC (unless input is a single generic word)
+    if (s === kl) {
+      if (inputIsGeneric) { best = best || {matched: true, quality: 'loose'}; continue; }
+      return {matched: true, quality: 'specific'};
+    }
+    // Phrase-map term match -> SPECIFIC (student used geographic vocabulary)
+    if (phraseTerms.some(pt => {
+      const ptl = pt.toLowerCase();
+      if (kl === ptl || kl.includes(ptl) || ptl.includes(kl)) return true;
+      const ptWords = ptl.split(/\s+/);
+      return ptWords.length > 1 && ptWords.every(pw => kWords.some(kw => kw.startsWith(pw) || pw.startsWith(kw)));
+    })) return {matched: true, quality: 'specific'};
+    // Single-word input
+    if (sWords.length === 1) {
+      const tries = expand(s);
+      for (const tryW of tries) {
+        if (kWords.length === 1) {
+          if (kl === tryW || typoMatch(kl, tryW) || (tryW.length >= 7 && (kl.startsWith(tryW) || tryW.startsWith(kl)))) {
+            if (inputIsGeneric) { best = best || {matched: true, quality: 'loose'}; }
+            else return {matched: true, quality: 'specific'};
+          }
+        } else {
+          // Single word matching multi-word keyword:
+          //   - if input is generic -> LOOSE (don't reward "buildings" as if it were "densely packed buildings")
+          //   - if input is distinctive -> SPECIFIC (the student picked the most informative word)
+          if (kWords.some(w => w === tryW || typoMatch(w, tryW) || (tryW.length >= 7 && w.length >= 5 && (w.startsWith(tryW) || tryW.startsWith(w))))) {
+            if (inputIsGeneric) { best = best || {matched: true, quality: 'loose'}; }
+            else return {matched: true, quality: 'specific'};
+          }
+        }
+      }
+      continue;
+    }
+    // Multi-word input: needs to match 2+ distinct words from the keyword phrase.
+    // Critical: count UNIQUE keyword-words matched, not raw hits — otherwise
+    // two different expanded input terms can both map to the same keyword word
+    // (e.g. "people" -> "pedestrians" AND phrase-map "lots of people" -> "pedestrian density"
+    //  both match the keyword word "pedestrian", but that's really one concept matching once).
+    const matchedKwords = new Set();
+    for (const a of allTerms) {
+      if (a.length < 4) continue;
+      for (const b of kWords) {
+        if (b.length < 4) continue;
+        if (b === a || typoMatch(a, b) || b.startsWith(a) || a.startsWith(b)) {
+          matchedKwords.add(b);
+        }
+      }
+    }
+    if (matchedKwords.size >= 2) return {matched: true, quality: 'specific'};
+    // Full phrase substring: SPECIFIC (student typed a substantial subset of the full term)
+    if (s.length >= 10 && kl.length >= s.length && kl.includes(s)) return {matched: true, quality: 'specific'};
+  }
+  return best || {matched: false};
+};
+
 const haversine = (la1,lo1,la2,lo2) => {
   const R=6371, dr=Math.PI/180;
   const dLa=(la2-la1)*dr, dLo=(lo2-lo1)*dr;
@@ -291,13 +421,31 @@ const WorldMap = ({ onClick, guess, actual, showActual }) => {
 };
 
 const Toast = ({ msg, show, type }) => (
-  <div style={{position:"fixed",top:20,left:"50%",transform:`translateX(-50%) translateY(${show?0:-120}px)`,
-    background:"#fff",color:type==="wrong"?"#c0392b":"#2a9d8f",padding:"12px 24px 12px 12px",
-    borderRadius:16,fontSize:22,fontWeight:700,zIndex:1000,transition:"transform 0.35s cubic-bezier(.4,0,.2,1)",
-    boxShadow:"0 4px 16px rgba(0,0,0,0.15)",display:"flex",alignItems:"center",gap:10,
-    border:type==="wrong"?"2px solid #e17055":"2px solid #2a9d8f"}}>
-    <span style={{fontSize:42,lineHeight:1}}>{type==="wrong" ? "👀" : "✓"}</span>
-    {msg}
+  <div style={{
+    position:"fixed",top:24,left:"50%",
+    transform:`translateX(-50%) translateY(${show?0:-160}px)`,
+    background:"#F1ECDE",
+    color:"#1A2130",
+    padding:"12px 18px 12px 12px",
+    borderRadius:4,
+    fontSize:14.5,
+    fontWeight:400,
+    fontFamily:"'Inter',-apple-system,'Segoe UI',sans-serif",
+    letterSpacing:0.1,
+    zIndex:1000,
+    transition:"transform 0.4s cubic-bezier(.4,0,.2,1)",
+    boxShadow:"0 6px 28px rgba(26, 33, 48, 0.22)",
+    display:"flex",alignItems:"center",gap:14,
+    border:"0.5px solid rgba(26, 33, 48, 0.15)",
+    borderLeft:`3px solid ${type==="wrong" ? "#A07548" : "#1A2130"}`,
+    maxWidth:440
+  }}>
+    <img
+      src={type==="wrong" ? "wrong.png" : "correct.png"}
+      alt=""
+      style={{width:64,height:64,objectFit:"contain",flexShrink:0,display:"block"}}
+    />
+    <span style={{lineHeight:1.4}}>{msg}</span>
   </div>
 );
 
@@ -399,29 +547,91 @@ function SPEEDSExplorer() {
 
   const submitObs = () => {
     if(!inp.trim()||!loc)return;
+    // Helper: try to match `o` against the input, returning {matched, quality} or null
+    const tryMatch = o => {
+      const r = fuzzyMatch(inp, o.keywords);
+      return r.matched ? r : null;
+    };
     if(cat){
-      const found=allObs.find(o=>!matched.some(m=>m.text===o.text)&&o.category===cat&&fuzzy(inp,o.keywords));
+      // Find a not-yet-matched observation in the chosen category
+      let found=null, foundResult=null;
+      for(const o of allObs){
+        if(matched.some(m=>m.text===o.text)) continue;
+        if(o.category!==cat) continue;
+        const r=tryMatch(o);
+        if(r){found=o; foundResult=r; break;}
+      }
       if(found){
-        const s3=streak+1>=3;
-        const pts=(found.tier===1?(s3?15:10):(s3?8:5))+(found.geoVocab?2:0);
-        setMatched(p=>[...p,{...found,pts}]);setStreak(p=>p+1);setObs$(p=>p+pts);flash();
+        if(foundResult.quality==='loose'){
+          // Partial credit: 2 points, no streak progress, doesn't count toward coverage
+          setMatched(p=>[...p,{...found,pts:2,loose:true}]);
+          // Streak unchanged for loose matches (doesn't break, doesn't extend)
+          setObs$(p=>p+2);
+          flash(LOOSE[Math.floor(Math.random()*LOOSE.length)],"wrong");
+        } else {
+          const s3=streak+1>=3;
+          const pts=(found.tier===1?(s3?15:10):(s3?8:5))+(found.geoVocab?2:0);
+          setMatched(p=>[...p,{...found,pts}]);
+          setStreak(p=>p+1);
+          setObs$(p=>p+pts);
+          flash();
+        }
       } else {
-        const wrongCat=allObs.find(o=>!matched.some(m=>m.text===o.text)&&o.category!==cat&&fuzzy(inp,o.keywords));
-        if(wrongCat){const sp=SPEEDS.find(s=>s.key===wrongCat.category);setStreak(0);flash(`Right observation, wrong category! Try ${sp.icon} ${sp.label} 🔄`,"wrong");}
-        else{setStreak(0);flash("Keep looking! Try another angle 👀","wrong");}
+        // No match in chosen category — check other categories
+        // BUT: only redirect if the cross-category match is SPECIFIC.
+        // If the cross-category match is also loose (a generic word like "dense"),
+        // redirecting is misleading — the student didn't pick the wrong category,
+        // they typed something too vague. Better to ask for specificity.
+        let wrongCat=null, wrongResult=null;
+        for(const o of allObs){
+          if(matched.some(m=>m.text===o.text)) continue;
+          if(o.category===cat) continue;
+          const r=tryMatch(o);
+          if(r){wrongCat=o; wrongResult=r; break;}
+        }
+        if(wrongCat && wrongResult.quality==='specific'){
+          const sp=SPEEDS.find(s=>s.key===wrongCat.category);
+          setStreak(0);
+          flash(`Close — that's a ${sp.label} thing. Try the ${sp.icon} ${sp.label} pill.`,"wrong");
+        } else if(wrongCat && wrongResult.quality==='loose'){
+          // Generic word that vaguely matches another category — ask for specificity
+          setStreak(0);
+          flash(LOOSE[Math.floor(Math.random()*LOOSE.length)],"wrong");
+        } else {
+          setStreak(0);
+          flash(WRONG[Math.floor(Math.random()*WRONG.length)],"wrong");
+        }
       }
     } else {
-      const found=allObs.find(o=>!matched.some(m=>m.text===o.text)&&fuzzy(inp,o.keywords));
+      // No category selected — match against all
+      let found=null, foundResult=null;
+      for(const o of allObs){
+        if(matched.some(m=>m.text===o.text)) continue;
+        const r=tryMatch(o);
+        if(r){found=o; foundResult=r; break;}
+      }
       if(found){
-        const s3=streak+1>=3;
-        const pts=(found.tier===1?(s3?15:10):(s3?8:5))+(found.geoVocab?2:0);
-        setMatched(p=>[...p,{...found,pts}]);setStreak(p=>p+1);setObs$(p=>p+pts);flash();
-      } else {setStreak(0);flash("Keep looking! Try another angle 👀","wrong");}
+        if(foundResult.quality==='loose'){
+          setMatched(p=>[...p,{...found,pts:2,loose:true}]);
+          setObs$(p=>p+2);
+          flash(LOOSE[Math.floor(Math.random()*LOOSE.length)],"wrong");
+        } else {
+          const s3=streak+1>=3;
+          const pts=(found.tier===1?(s3?15:10):(s3?8:5))+(found.geoVocab?2:0);
+          setMatched(p=>[...p,{...found,pts}]);
+          setStreak(p=>p+1);
+          setObs$(p=>p+pts);
+          flash();
+        }
+      } else {
+        setStreak(0);
+        flash(WRONG[Math.floor(Math.random()*WRONG.length)],"wrong");
+      }
     }
     setInp("");iRef.current?.focus();
   };
 
-  const covBonus = () => {const c=new Set(matched.map(m=>m.category)).size;return c>=5?75:c>=4?50:c>=3?25:0;};
+  const covBonus = () => {const c=new Set(matched.filter(m=>!m.loose).map(m=>m.category)).size;return c>=5?75:c>=4?50:c>=3?25:0;};
 
   const submitLoc = () => {
     if(!loc)return;
@@ -442,7 +652,7 @@ function SPEEDSExplorer() {
     const sc=Object.values(ck).filter(Boolean).length;
     const pts=sc>=3?15:sc>=2?10:sc>=1?5:0;
     setFrqFB({ck,sc,pts,v});setObs$(p=>p+pts);setFrqDone(true);
-    if(pts>=10)flash("Strong FRQ response! 🦏");
+    if(pts>=10)flash("Solid FRQ. That's the structure.");
   };
 
   const scoreLim = () => {
@@ -450,7 +660,7 @@ function SPEEDSExplorer() {
     const ok=(loc.limitation?.acceptableResponses||[]).some(r=>
       limTxt.toLowerCase().includes(r.toLowerCase())||fuzzy(limTxt,[r]));
     setLimOk(ok);setLimDone(true);
-    if(ok){setObs$(p=>p+10);flash("Limitation identified! 🦏");}
+    if(ok){setObs$(p=>p+10);flash("Yup. +10.");}
   };
 
   const finish = () => {
@@ -735,48 +945,176 @@ function SPEEDSExplorer() {
 
   // ——— OBSERVE ———
   if(phase==="observe") return (
-    <div style={S.pg}>
+    <div style={{background:"#F1ECDE",minHeight:"100vh",fontFamily:"'Inter',-apple-system,'Segoe UI',sans-serif",color:"#1A2130",position:"relative"}}>
       <Toast msg={toast} show={toastOn} type={toastType}/>
-      <div style={S.bx}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}>
-          <h1 style={{...S.h1,fontSize:21,margin:0}}>S.P.E.E.D.S. Explorer</h1>
-          <div style={{display:"flex",alignItems:"center",gap:10}}>
-            <span style={{fontSize:16,color:"#555"}}>Round {roundIdx+1}/{ROUNDS}</span>
-            <span style={{fontSize:24,fontWeight:900,fontFamily:"monospace",color:timer<30?"#e63946":"#2a9d8f"}}>{fmt(timer)}</span>
+
+      {/* Header strip */}
+      <div style={{borderBottom:"0.5px solid rgba(26, 33, 48, 0.1)",background:"#F7F3E6"}}>
+        <div style={{maxWidth:920,margin:"0 auto",padding:"14px 24px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+          <div style={{display:"flex",alignItems:"center",gap:14}}>
+            <span style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:15,fontWeight:500,letterSpacing:0.3}}>SPEEDS Explorer</span>
+            <span style={{fontSize:11,letterSpacing:1.5,textTransform:"uppercase",color:"#6B4A2D"}}>Observe</span>
+          </div>
+          <div style={{display:"flex",alignItems:"center",gap:18}}>
+            <span style={{fontSize:12,color:"rgba(26, 33, 48, 0.55)"}}>Round {roundIdx+1} of {ROUNDS}</span>
+            <span style={{fontSize:22,fontWeight:600,fontFamily:"'Inter',monospace",fontVariantNumeric:"tabular-nums",color:timer<30?"#A07548":"#1A2130",letterSpacing:0.5}}>{fmt(timer)}</span>
           </div>
         </div>
-        <Img/>
-        {/* SPEEDS Pills + Hints in one row */}
-        <div style={{display:"flex",flexWrap:"wrap",gap:6,margin:"8px 0 6px",justifyContent:"center",alignItems:"center"}}>
+      </div>
+
+      <div style={{maxWidth:920,margin:"0 auto",padding:"24px"}}>
+
+        {/* Image */}
+        <div style={{marginBottom:20,borderRadius:6,overflow:"hidden",border:"0.5px solid rgba(26, 33, 48, 0.15)",background:"#1A2130"}}>
+          <Img/>
+        </div>
+
+        {/* Instruction line */}
+        <div style={{textAlign:"center",marginBottom:14,fontSize:13,color:"rgba(26, 33, 48, 0.6)",letterSpacing:0.1}}>
+          Pick a category, then identify one specific thing you see.
+        </div>
+
+        {/* SPEEDS Pills */}
+        <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:10,justifyContent:"center",alignItems:"center"}}>
           {SPEEDS.map(sp=>{
             const n=matched.filter(m=>m.category===sp.key).length;
             const on=cat===sp.key;
-            return <button key={sp.key} onClick={()=>setCat(on?null:sp.key)} style={{...S.pill,background:on?sp.color:sp.color+"12",color:on?"#fff":sp.color,borderColor:on?sp.color:"transparent"}}>
-              {sp.icon} {sp.label} {n>0&&<span style={{...S.bg,background:"rgba(0,0,0,0.1)",fontSize:14,padding:"2px 6px"}}>{n}</span>}
+            return <button key={sp.key} onClick={()=>setCat(on?null:sp.key)} style={{
+              background:on?"#1A2130":"transparent",
+              color:on?"#F1ECDE":"rgba(26, 33, 48, 0.75)",
+              border:on?"1px solid #1A2130":"0.5px solid rgba(26, 33, 48, 0.25)",
+              borderRadius:4,
+              padding:"8px 14px",
+              fontSize:13,
+              fontWeight:on?600:500,
+              cursor:"pointer",
+              fontFamily:"inherit",
+              display:"inline-flex",
+              alignItems:"center",
+              gap:7,
+              transition:"all 0.15s",
+              letterSpacing:0.2
+            }}>
+              <span style={{fontSize:14}}>{sp.icon}</span>
+              {sp.label}
+              {n>0&&<span style={{
+                background:on?"rgba(241, 236, 222, 0.25)":"rgba(160, 117, 72, 0.15)",
+                color:on?"#F1ECDE":"#6B4A2D",
+                fontSize:11,fontWeight:600,padding:"1px 6px",borderRadius:8,marginLeft:2
+              }}>{n}</span>}
             </button>;
           })}
-          <button onClick={()=>setHints(!hints)} style={{...S.pill,background:hints?"#e9c46a":"#e9c46a18",color:hints?"#fff":"#b8960a",borderColor:hints?"#e9c46a":"transparent"}}>
-            💡 Hints
+          <button onClick={()=>setHints(!hints)} style={{
+            background:hints?"#A07548":"transparent",
+            color:hints?"#F1ECDE":"#A07548",
+            border:hints?"1px solid #A07548":"0.5px solid rgba(160, 117, 72, 0.4)",
+            borderRadius:4,padding:"8px 14px",fontSize:13,fontWeight:hints?600:500,
+            cursor:"pointer",fontFamily:"inherit",display:"inline-flex",alignItems:"center",
+            gap:6,transition:"all 0.15s",letterSpacing:0.2
+          }}>
+            Hints
           </button>
         </div>
-        {hints&&<div style={{background:"#f9f6f1",fontSize:18,color:"#444",padding:"8px 14px",textAlign:"center",marginBottom:6,borderRadius:10,border:"1px solid #e8e2d8"}}>
-          {cat?HINTS[cat]:"Tap a category above to see hints."}
+
+        {/* Hint panel */}
+        {hints&&<div style={{
+          background:"rgba(160, 117, 72, 0.08)",
+          borderLeft:"2px solid #A07548",
+          borderRadius:"0 3px 3px 0",
+          padding:"12px 16px",marginBottom:14,
+          fontSize:13.5,lineHeight:1.55,color:"rgba(26, 33, 48, 0.78)"
+        }}>
+          <span style={{fontSize:11,letterSpacing:1.5,textTransform:"uppercase",color:"#6B4A2D",marginRight:8}}>Hint</span>
+          {cat?HINTS[cat]:"Pick a category above to see what to look for."}
         </div>}
-        {/* Input */}
-        <div style={{display:"flex",gap:8,marginBottom:6}}>
+
+        {/* Input + submit */}
+        <div style={{display:"flex",gap:8,marginBottom:14}}>
           <input ref={iRef} value={inp} onChange={e=>setInp(e.target.value)} onKeyDown={e=>e.key==="Enter"&&submitObs()}
-            placeholder={cat?`Type a ${cat} observation...`:"Type any observation..."} style={S.inp}/>
-          <button onClick={submitObs} style={{...S.bt,...S.b1,whiteSpace:"nowrap"}}>Submit</button>
+            placeholder={cat?`Name one ${cat} thing you can see...`:"Pick a category first..."}
+            disabled={!cat}
+            style={{
+              flex:1,padding:"14px 16px",borderRadius:4,
+              border:"0.5px solid rgba(26, 33, 48, 0.25)",
+              background:cat?"#FFFFFF":"rgba(255, 255, 255, 0.5)",
+              color:"#1A2130",fontSize:15,outline:"none",
+              fontFamily:"inherit",letterSpacing:0.1
+            }}/>
+          <button onClick={submitObs} disabled={!cat||!inp.trim()} style={{
+            background:cat&&inp.trim()?"#1A2130":"rgba(26, 33, 48, 0.3)",
+            color:"#F1ECDE",border:"none",padding:"14px 28px",
+            fontSize:14,fontWeight:500,borderRadius:4,
+            cursor:cat&&inp.trim()?"pointer":"not-allowed",
+            fontFamily:"inherit",whiteSpace:"nowrap",letterSpacing:0.3
+          }}>Submit</button>
         </div>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4}}>
-          <span style={{fontSize:16,color:"#555"}}>{matched.length} found</span>
-          {streak>=3&&<span style={{...S.bg,background:"#e9c46a25",color:"#e9c46a"}}>🔥 {streak} streak!</span>}
-          <span style={{fontSize:19,fontWeight:900,color:"#b8960a"}}>Score: {obs$}</span>
+
+        {/* Score strip */}
+        <div style={{
+          display:"flex",justifyContent:"space-between",alignItems:"center",
+          padding:"10px 16px",marginBottom:12,
+          background:"#F7F3E6",borderRadius:4,
+          border:"0.5px solid rgba(26, 33, 48, 0.08)"
+        }}>
+          <span style={{fontSize:12.5,color:"rgba(26, 33, 48, 0.65)",letterSpacing:0.2}}>{matched.length} {matched.length===1?"observation":"observations"}</span>
+          {streak>=3&&<span style={{
+            fontSize:11,letterSpacing:1.5,textTransform:"uppercase",
+            color:"#A07548",fontWeight:600
+          }}>Streak ×{streak}</span>}
+          <span style={{
+            fontFamily:"'Playfair Display',Georgia,serif",
+            fontSize:20,fontWeight:500,color:"#1A2130",letterSpacing:0.3
+          }}>{obs$}</span>
         </div>
-        <div style={{display:"flex",flexWrap:"wrap",gap:4,marginBottom:8}}>
-          {matched.map((m,i)=>{const sp=SPEEDS.find(s=>s.key===m.category);return <span key={i} style={{...S.bg,background:sp.color+"18",color:sp.color,fontSize:14,maxWidth:280,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{sp.icon} {m.text.substring(0,45)}… +{m.pts}</span>;})}
+
+        {/* Found observations */}
+        {matched.length>0&&<div style={{marginBottom:18}}>
+          <div style={{display:"flex",flexDirection:"column",gap:5}}>
+            {matched.map((m,i)=>{
+              const sp=SPEEDS.find(s=>s.key===m.category);
+              return <div key={i} style={{
+                display:"flex",alignItems:"center",gap:10,
+                padding:"8px 12px",
+                background:m.loose?"rgba(160, 117, 72, 0.06)":"#FFFFFF",
+                border:"0.5px solid rgba(26, 33, 48, 0.08)",
+                borderRadius:3,
+                fontSize:13.5,
+                color:m.loose?"rgba(26, 33, 48, 0.55)":"rgba(26, 33, 48, 0.85)"
+              }}>
+                <span style={{
+                  display:"inline-block",width:6,height:6,borderRadius:"50%",
+                  background:m.loose?"#A07548":sp.color,
+                  flexShrink:0,opacity:m.loose?0.45:1
+                }}/>
+                <span style={{fontSize:11,letterSpacing:1.2,textTransform:"uppercase",color:"#6B4A2D",fontWeight:500,flexShrink:0,minWidth:62}}>{sp.label}</span>
+                <span style={{flex:1,fontStyle:m.loose?"italic":"normal"}}>{m.text}</span>
+                <span style={{
+                  fontFamily:"'Playfair Display',Georgia,serif",
+                  fontSize:14,fontWeight:500,
+                  color:m.loose?"#A07548":"#1A2130",
+                  flexShrink:0
+                }}>+{m.pts}</span>
+              </div>;
+            })}
+          </div>
+        </div>}
+
+        {/* Skip button */}
+        <div style={{textAlign:"center",marginTop:24,paddingTop:16,borderTop:"0.5px solid rgba(26, 33, 48, 0.08)"}}>
+          <button onClick={()=>{setPhase("locate");setTimer(30);}} style={{
+            background:"transparent",
+            color:"rgba(26, 33, 48, 0.55)",
+            border:"none",
+            fontSize:13,
+            cursor:"pointer",
+            fontFamily:"inherit",
+            textDecoration:"underline",
+            textDecorationColor:"rgba(26, 33, 48, 0.25)",
+            textUnderlineOffset:3,
+            letterSpacing:0.2
+          }}>Skip to map →</button>
         </div>
-        <div style={{textAlign:"center"}}><button onClick={()=>{setPhase("locate");setTimer(30);}} style={{...S.bt,...S.b2,fontSize:16,padding:"8px 20px"}}>Skip to Map →</button></div>
+
       </div>
     </div>
   );
