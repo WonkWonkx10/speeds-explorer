@@ -264,11 +264,41 @@ const fuzzyMatch = (input, keywords) => {
           }
         } else {
           // Single word matching multi-word keyword:
-          //   - if input is generic -> LOOSE (don't reward "buildings" as if it were "densely packed buildings")
-          //   - if input is distinctive -> SPECIFIC (the student picked the most informative word)
-          if (kWords.some(w => w === tryW || typoMatch(w, tryW) || (tryW.length >= 7 && w.length >= 5 && (w.startsWith(tryW) || tryW.startsWith(w))))) {
-            if (inputIsGeneric) { best = best || {matched: true, quality: 'loose'}; }
-            else return {matched: true, quality: 'specific'};
+          //   - if input is generic -> LOOSE
+          //   - if input matches the keyword's HEAD NOUN -> SPECIFIC
+          //   - otherwise (matches a modifier or side-detail) -> LOOSE
+          //
+          // Identifying the head noun: usually the last word, but if the keyword
+          // ends with a prepositional or descriptive tail ("on horizon",
+          // "in distance", "of buildings"), walk backward through positional/filler
+          // words to find the real head.
+          const POSITIONAL = new Set([
+            "on","in","at","by","near","over","under","along","around","behind","between","beside",
+            "with","without","of","for","from","to","into","onto",
+            "the","a","an","and","or","but","that","which",
+            "horizon","background","frame","distance","front","side","top","bottom","middle","center","centre","sky",
+            "style","pattern","type","kind","form","look","appearance",
+            "visible","seen","shown","showing","painted","made","based","dominated","dominant",
+            "above","below","there","here","everywhere","throughout"
+          ]);
+          let headIdx = kWords.length - 1;
+          while (headIdx > 0 && POSITIONAL.has(kWords[headIdx])) headIdx--;
+          const headNoun = kWords[headIdx];
+          const matchedWord = kWords.find(w =>
+            w === tryW ||
+            typoMatch(w, tryW) ||
+            (tryW.length >= 7 && w.length >= 5 && (w.startsWith(tryW) || tryW.startsWith(w)))
+          );
+          if (matchedWord) {
+            if (inputIsGeneric) {
+              best = best || {matched: true, quality: 'loose'};
+            } else if (matchedWord === headNoun ||
+                       (matchedWord.length >= 5 && headNoun.length >= 5 &&
+                        (matchedWord.startsWith(headNoun) || headNoun.startsWith(matchedWord)))) {
+              return {matched: true, quality: 'specific'};
+            } else {
+              best = best || {matched: true, quality: 'loose'};
+            }
           }
         }
       }
