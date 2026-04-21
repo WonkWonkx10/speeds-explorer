@@ -8,6 +8,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-geo-projection/4.0.0/d3-geo-projection.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
@@ -542,14 +543,11 @@ const clarifyTriggerWord = (input) => {
 // this location? Negated references ("no trees", "no vegetation", "treeless
 // street") don't count — if the image explicitly lacks the feature, asking
 // the student to describe what kind of that feature it is is nonsense.
+// Handles singular/plural variants ("roads" matches "road" obs and vice versa).
 const locHasTier1Reference = (word, loc) => {
   if (!word || !loc || !loc.observations) return false;
   const w = word.toLowerCase();
-  // Also match the singular/plural counterpart, so "roads" matches "road"
-  // obs and "tree" matches "trees" obs. Naive s-strip covers 95% of cases
-  // ("road"/"roads", "tree"/"trees", "building"/"buildings") without hauling
-  // in a stemming library. Irregular plurals ("men"/"women"/"children") are
-  // already listed as separate keys in CLARIFICATION_QUESTIONS.
+  // Also match the singular/plural counterpart via naive s-strip.
   const variants = new Set([w]);
   if (w.length > 3 && w.endsWith("s")) variants.add(w.slice(0, -1));
   else variants.add(w + "s");
@@ -722,16 +720,47 @@ const haversine = (la1,lo1,la2,lo2) => {
 
 const locPts = d => d<150?5000:d<500?4000:d<1000?3000:d<2000?2000:d<4000?1000:d<8000?500:100;
 
-const WorldMap = ({ onClick, guess, actual, showActual }) => {
+// ——— WorldMap ———
+// Robinson projection (d3-geo-projection) with an earth palette.
+// paper  #F1ECDE   background
+// sienna #A07548   accents (drop-pin, dashed line)
+// ink    #1A2130   bullseye ring, text
+// land   #E4D9BC   fill; border stroke is a slightly darker sienna #8F6A3F
+//
+// Props:
+//   onClick(lat, lng)   fires on Locate clicks; snapped to country centroid
+//   guess  {lat,lng}    user's guess; rendered as a drop-pin
+//   actual {lat,lng}    true location; rendered as a bullseye in reveal mode
+//   showActual          boolean; render the actual pin + dashed line + distance badge
+//   distanceKm          optional number; when present in reveal, shown as a badge
+//   revealMode          when true, the map auto-zooms to fit both pins and disables panning UI
+const WorldMap = ({ onClick, guess, actual, showActual, distanceKm, revealMode }) => {
   const svgRef = useRef(null);
   const [geoData, setGeoData] = useState(null);
+  const [countries, setCountries] = useState(null);
   const [xform, setXform] = useState({k:1,x:0,y:0});
   const zoomBeh = useRef(null);
   const W = 580, H = 290;
 
+  // Earth palette
+  const COLORS = {
+    paper:      "#F1ECDE",
+    land:       "#E4D9BC",
+    landStroke: "#8F6A3F",
+    graticule:  "#C9B997",
+    equator:    "#A07548",
+    sienna:     "#A07548",
+    siennaDeep: "#6B4A2D",
+    ink:        "#1A2130",
+    guess:      "#A07548",
+    actualRing: "#1A2130",
+    actualDot:  "#A07548"
+  };
+
   const proj = useMemo(() => {
     if (typeof d3 === "undefined") return null;
-    return d3.geoNaturalEarth1().scale(88).translate([W/2, H/2]).precision(0.1);
+    const robinson = (d3.geoRobinson || d3.geoNaturalEarth1);
+    return robinson().scale(108).translate([W/2, H/2]).precision(0.1);
   }, []);
 
   const pathGen = useMemo(() => {
@@ -745,8 +774,10 @@ const WorldMap = ({ onClick, guess, actual, showActual }) => {
       .then(r => r.json())
       .then(world => {
         const land = topojson.feature(world, world.objects.land);
+        const countryFc = topojson.feature(world, world.objects.countries);
         const borders = topojson.mesh(world, world.objects.countries, (a,b) => a !== b);
         setGeoData({ landPath: pathGen(land), bordersPath: pathGen(borders) });
+        setCountries(countryFc);
       })
       .catch(() => setGeoData({ error: true }));
   }, [pathGen]);
@@ -755,11 +786,39 @@ const WorldMap = ({ onClick, guess, actual, showActual }) => {
     if (!svgRef.current) return;
     const zoom = d3.zoom()
       .scaleExtent([1, 12])
-      .filter(e => e.type === "mousedown" || e.type === "touchstart" || (e.type === "wheel" && e.ctrlKey))
+      .filter(e => {
+        if (revealMode) return false;
+        return e.type === "mousedown" || e.type === "touchstart" || (e.type === "wheel" && e.ctrlKey);
+      })
       .on("zoom", e => setXform({k:e.transform.k, x:e.transform.x, y:e.transform.y}));
     d3.select(svgRef.current).call(zoom);
     zoomBeh.current = zoom;
-  }, [svgRef.current]);
+  }, [svgRef.current, revealMode]);
+
+  // Auto-zoom to fit both pins on reveal
+  useEffect(() => {
+    if (!revealMode || !guess || !actual || !proj || !svgRef.current || !zoomBeh.current) return;
+    const g = proj([guess.lng, guess.lat]);
+    const a = proj([actual.lng, actual.lat]);
+    if (!g || !a || [g[0],g[1],a[0],a[1]].some(v => !Number.isFinite(v))) return;
+    const minX = Math.min(g[0], a[0]), maxX = Math.max(g[0], a[0]);
+    const minY = Math.min(g[1], a[1]), maxY = Math.max(g[1], a[1]);
+    const padX = 70, padY = 55;
+    const dx = (maxX - minX) + padX*2;
+    const dy = (maxY - minY) + padY*2;
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+    const k = Math.max(1, Math.min(6, Math.min(W/dx, H/dy)));
+    const tx = W/2 - cx*k;
+    const ty = H/2 - cy*k;
+    // defer one frame to make sure the svg has laid out
+    const rafId = requestAnimationFrame(() => {
+      if (!svgRef.current || !zoomBeh.current) return;
+      d3.select(svgRef.current).transition().duration(700)
+        .call(zoomBeh.current.transform, d3.zoomIdentity.translate(tx, ty).scale(k));
+    });
+    return () => cancelAnimationFrame(rafId);
+  }, [revealMode, proj, guess && guess.lat, guess && guess.lng, actual && actual.lat, actual && actual.lng]);
 
   const resetZoom = e => {
     e.stopPropagation();
@@ -779,59 +838,109 @@ const WorldMap = ({ onClick, guess, actual, showActual }) => {
       d3.select(svgRef.current).transition().duration(250).call(zoomBeh.current.scaleBy, 0.625);
   };
 
+  // Snap the click to the centroid of the country under the pointer.
+  // Falls back to the raw click point if no country feature contains it.
   const handleClick = e => {
+    if (revealMode) return;
     if (!proj || !svgRef.current) return;
     const rect = svgRef.current.getBoundingClientRect();
     const svgX = ((e.clientX - rect.left) / rect.width * W - xform.x) / xform.k;
     const svgY = ((e.clientY - rect.top) / rect.height * H - xform.y) / xform.k;
     const coords = proj.invert([svgX, svgY]);
-    if (coords && !isNaN(coords[0]) && !isNaN(coords[1])) onClick(coords[1], coords[0]);
+    if (!coords || isNaN(coords[0]) || isNaN(coords[1])) return;
+    const lng = coords[0], lat = coords[1];
+    if (countries && countries.features && pathGen) {
+      const hit = countries.features.find(f => d3.geoContains(f, [lng, lat]));
+      if (hit) {
+        const c = d3.geoCentroid(hit);
+        if (c && Number.isFinite(c[0]) && Number.isFinite(c[1])) {
+          onClick(c[1], c[0]);
+          return;
+        }
+      }
+    }
+    onClick(lat, lng);
   };
 
-  const pin = (lat, lng) => {
-    if (!proj) return null;
-    const [x,y] = proj([lng, lat]);
-    return { x: x*xform.k + xform.x, y: y*xform.k + xform.y };
-  };
-
-  const gPin = guess ? pin(guess.lat, guess.lng) : null;
-  const aPin = (showActual && actual) ? pin(actual.lat, actual.lng) : null;
+  // Raw projection coords (inside the zoomed <g>). Pins live inside the same <g>
+  // as the map and are counter-scaled by 1/k so they stay visually constant.
+  const gProj = guess && proj ? proj([guess.lng, guess.lat]) : null;
+  const aProj = (showActual && actual && proj) ? proj([actual.lng, actual.lat]) : null;
+  const gOk = gProj && Number.isFinite(gProj[0]) && Number.isFinite(gProj[1]);
+  const aOk = aProj && Number.isFinite(aProj[0]) && Number.isFinite(aProj[1]);
 
   const graticule = proj && pathGen ? pathGen(d3.geoGraticule()()) : null;
   const outline = proj && pathGen ? pathGen({type:"Sphere"}) : null;
   const equator = proj && pathGen ? pathGen({type:"LineString",coordinates:[[-180,0],[0,0],[180,0]]}) : null;
-  const pr = 5/xform.k, fs = 8/xform.k, sw = 1.5/xform.k;
+
+  const borderW = 0.5 / xform.k;
+  const invK = 1 / (xform.k || 1); // counter-scale factor
+
+  // Pin / bullseye sizes (constant screen pixels, thanks to invK counter-scale)
+  const PIN_R    = 6;
+  const BULLS_R1 = 9;
+  const BULLS_R2 = 5.5;
+  const BULLS_R3 = 2.5;
+
+  const fmtKm = d => {
+    if (!Number.isFinite(d)) return "";
+    if (d < 10)    return d.toFixed(1) + " km";
+    if (d < 1000)  return Math.round(d) + " km";
+    return (d/1000).toFixed(1).replace(/\.0$/, "") + "k km";
+  };
 
   return (
-    <div style={{borderRadius:12,overflow:"hidden",border:"2px solid #c5b99a",background:"#b8d4e4",position:"relative"}}>
-      <div style={{position:"absolute",top:8,right:8,zIndex:10,display:"flex",gap:4,alignItems:"center"}}>
-        <button onClick={zoomIn} style={{background:"rgba(255,255,255,0.9)",border:"1px solid #c5b99a",borderRadius:6,width:30,height:30,fontSize:21,cursor:"pointer",fontWeight:700,color:"#5a4a2a",lineHeight:1}}>+</button>
-        <button onClick={zoomOut} style={{background:"rgba(255,255,255,0.9)",border:"1px solid #c5b99a",borderRadius:6,width:30,height:30,fontSize:21,cursor:"pointer",fontWeight:700,color:"#5a4a2a",lineHeight:1}}>−</button>
-        {xform.k > 1 && <button onClick={resetZoom} style={{background:"rgba(255,255,255,0.9)",border:"1px solid #c5b99a",borderRadius:6,padding:"3px 8px",fontSize:15,cursor:"pointer",fontWeight:600,color:"#5a4a2a"}}>⟳</button>}
-      </div>
-      <div style={{position:"absolute",bottom:8,left:8,zIndex:10,background:"rgba(255,255,255,0.7)",borderRadius:4,padding:"2px 6px",fontSize:14,color:"#5a4a2a",pointerEvents:"none"}}>
-        {xform.k > 1 ? `${xform.k.toFixed(1)}× · drag to pan` : "+ / − to zoom · ctrl+scroll · drag to pan"}
-      </div>
-      <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} style={{width:"100%",display:"block",cursor:xform.k>1?"move":"crosshair"}} onClick={handleClick}>
-        <rect width={W} height={H} fill="#b8d4e4"/>
+    <div style={{borderRadius:8,overflow:"hidden",border:`1px solid ${COLORS.landStroke}`,background:COLORS.paper,position:"relative"}}>
+      {!revealMode && <div style={{position:"absolute",top:8,right:8,zIndex:10,display:"flex",gap:4,alignItems:"center"}}>
+        <button onClick={zoomIn}  style={{background:COLORS.paper,border:`1px solid ${COLORS.landStroke}`,borderRadius:4,width:30,height:30,fontSize:20,cursor:"pointer",fontWeight:500,color:COLORS.ink,lineHeight:1,fontFamily:"'Inter',sans-serif"}}>+</button>
+        <button onClick={zoomOut} style={{background:COLORS.paper,border:`1px solid ${COLORS.landStroke}`,borderRadius:4,width:30,height:30,fontSize:20,cursor:"pointer",fontWeight:500,color:COLORS.ink,lineHeight:1,fontFamily:"'Inter',sans-serif"}}>−</button>
+        {xform.k > 1 && <button onClick={resetZoom} style={{background:COLORS.paper,border:`1px solid ${COLORS.landStroke}`,borderRadius:4,padding:"3px 8px",fontSize:13,cursor:"pointer",fontWeight:500,color:COLORS.ink,fontFamily:"'Inter',sans-serif"}}>reset</button>}
+      </div>}
+      {!revealMode && <div style={{position:"absolute",bottom:8,left:8,zIndex:10,background:"rgba(241,236,222,0.85)",borderRadius:3,padding:"2px 8px",fontSize:11,color:COLORS.siennaDeep,pointerEvents:"none",fontFamily:"'Inter',sans-serif",letterSpacing:0.3}}>
+        {xform.k > 1 ? `${xform.k.toFixed(1)}× · drag to pan` : "click a country to drop your pin"}
+      </div>}
+      <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} style={{width:"100%",display:"block",cursor:revealMode ? "default" : (xform.k>1?"move":"crosshair"),background:COLORS.paper}} onClick={handleClick}>
+        <rect width={W} height={H} fill={COLORS.paper}/>
         <g transform={`translate(${xform.x},${xform.y}) scale(${xform.k})`}>
-          {graticule && <path d={graticule} fill="none" stroke="#a0bcd0" strokeWidth={0.3/xform.k} opacity={0.5}/>}
-          {geoData && !geoData.error && <path d={geoData.landPath} fill="#d4c9a0" stroke="none"/>}
-          {geoData && !geoData.error && <path d={geoData.bordersPath} fill="none" stroke="#b0a070" strokeWidth={0.4/xform.k} opacity={0.8}/>}
-          {outline && <path d={outline} fill="none" stroke="#7aaabf" strokeWidth={1/xform.k}/>}
-          {equator && <path d={equator} fill="none" stroke="#c09060" strokeWidth={0.6/xform.k} strokeDasharray={`${4/xform.k},${3/xform.k}`} opacity={0.6}/>}
-          {geoData && geoData.error && <text x={W/2} y={H/2} fill="#888" fontSize={12} textAnchor="middle">Map unavailable offline</text>}
-          {!geoData && <text x={W/2} y={H/2} fill="#666" fontSize={12} textAnchor="middle">Loading map...</text>}
+          {graticule && <path d={graticule} fill="none" stroke={COLORS.graticule} strokeWidth={borderW*0.8} opacity={0.45}/>}
+          {geoData && !geoData.error && <path d={geoData.landPath}    fill={COLORS.land} stroke={COLORS.landStroke} strokeWidth={borderW*1.4} opacity={1}/>}
+          {geoData && !geoData.error && <path d={geoData.bordersPath} fill="none"        stroke={COLORS.landStroke} strokeWidth={borderW}     opacity={0.85}/>}
+          {outline && <path d={outline} fill="none" stroke={COLORS.landStroke} strokeWidth={borderW*1.6} opacity={0.9}/>}
+          {equator && <path d={equator} fill="none" stroke={COLORS.equator} strokeWidth={borderW*0.9} strokeDasharray={`${3/xform.k},${3/xform.k}`} opacity={0.35}/>}
+          {geoData && geoData.error && <text x={W/2} y={H/2} fill={COLORS.siennaDeep} fontSize={12} textAnchor="middle" fontFamily="'Inter',sans-serif">Map unavailable offline</text>}
+          {!geoData && <text x={W/2} y={H/2} fill={COLORS.siennaDeep} fontSize={12} textAnchor="middle" fontFamily="'Inter',sans-serif">Loading map...</text>}
+
+          {/* Dashed line between guess and actual (reveal only). Inside the zoomed <g>
+              at raw projection coords; non-scaling-stroke keeps the line weight constant. */}
+          {gOk && aOk && <line x1={gProj[0]} y1={gProj[1]} x2={aProj[0]} y2={aProj[1]}
+            stroke={COLORS.sienna} strokeWidth={1.5} strokeDasharray="4,3" opacity={0.9}
+            vectorEffect="non-scaling-stroke"/>}
+
+          {/* Guess pin — drop-pin at projection coords, counter-scaled to stay visually constant */}
+          {gOk && <g transform={`translate(${gProj[0]},${gProj[1]}) scale(${invK})`}>
+            <path d={`M 0 2 L -${PIN_R*0.7} -${PIN_R*1.3} A ${PIN_R} ${PIN_R} 0 1 1 ${PIN_R*0.7} -${PIN_R*1.3} Z`}
+              fill={COLORS.guess} stroke={COLORS.paper} strokeWidth={1.5}/>
+            <circle cx={0} cy={-PIN_R*1.1} r={PIN_R*0.35} fill={COLORS.paper}/>
+          </g>}
+
+          {/* Actual-location bullseye (reveal only). Same counter-scale pattern. */}
+          {aOk && <g transform={`translate(${aProj[0]},${aProj[1]}) scale(${invK})`}>
+            <circle cx={0} cy={0} r={BULLS_R1} fill="none" stroke={COLORS.actualRing} strokeWidth={1.2} opacity={0.5}/>
+            <circle cx={0} cy={0} r={BULLS_R2} fill="none" stroke={COLORS.actualRing} strokeWidth={1.3}/>
+            <circle cx={0} cy={0} r={BULLS_R3} fill={COLORS.actualDot} stroke={COLORS.actualRing} strokeWidth={0.8}/>
+            <line x1={-BULLS_R1-2} y1={0} x2={-BULLS_R1+3} y2={0} stroke={COLORS.actualRing} strokeWidth={1}/>
+            <line x1={ BULLS_R1-3} y1={0} x2={ BULLS_R1+2} y2={0} stroke={COLORS.actualRing} strokeWidth={1}/>
+            <line x1={0} y1={-BULLS_R1-2} x2={0} y2={-BULLS_R1+3} stroke={COLORS.actualRing} strokeWidth={1}/>
+            <line x1={0} y1={ BULLS_R1-3} x2={0} y2={ BULLS_R1+2} stroke={COLORS.actualRing} strokeWidth={1}/>
+          </g>}
+
+          {/* Distance badge (reveal only). At midpoint of the two pins, counter-scaled. */}
+          {revealMode && gOk && aOk && Number.isFinite(distanceKm) && <g
+            transform={`translate(${(gProj[0]+aProj[0])/2},${(gProj[1]+aProj[1])/2 - 14*invK}) scale(${invK})`}>
+            <rect x={-30} y={-10} width={60} height={18} rx={9} ry={9} fill={COLORS.paper} stroke={COLORS.landStroke} strokeWidth={0.8}/>
+            <text x={0} y={3} textAnchor="middle" fontSize={11} fontWeight={600} fontFamily="'Inter',sans-serif" fill={COLORS.ink}>{fmtKm(distanceKm)}</text>
+          </g>}
         </g>
-        {gPin && <>
-          <circle cx={gPin.x} cy={gPin.y} r={pr*1.5} fill="#e63946" stroke="#fff" strokeWidth={sw}/>
-          <text x={gPin.x} y={gPin.y-(pr*1.5+3)} fill="#e63946" fontSize={fs} textAnchor="middle" fontWeight={700} stroke="#fff" strokeWidth={sw*0.5} paintOrder="stroke">Your Guess</text>
-        </>}
-        {aPin && <>
-          {gPin && <line x1={gPin.x} y1={gPin.y} x2={aPin.x} y2={aPin.y} stroke="#f4a261" strokeWidth={sw} strokeDasharray={`${5/xform.k},${3/xform.k}`}/>}
-          <circle cx={aPin.x} cy={aPin.y} r={pr*1.5} fill="#2a9d8f" stroke="#fff" strokeWidth={sw}/>
-          <text x={aPin.x} y={aPin.y-(pr*1.5+3)} fill="#2a9d8f" fontSize={fs} textAnchor="middle" fontWeight={700} stroke="#fff" strokeWidth={sw*0.5} paintOrder="stroke">{actual.name}</text>
-        </>}
       </svg>
     </div>
   );
@@ -933,7 +1042,8 @@ function SPEEDSExplorer() {
   // Keep submit ref fresh
   useEffect(()=>{subRef.current=()=>{
     if(!loc)return;
-    const d=pin?haversine(pin.lat,pin.lng,loc.lat,loc.lng):20000;
+    const lat=loc.coordinates?.lat ?? loc.lat, lng=loc.coordinates?.lng ?? loc.lng;
+    const d=pin?haversine(pin.lat,pin.lng,lat,lng):20000;
     setDist(Math.round(d));setLoc$(locPts(d));setPhase("reveal");
   };});
 
@@ -1116,13 +1226,14 @@ function SPEEDSExplorer() {
 
   const submitLoc = () => {
     if(!loc)return;
-    const d=pin?haversine(pin.lat,pin.lng,loc.lat,loc.lng):20000;
+    const lat=loc.coordinates?.lat ?? loc.lat, lng=loc.coordinates?.lng ?? loc.lng;
+    const d=pin?haversine(pin.lat,pin.lng,lat,lng):20000;
     setDist(Math.round(d));setLoc$(locPts(d));setPhase("reveal");setTimer(0);
   };
 
   const scoreFRQ = () => {
     if(!loc||!frqTxt.trim())return;
-    const v=(loc.frq?.verb||"").toLowerCase(), t=frqTxt.toLowerCase();
+    const v=(loc.frq?.taskVerb ?? loc.frq?.verb ?? "").toLowerCase(), t=frqTxt.toLowerCase();
     let ck={stimulus:false,verb:false,content:false};
     ck.content=allObs.flatMap(o=>o.keywords.slice(0,3)).some(k=>t.includes(k.toLowerCase()));
     ck.stimulus=["image","photo","visible","shown","see","picture","shows","seen"].some(w=>t.includes(w));
@@ -1136,9 +1247,10 @@ function SPEEDSExplorer() {
     if(pts>=10)flash("Solid FRQ. That's the structure.");
   };
 
-  const scoreLim = () => {
+  const scoreLim = (acceptList) => {
     if(!loc||!limTxt.trim())return;
-    const ok=(loc.limitation?.acceptableResponses||[]).some(r=>
+    const list = acceptList && acceptList.length ? acceptList : (loc.limitation?.acceptableResponses||[]);
+    const ok=list.some(r=>
       limTxt.toLowerCase().includes(r.toLowerCase())||fuzzy(limTxt,[r]));
     setLimOk(ok);setLimDone(true);
     if(ok){setObs$(p=>p+10);flash("Yup. +10.");}
@@ -1602,21 +1714,21 @@ function SPEEDSExplorer() {
 
   // ——— LOCATE ———
   if(phase==="locate") return (
-    <div style={S.pg}>
+    <div style={{...S.pg,background:"#F1ECDE",color:"#1A2130"}}>
       <div style={S.bx}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
-          <h1 style={{...S.h1,fontSize:22,margin:0}}>Where in the world?</h1>
-          <span style={{fontSize:28,fontWeight:900,fontFamily:"monospace",color:timer<10?"#e63946":"#e9c46a"}}>{fmt(timer)}</span>
+          <h1 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:26,fontWeight:700,margin:0,color:"#1A2130",letterSpacing:0.5}}>Where in the world?</h1>
+          <span style={{fontSize:26,fontWeight:800,fontFamily:"'Inter',monospace",color:timer<10?"#A0401F":"#A07548"}}>{fmt(timer)}</span>
         </div>
-        <p style={{fontSize:17,color:"#555",textAlign:"center",margin:"0 0 10px"}}>Click the map to drop your pin. Use your observations as evidence.</p>
+        <p style={{fontFamily:"'Inter',sans-serif",fontSize:15,color:"#6B4A2D",textAlign:"center",margin:"0 0 14px",letterSpacing:0.2}}>Click a country to drop your pin. Lean on your observations.</p>
         <WorldMap onClick={(lat,lng)=>setPin({lat,lng})} guess={pin}/>
-        {pin&&<div style={{textAlign:"center",marginTop:14}}>
-          <button onClick={submitLoc} style={{...S.bt,...S.b1,fontSize:19,padding:"14px 40px"}}>Lock In Guess 📍</button>
+        {pin&&<div style={{textAlign:"center",marginTop:16}}>
+          <button onClick={submitLoc} style={{padding:"14px 36px",borderRadius:30,border:"none",fontFamily:"'Inter',sans-serif",fontWeight:600,fontSize:17,letterSpacing:0.3,cursor:"pointer",background:"#A07548",color:"#F1ECDE",boxShadow:"0 2px 6px rgba(107,74,45,0.25)"}}>Lock in guess</button>
         </div>}
-        {matched.length>0&&<div style={{...S.cd,marginTop:12}}>
-          <div style={{fontSize:16,fontWeight:700,color:"#555",marginBottom:6}}>Your Evidence:</div>
-          <div style={{display:"flex",flexWrap:"wrap",gap:4}}>
-            {matched.map((m,i)=>{const sp=SPEEDS.find(s=>s.key===m.category);return <span key={i} style={{...S.bg,background:sp.color+"12",color:sp.color,fontSize:14}}>{sp.icon} {m.text.substring(0,50)}</span>;})}
+        {matched.length>0&&<div style={{marginTop:14,background:"#FFFFFF",border:"1px solid #D9CDB3",borderRadius:10,padding:14}}>
+          <div style={{fontFamily:"'Inter',sans-serif",fontSize:13,fontWeight:600,color:"#6B4A2D",marginBottom:8,letterSpacing:0.4,textTransform:"uppercase"}}>Your evidence</div>
+          <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
+            {matched.map((m,i)=>{const sp=SPEEDS.find(s=>s.key===m.category);return <span key={i} style={{display:"inline-block",padding:"5px 11px",borderRadius:16,background:sp.color+"15",color:sp.color,fontSize:13,fontWeight:600,fontFamily:"'Inter',sans-serif"}}>{sp.icon} {m.text.substring(0,50)}</span>;})}
           </div>
         </div>}
       </div>
@@ -1625,45 +1737,56 @@ function SPEEDSExplorer() {
 
   // ——— REVEAL ———
   if(phase==="reveal") return (
-    <div style={S.pg}>
+    <div style={{...S.pg,background:"#F1ECDE",color:"#1A2130"}}>
       <Toast msg={toast} show={toastOn} type={toastType}/>
       <div style={S.bx}>
-        <h1 style={{...S.h1,marginBottom:4}}>📍 {loc.name}</h1>
-        <p style={{textAlign:"center",fontSize:16,color:"#555",marginBottom:14}}>{loc.region}</p>
-        <WorldMap onClick={()=>{}} guess={pin} actual={{lat:loc.lat,lng:loc.lng,name:loc.name}} showActual/>
+        <h1 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:30,fontWeight:700,textAlign:"center",color:"#1A2130",margin:"0 0 2px",letterSpacing:0.5}}>{loc.name}</h1>
+        <p style={{fontFamily:"'Inter',sans-serif",textAlign:"center",fontSize:13,color:"#6B4A2D",margin:"0 0 14px",letterSpacing:0.8,textTransform:"uppercase",fontWeight:500}}>{loc.region}</p>
+        <WorldMap onClick={()=>{}} guess={pin} actual={{lat:loc.coordinates?.lat ?? loc.lat,lng:loc.coordinates?.lng ?? loc.lng,name:loc.name}} showActual distanceKm={dist} revealMode/>
         <div style={{display:"flex",gap:10,flexWrap:"wrap",margin:"14px 0"}}>
-          {[["Observations",obs$,"#2a9d8f"],["Coverage","+"+covBonus(),"#6a4c93"],["Location"+(dist?` (${dist}km)`:""),loc$,"#e9c46a"]].map(([l,v,c])=>
-            <div key={l} style={{...S.cd,flex:1,textAlign:"center",minWidth:100}}>
-              <div style={{fontSize:16,color:"#555"}}>{l}</div>
-              <div style={{fontSize:24,fontWeight:900,color:c}}>{v}</div>
+          {[["Observations",obs$,"#2a9d8f"],["Coverage","+"+covBonus(),"#6a4c93"],["Location"+(dist?` (${dist}km)`:""),loc$,"#A07548"]].map(([l,v,c])=>
+            <div key={l} style={{flex:1,textAlign:"center",minWidth:100,background:"#FFFFFF",border:"1px solid #D9CDB3",borderRadius:10,padding:"14px 10px"}}>
+              <div style={{fontFamily:"'Inter',sans-serif",fontSize:12,color:"#6B4A2D",letterSpacing:0.4,textTransform:"uppercase",fontWeight:500}}>{l}</div>
+              <div style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:26,fontWeight:700,color:c,marginTop:4}}>{v}</div>
             </div>
           )}
         </div>
         {/* All Observations Review — shown first */}
-        <div style={S.cd}>
-          <div style={{fontSize:19,fontWeight:700,marginBottom:10,color:"#555"}}>📝 All Observations ({matched.length}/{allObs.length} found)</div>
+        <div style={{background:"#FFFFFF",border:"1px solid #D9CDB3",borderRadius:10,padding:20,marginBottom:14}}>
+          <div style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:20,fontWeight:700,marginBottom:12,color:"#1A2130"}}>All observations <span style={{fontFamily:"'Inter',sans-serif",fontSize:14,fontWeight:500,color:"#6B4A2D"}}>({matched.length} of {allObs.length} found)</span></div>
           <div>
             {SPEEDS.map(sp=>{
               const co=loc.observations[sp.key]||{};
               const all=[...(co.tier1||[]).map(o=>({...o,text:o.display||o.text||"",t:1})),...(co.tier2||[]).map(o=>({...o,text:o.display||o.text||"",t:2}))];
               if(!all.length)return null;
-              return <div key={sp.key} style={{marginBottom:10}}>
-                <div style={{fontSize:18,fontWeight:700,color:sp.color,marginBottom:4}}>{sp.icon} {sp.label}</div>
-                {all.map((o,i)=>{const hit=matched.some(m=>m.text===o.text);return <div key={i} style={{fontSize:18,padding:"6px 12px",marginBottom:3,borderRadius:6,background:hit?sp.color+"18":"#e8e2d8",color:hit?sp.color:"#888"}}>{hit?"✓":"○"} {o.text} <span style={{opacity:0.5,fontSize:15}}>(T{o.t})</span></div>;})}
+              return <div key={sp.key} style={{marginBottom:12}}>
+                <div style={{fontFamily:"'Inter',sans-serif",fontSize:13,fontWeight:600,color:sp.color,marginBottom:6,letterSpacing:0.5,textTransform:"uppercase"}}>{sp.icon} {sp.label}</div>
+                {all.map((o,i)=>{
+                  const hit=matched.some(m=>m.text===o.text);
+                  const kw=Array.isArray(o.keywords)?o.keywords:[];
+                  return <div key={i} style={{fontSize:15,padding:"8px 12px",marginBottom:4,borderRadius:6,background:hit?sp.color+"15":"#F3ECD9",color:hit?"#1A2130":"#6B4A2D",border:hit?`1px solid ${sp.color}30`:"1px solid #E6DDC4"}}>
+                    <div style={{fontFamily:"'Inter',sans-serif"}}>
+                      <span style={{fontWeight:600,marginRight:4,color:hit?sp.color:"#A07548"}}>{hit?"✓":"○"}</span>
+                      {o.text}
+                      <span style={{opacity:0.55,fontSize:12,marginLeft:6}}>T{o.t}</span>
+                    </div>
+                    {!hit && kw.length>0 && <div style={{fontFamily:"'Inter',sans-serif",fontSize:12,color:"#8F6A3F",marginTop:4,marginLeft:18,fontStyle:"italic",lineHeight:1.4}}>also accepted: {kw.join(", ")}</div>}
+                  </div>;
+                })}
               </div>;
             })}
           </div>
         </div>
         {/* Clue Highlights — shown after observations */}
-        {loc.clueHighlights?.length>0&&<div style={S.cd}>
-          <div style={{fontSize:19,fontWeight:700,marginBottom:10,color:"#e9c46a"}}>🔎 Clue Highlights</div>
-          {loc.clueHighlights.map((c,i)=><div key={i} style={{marginBottom:10,fontSize:19}}>
-            <span style={{color:"#2a9d8f",fontWeight:700}}>{c.clue||c.detail}</span>
-            <span style={{color:"#555"}}> → {c.category} → </span>
-            <span>{c.inference}</span>
+        {loc.clueHighlights?.length>0&&<div style={{background:"#FFFFFF",border:"1px solid #D9CDB3",borderRadius:10,padding:20,marginBottom:14}}>
+          <div style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:20,fontWeight:700,marginBottom:12,color:"#A07548"}}>Clue highlights</div>
+          {loc.clueHighlights.map((c,i)=><div key={i} style={{marginBottom:10,fontSize:15,fontFamily:"'Inter',sans-serif",lineHeight:1.5}}>
+            <span style={{color:"#2a9d8f",fontWeight:600}}>{c.clue||c.detail}</span>
+            <span style={{color:"#6B4A2D"}}> &rsaquo; {c.category} &rsaquo; </span>
+            <span style={{color:"#1A2130"}}>{c.inference}</span>
           </div>)}
         </div>}
-        <div style={{textAlign:"center"}}><button onClick={()=>setPhase("frq")} style={{...S.bt,...S.b1}}>FRQ Practice →</button></div>
+        <div style={{textAlign:"center"}}><button onClick={()=>setPhase("frq")} style={{padding:"14px 36px",borderRadius:30,border:"none",fontFamily:"'Inter',sans-serif",fontWeight:600,fontSize:17,letterSpacing:0.3,cursor:"pointer",background:"#A07548",color:"#F1ECDE",boxShadow:"0 2px 6px rgba(107,74,45,0.25)"}}>FRQ practice &rsaquo;</button></div>
       </div>
     </div>
   );
@@ -1675,7 +1798,7 @@ function SPEEDSExplorer() {
       <div style={S.bx}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
           <h1 style={{...S.h1,fontSize:22,margin:0}}>FRQ Practice</h1>
-          <span style={{...S.bg,background:"#457b9d33",color:"#457b9d",fontSize:17}}>Task Verb: {loc.frq?.verb}</span>
+          <span style={{...S.bg,background:"#457b9d33",color:"#457b9d",fontSize:17}}>Task Verb: {loc.frq?.taskVerb ?? loc.frq?.verb}</span>
         </div>
         {/* Chunked Prompt */}
         <div style={S.cd}>
@@ -1692,8 +1815,22 @@ function SPEEDSExplorer() {
             <span style={{fontSize:15,color:"#888"}}>No observations this round</span>}
           </div>
         </div>
+        {/* ACE framework explainer — shown only before submission */}
+        {!frqDone&&<div style={{...S.cd,borderLeft:"4px solid #2a9d8f",background:"#f4faf8"}}>
+          <div style={{fontSize:17,fontWeight:700,color:"#2a9d8f",marginBottom:8}}>How your response will be scored: the ACE framework</div>
+          <div style={{fontSize:16,lineHeight:1.55,color:"#333"}}>
+            <div style={{marginBottom:6}}><strong style={{color:"#2a9d8f"}}>A — Answer</strong> the prompt directly. Use vocabulary from your observations above as evidence.</div>
+            <div style={{marginBottom:6}}><strong style={{color:"#457b9d"}}>C — Cite</strong> the stimulus explicitly. Phrases like "the image shows," "visible in the photo," or "shown in the stimulus" earn the point.</div>
+            <div><strong style={{color:"#e9c46a"}}>E — Explain</strong> using the task verb's demand level.
+              {" "}{(loc.frq?.taskVerb ?? loc.frq?.verb ?? "").toLowerCase()==="explain" && <span>Because the verb is <em>Explain</em>, you need causal language — "because," "leads to," "results in," "as a result."</span>}
+              {(loc.frq?.taskVerb ?? loc.frq?.verb ?? "").toLowerCase()==="compare" && <span>Because the verb is <em>Compare</em>, you need explicit connecting language — "while," "whereas," "both," "unlike."</span>}
+              {(loc.frq?.taskVerb ?? loc.frq?.verb ?? "").toLowerCase()==="describe" && <span>Because the verb is <em>Describe</em>, name specific characteristics — at least two or three details, no causal reasoning required.</span>}
+            </div>
+          </div>
+          <div style={{fontSize:14,color:"#6B4A2D",marginTop:10,fontStyle:"italic"}}>Full credit (15 pts) = all three checks. 10 pts for two, 5 for one.</div>
+        </div>}
         {!frqDone&&<>
-          <textarea value={frqTxt} onChange={e=>setFrqTxt(e.target.value)} rows={5} placeholder={`Write your ${(loc.frq?.verb||"").toLowerCase()} response... Reference evidence from the image.`}
+          <textarea value={frqTxt} onChange={e=>setFrqTxt(e.target.value)} rows={5} placeholder={`Write your ${((loc.frq?.taskVerb ?? loc.frq?.verb) || "").toLowerCase()} response... Reference evidence from the image.`}
             style={{...S.inp,resize:"vertical",fontFamily:"inherit",marginBottom:10}}/>
           <div style={{display:"flex",gap:8,justifyContent:"center"}}>
             <button onClick={scoreFRQ} disabled={!frqTxt.trim()} style={{...S.bt,...S.b1,opacity:frqTxt.trim()?1:0.4}}>Score My Response ✏️</button>
@@ -1721,27 +1858,53 @@ function SPEEDSExplorer() {
   );
 
   // ——— LIMITATION ———
-  if(phase==="limitation") return (
+  if(phase==="limitation") {
+    // Fall back to a generic prompt + broad accept-list when the location doesn't carry its own
+    const genericAccept = [
+      "season","seasonal","weather","climate","temperature","rainfall",
+      "population","census","demographic","demographics","birth rate","death rate",
+      "history","historical","change over time","past","future",
+      "language","religion","politics","political","governance","government","policy","policies",
+      "income","wage","wages","wealth","poverty","economic data","gdp","unemployment",
+      "crime","safety","education","literacy","health","health care","healthcare",
+      "off-camera","outside frame","off camera","rest of the city","beyond the frame",
+      "time of day","night","nighttime","day","daytime","time of year",
+      "interior","inside buildings","what's inside","indoor","indoors",
+      "culture","cultural practices","values","beliefs","opinions",
+      "statistics","numerical data","quantitative","survey","interview",
+      "age structure","age distribution","gender","sex ratio"
+    ];
+    const limPrompt = loc.limitation?.prompt
+      || `A single photograph can only show so much. Name TWO pieces of geographic information about ${loc.name.split(/—|-|,/)[0].trim()} or its broader region that this image CANNOT reliably tell you.`;
+    const limAccept = (loc.limitation?.acceptableResponses && loc.limitation.acceptableResponses.length)
+      ? loc.limitation.acceptableResponses
+      : genericAccept;
+    return (
     <div style={S.pg}>
       <Toast msg={toast} show={toastOn} type={toastType}/>
       <div style={S.bx}>
         <h1 style={{...S.h1,fontSize:22,marginBottom:4}}>Data Limitations</h1>
         <p style={{textAlign:"center",fontSize:16,color:"#555",marginBottom:14}}>This trains AP FRQ Parts F–G: recognizing what a stimulus <em>cannot</em> tell you.</p>
-        <div style={S.cd}><div style={{fontSize:20,lineHeight:1.6}}>{loc.limitation?.prompt}</div></div>
+        <div style={S.cd}><div style={{fontSize:20,lineHeight:1.6}}>{limPrompt}</div></div>
+        {!limDone&&<div style={{...S.cd,background:"#f9f6f1",borderLeft:"4px solid #6a4c93"}}>
+          <div style={{fontSize:15,color:"#333",lineHeight:1.55}}>
+            <strong style={{color:"#6a4c93"}}>Think about:</strong> seasonal change · historical change · data you can't see (census, income, crime) · what happens off-camera or at a different time · what would require interviews or surveys rather than a photo.
+          </div>
+        </div>}
         {!limDone&&<>
-          <input value={limTxt} onChange={e=>setLimTxt(e.target.value)} onKeyDown={e=>e.key==="Enter"&&scoreLim()}
+          <input value={limTxt} onChange={e=>setLimTxt(e.target.value)} onKeyDown={e=>e.key==="Enter"&&scoreLim(limAccept)}
             placeholder="Type your answer here..." style={{...S.inp,marginBottom:10}}/>
           <div style={{display:"flex",gap:8,justifyContent:"center"}}>
-            <button onClick={scoreLim} disabled={!limTxt.trim()} style={{...S.bt,...S.b1,opacity:limTxt.trim()?1:0.4}}>Check Answer</button>
+            <button onClick={()=>scoreLim(limAccept)} disabled={!limTxt.trim()} style={{...S.bt,...S.b1,opacity:limTxt.trim()?1:0.4}}>Check Answer</button>
             <button onClick={finish} style={{...S.bt,...S.b2}}>Skip →</button>
           </div>
         </>}
         {limDone&&<div style={S.cd}>
           <div style={{fontSize:19,fontWeight:700,color:limOk?"#2a9d8f":"#e9c46a",marginBottom:8}}>
-            {limOk?"✅ Correct! +10 points":"Good thinking! Here are some examples:"}
+            {limOk?"✅ Correct! +10 points":"Good thinking! Here are some examples of things this image can't tell you:"}
           </div>
           <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
-            {(loc.limitation?.acceptableResponses||[]).map((r,i)=><span key={i} style={{...S.bg,background:"#2a9d8f18",color:"#2a9d8f",fontSize:17}}>{r}</span>)}
+            {(limAccept.slice(0,10)).map((r,i)=><span key={i} style={{...S.bg,background:"#2a9d8f18",color:"#2a9d8f",fontSize:17}}>{r}</span>)}
           </div>
           <div style={{textAlign:"center",marginTop:14}}>
             <button onClick={finish} style={{...S.bt,...S.b1}}>{roundIdx+1<ROUNDS?"Next Round →":"View Results →"}</button>
@@ -1749,7 +1912,8 @@ function SPEEDSExplorer() {
         </div>}
       </div>
     </div>
-  );
+    );
+  }
 
   return null;
 }
