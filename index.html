@@ -1142,7 +1142,7 @@ function SPEEDSExplorer() {
 
   const scoreFRQ = () => {
     if(!loc||!frqTxt.trim())return;
-    const v=(loc.frq?.verb||"").toLowerCase(), t=frqTxt.toLowerCase();
+    const v=(loc.frq?.taskVerb ?? loc.frq?.verb ?? "").toLowerCase(), t=frqTxt.toLowerCase();
     let ck={stimulus:false,verb:false,content:false};
     ck.content=allObs.flatMap(o=>o.keywords.slice(0,3)).some(k=>t.includes(k.toLowerCase()));
     ck.stimulus=["image","photo","visible","shown","see","picture","shows","seen"].some(w=>t.includes(w));
@@ -1156,9 +1156,10 @@ function SPEEDSExplorer() {
     if(pts>=10)flash("Solid FRQ. That's the structure.");
   };
 
-  const scoreLim = () => {
+  const scoreLim = (acceptList) => {
     if(!loc||!limTxt.trim())return;
-    const ok=(loc.limitation?.acceptableResponses||[]).some(r=>
+    const list = acceptList && acceptList.length ? acceptList : (loc.limitation?.acceptableResponses||[]);
+    const ok=list.some(r=>
       limTxt.toLowerCase().includes(r.toLowerCase())||fuzzy(limTxt,[r]));
     setLimOk(ok);setLimDone(true);
     if(ok){setObs$(p=>p+10);flash("Yup. +10.");}
@@ -1706,7 +1707,7 @@ function SPEEDSExplorer() {
       <div style={S.bx}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
           <h1 style={{...S.h1,fontSize:22,margin:0}}>FRQ Practice</h1>
-          <span style={{...S.bg,background:"#457b9d33",color:"#457b9d",fontSize:17}}>Task Verb: {loc.frq?.verb}</span>
+          <span style={{...S.bg,background:"#457b9d33",color:"#457b9d",fontSize:17}}>Task Verb: {loc.frq?.taskVerb ?? loc.frq?.verb}</span>
         </div>
         {/* Chunked Prompt */}
         <div style={S.cd}>
@@ -1723,8 +1724,22 @@ function SPEEDSExplorer() {
             <span style={{fontSize:15,color:"#888"}}>No observations this round</span>}
           </div>
         </div>
+        {/* ACE framework explainer — shown only before submission */}
+        {!frqDone&&<div style={{...S.cd,borderLeft:"4px solid #2a9d8f",background:"#f4faf8"}}>
+          <div style={{fontSize:17,fontWeight:700,color:"#2a9d8f",marginBottom:8}}>How your response will be scored: the ACE framework</div>
+          <div style={{fontSize:16,lineHeight:1.55,color:"#333"}}>
+            <div style={{marginBottom:6}}><strong style={{color:"#2a9d8f"}}>A — Answer</strong> the prompt directly. Use vocabulary from your observations above as evidence.</div>
+            <div style={{marginBottom:6}}><strong style={{color:"#457b9d"}}>C — Cite</strong> the stimulus explicitly. Phrases like "the image shows," "visible in the photo," or "shown in the stimulus" earn the point.</div>
+            <div><strong style={{color:"#e9c46a"}}>E — Explain</strong> using the task verb's demand level.
+              {" "}{(loc.frq?.taskVerb ?? loc.frq?.verb ?? "").toLowerCase()==="explain" && <span>Because the verb is <em>Explain</em>, you need causal language — "because," "leads to," "results in," "as a result."</span>}
+              {(loc.frq?.taskVerb ?? loc.frq?.verb ?? "").toLowerCase()==="compare" && <span>Because the verb is <em>Compare</em>, you need explicit connecting language — "while," "whereas," "both," "unlike."</span>}
+              {(loc.frq?.taskVerb ?? loc.frq?.verb ?? "").toLowerCase()==="describe" && <span>Because the verb is <em>Describe</em>, name specific characteristics — at least two or three details, no causal reasoning required.</span>}
+            </div>
+          </div>
+          <div style={{fontSize:14,color:"#6B4A2D",marginTop:10,fontStyle:"italic"}}>Full credit (15 pts) = all three checks. 10 pts for two, 5 for one.</div>
+        </div>}
         {!frqDone&&<>
-          <textarea value={frqTxt} onChange={e=>setFrqTxt(e.target.value)} rows={5} placeholder={`Write your ${(loc.frq?.verb||"").toLowerCase()} response... Reference evidence from the image.`}
+          <textarea value={frqTxt} onChange={e=>setFrqTxt(e.target.value)} rows={5} placeholder={`Write your ${((loc.frq?.taskVerb ?? loc.frq?.verb) || "").toLowerCase()} response... Reference evidence from the image.`}
             style={{...S.inp,resize:"vertical",fontFamily:"inherit",marginBottom:10}}/>
           <div style={{display:"flex",gap:8,justifyContent:"center"}}>
             <button onClick={scoreFRQ} disabled={!frqTxt.trim()} style={{...S.bt,...S.b1,opacity:frqTxt.trim()?1:0.4}}>Score My Response ✏️</button>
@@ -1752,27 +1767,53 @@ function SPEEDSExplorer() {
   );
 
   // ——— LIMITATION ———
-  if(phase==="limitation") return (
+  if(phase==="limitation") {
+    // Fall back to a generic prompt + broad accept-list when the location doesn't carry its own
+    const genericAccept = [
+      "season","seasonal","weather","climate","temperature","rainfall",
+      "population","census","demographic","demographics","birth rate","death rate",
+      "history","historical","change over time","past","future",
+      "language","religion","politics","political","governance","government","policy","policies",
+      "income","wage","wages","wealth","poverty","economic data","gdp","unemployment",
+      "crime","safety","education","literacy","health","health care","healthcare",
+      "off-camera","outside frame","off camera","rest of the city","beyond the frame",
+      "time of day","night","nighttime","day","daytime","time of year",
+      "interior","inside buildings","what's inside","indoor","indoors",
+      "culture","cultural practices","values","beliefs","opinions",
+      "statistics","numerical data","quantitative","survey","interview",
+      "age structure","age distribution","gender","sex ratio"
+    ];
+    const limPrompt = loc.limitation?.prompt
+      || `A single photograph can only show so much. Name TWO pieces of geographic information about ${loc.name.split(/—|-|,/)[0].trim()} or its broader region that this image CANNOT reliably tell you.`;
+    const limAccept = (loc.limitation?.acceptableResponses && loc.limitation.acceptableResponses.length)
+      ? loc.limitation.acceptableResponses
+      : genericAccept;
+    return (
     <div style={S.pg}>
       <Toast msg={toast} show={toastOn} type={toastType}/>
       <div style={S.bx}>
         <h1 style={{...S.h1,fontSize:22,marginBottom:4}}>Data Limitations</h1>
         <p style={{textAlign:"center",fontSize:16,color:"#555",marginBottom:14}}>This trains AP FRQ Parts F–G: recognizing what a stimulus <em>cannot</em> tell you.</p>
-        <div style={S.cd}><div style={{fontSize:20,lineHeight:1.6}}>{loc.limitation?.prompt}</div></div>
+        <div style={S.cd}><div style={{fontSize:20,lineHeight:1.6}}>{limPrompt}</div></div>
+        {!limDone&&<div style={{...S.cd,background:"#f9f6f1",borderLeft:"4px solid #6a4c93"}}>
+          <div style={{fontSize:15,color:"#333",lineHeight:1.55}}>
+            <strong style={{color:"#6a4c93"}}>Think about:</strong> seasonal change · historical change · data you can't see (census, income, crime) · what happens off-camera or at a different time · what would require interviews or surveys rather than a photo.
+          </div>
+        </div>}
         {!limDone&&<>
-          <input value={limTxt} onChange={e=>setLimTxt(e.target.value)} onKeyDown={e=>e.key==="Enter"&&scoreLim()}
+          <input value={limTxt} onChange={e=>setLimTxt(e.target.value)} onKeyDown={e=>e.key==="Enter"&&scoreLim(limAccept)}
             placeholder="Type your answer here..." style={{...S.inp,marginBottom:10}}/>
           <div style={{display:"flex",gap:8,justifyContent:"center"}}>
-            <button onClick={scoreLim} disabled={!limTxt.trim()} style={{...S.bt,...S.b1,opacity:limTxt.trim()?1:0.4}}>Check Answer</button>
+            <button onClick={()=>scoreLim(limAccept)} disabled={!limTxt.trim()} style={{...S.bt,...S.b1,opacity:limTxt.trim()?1:0.4}}>Check Answer</button>
             <button onClick={finish} style={{...S.bt,...S.b2}}>Skip →</button>
           </div>
         </>}
         {limDone&&<div style={S.cd}>
           <div style={{fontSize:19,fontWeight:700,color:limOk?"#2a9d8f":"#e9c46a",marginBottom:8}}>
-            {limOk?"✅ Correct! +10 points":"Good thinking! Here are some examples:"}
+            {limOk?"✅ Correct! +10 points":"Good thinking! Here are some examples of things this image can't tell you:"}
           </div>
           <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
-            {(loc.limitation?.acceptableResponses||[]).map((r,i)=><span key={i} style={{...S.bg,background:"#2a9d8f18",color:"#2a9d8f",fontSize:17}}>{r}</span>)}
+            {(limAccept.slice(0,10)).map((r,i)=><span key={i} style={{...S.bg,background:"#2a9d8f18",color:"#2a9d8f",fontSize:17}}>{r}</span>)}
           </div>
           <div style={{textAlign:"center",marginTop:14}}>
             <button onClick={finish} style={{...S.bt,...S.b1}}>{roundIdx+1<ROUNDS?"Next Round →":"View Results →"}</button>
@@ -1780,7 +1821,8 @@ function SPEEDSExplorer() {
         </div>}
       </div>
     </div>
-  );
+    );
+  }
 
   return null;
 }
