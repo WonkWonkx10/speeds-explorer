@@ -726,9 +726,14 @@ const WorldMap = ({ onClick, guess, actual, showActual, distanceKm, revealMode }
     const k = Math.max(1, Math.min(6, Math.min(W/dx, H/dy)));
     const tx = W/2 - cx*k;
     const ty = H/2 - cy*k;
-    d3.select(svgRef.current).transition().duration(700)
-      .call(zoomBeh.current.transform, d3.zoomIdentity.translate(tx, ty).scale(k));
-  }, [revealMode, guess, actual, proj]);
+    // defer one frame to make sure the svg has laid out
+    const rafId = requestAnimationFrame(() => {
+      if (!svgRef.current || !zoomBeh.current) return;
+      d3.select(svgRef.current).transition().duration(700)
+        .call(zoomBeh.current.transform, d3.zoomIdentity.translate(tx, ty).scale(k));
+    });
+    return () => cancelAnimationFrame(rafId);
+  }, [revealMode, proj, guess && guess.lat, guess && guess.lng, actual && actual.lat, actual && actual.lng]);
 
   const resetZoom = e => {
     e.stopPropagation();
@@ -772,23 +777,21 @@ const WorldMap = ({ onClick, guess, actual, showActual, distanceKm, revealMode }
     onClick(lat, lng);
   };
 
-  const pinXY = (lat, lng) => {
-    if (!proj) return null;
-    const p = proj([lng, lat]);
-    if (!p || !Number.isFinite(p[0]) || !Number.isFinite(p[1])) return null;
-    return { x: p[0]*xform.k + xform.x, y: p[1]*xform.k + xform.y };
-  };
-
-  const gPin = guess ? pinXY(guess.lat, guess.lng) : null;
-  const aPin = (showActual && actual) ? pinXY(actual.lat, actual.lng) : null;
+  // Raw projection coords (inside the zoomed <g>). Pins live inside the same <g>
+  // as the map and are counter-scaled by 1/k so they stay visually constant.
+  const gProj = guess && proj ? proj([guess.lng, guess.lat]) : null;
+  const aProj = (showActual && actual && proj) ? proj([actual.lng, actual.lat]) : null;
+  const gOk = gProj && Number.isFinite(gProj[0]) && Number.isFinite(gProj[1]);
+  const aOk = aProj && Number.isFinite(aProj[0]) && Number.isFinite(aProj[1]);
 
   const graticule = proj && pathGen ? pathGen(d3.geoGraticule()()) : null;
   const outline = proj && pathGen ? pathGen({type:"Sphere"}) : null;
   const equator = proj && pathGen ? pathGen({type:"LineString",coordinates:[[-180,0],[0,0],[180,0]]}) : null;
 
   const borderW = 0.5 / xform.k;
+  const invK = 1 / (xform.k || 1); // counter-scale factor
 
-  // Pin / bullseye sizes — drawn outside the zoomed <g>, so constant on screen
+  // Pin / bullseye sizes (constant screen pixels, thanks to invK counter-scale)
   const PIN_R    = 6;
   const BULLS_R1 = 9;
   const BULLS_R2 = 5.5;
@@ -800,11 +803,6 @@ const WorldMap = ({ onClick, guess, actual, showActual, distanceKm, revealMode }
     if (d < 1000)  return Math.round(d) + " km";
     return (d/1000).toFixed(1).replace(/\.0$/, "") + "k km";
   };
-
-  // Badge midpoint for the distance label (in screen space)
-  const badgeXY = (gPin && aPin)
-    ? { x: (gPin.x + aPin.x) / 2, y: (gPin.y + aPin.y) / 2 }
-    : null;
 
   return (
     <div style={{borderRadius:8,overflow:"hidden",border:`1px solid ${COLORS.landStroke}`,background:COLORS.paper,position:"relative"}}>
@@ -826,33 +824,38 @@ const WorldMap = ({ onClick, guess, actual, showActual, distanceKm, revealMode }
           {equator && <path d={equator} fill="none" stroke={COLORS.equator} strokeWidth={borderW*0.9} strokeDasharray={`${3/xform.k},${3/xform.k}`} opacity={0.35}/>}
           {geoData && geoData.error && <text x={W/2} y={H/2} fill={COLORS.siennaDeep} fontSize={12} textAnchor="middle" fontFamily="'Inter',sans-serif">Map unavailable offline</text>}
           {!geoData && <text x={W/2} y={H/2} fill={COLORS.siennaDeep} fontSize={12} textAnchor="middle" fontFamily="'Inter',sans-serif">Loading map...</text>}
+
+          {/* Dashed line between guess and actual (reveal only). Inside the zoomed <g>
+              at raw projection coords; non-scaling-stroke keeps the line weight constant. */}
+          {gOk && aOk && <line x1={gProj[0]} y1={gProj[1]} x2={aProj[0]} y2={aProj[1]}
+            stroke={COLORS.sienna} strokeWidth={1.5} strokeDasharray="4,3" opacity={0.9}
+            vectorEffect="non-scaling-stroke"/>}
+
+          {/* Guess pin — drop-pin at projection coords, counter-scaled to stay visually constant */}
+          {gOk && <g transform={`translate(${gProj[0]},${gProj[1]}) scale(${invK})`}>
+            <path d={`M 0 2 L -${PIN_R*0.7} -${PIN_R*1.3} A ${PIN_R} ${PIN_R} 0 1 1 ${PIN_R*0.7} -${PIN_R*1.3} Z`}
+              fill={COLORS.guess} stroke={COLORS.paper} strokeWidth={1.5}/>
+            <circle cx={0} cy={-PIN_R*1.1} r={PIN_R*0.35} fill={COLORS.paper}/>
+          </g>}
+
+          {/* Actual-location bullseye (reveal only). Same counter-scale pattern. */}
+          {aOk && <g transform={`translate(${aProj[0]},${aProj[1]}) scale(${invK})`}>
+            <circle cx={0} cy={0} r={BULLS_R1} fill="none" stroke={COLORS.actualRing} strokeWidth={1.2} opacity={0.5}/>
+            <circle cx={0} cy={0} r={BULLS_R2} fill="none" stroke={COLORS.actualRing} strokeWidth={1.3}/>
+            <circle cx={0} cy={0} r={BULLS_R3} fill={COLORS.actualDot} stroke={COLORS.actualRing} strokeWidth={0.8}/>
+            <line x1={-BULLS_R1-2} y1={0} x2={-BULLS_R1+3} y2={0} stroke={COLORS.actualRing} strokeWidth={1}/>
+            <line x1={ BULLS_R1-3} y1={0} x2={ BULLS_R1+2} y2={0} stroke={COLORS.actualRing} strokeWidth={1}/>
+            <line x1={0} y1={-BULLS_R1-2} x2={0} y2={-BULLS_R1+3} stroke={COLORS.actualRing} strokeWidth={1}/>
+            <line x1={0} y1={ BULLS_R1-3} x2={0} y2={ BULLS_R1+2} stroke={COLORS.actualRing} strokeWidth={1}/>
+          </g>}
+
+          {/* Distance badge (reveal only). At midpoint of the two pins, counter-scaled. */}
+          {revealMode && gOk && aOk && Number.isFinite(distanceKm) && <g
+            transform={`translate(${(gProj[0]+aProj[0])/2},${(gProj[1]+aProj[1])/2 - 14*invK}) scale(${invK})`}>
+            <rect x={-30} y={-10} width={60} height={18} rx={9} ry={9} fill={COLORS.paper} stroke={COLORS.landStroke} strokeWidth={0.8}/>
+            <text x={0} y={3} textAnchor="middle" fontSize={11} fontWeight={600} fontFamily="'Inter',sans-serif" fill={COLORS.ink}>{fmtKm(distanceKm)}</text>
+          </g>}
         </g>
-
-        {/* Dashed line between guess and actual (reveal only) */}
-        {gPin && aPin && <line x1={gPin.x} y1={gPin.y} x2={aPin.x} y2={aPin.y} stroke={COLORS.sienna} strokeWidth={1.5} strokeDasharray="4,3" opacity={0.85}/>}
-
-        {/* Guess pin — classic drop-pin shape */}
-        {gPin && <g transform={`translate(${gPin.x},${gPin.y})`}>
-          <path d={`M 0 2 L -${PIN_R*0.7} -${PIN_R*1.3} A ${PIN_R} ${PIN_R} 0 1 1 ${PIN_R*0.7} -${PIN_R*1.3} Z`} fill={COLORS.guess} stroke={COLORS.paper} strokeWidth={1.5}/>
-          <circle cx={0} cy={-PIN_R*1.1} r={PIN_R*0.35} fill={COLORS.paper}/>
-        </g>}
-
-        {/* Actual-location bullseye (reveal only) */}
-        {aPin && <g transform={`translate(${aPin.x},${aPin.y})`}>
-          <circle cx={0} cy={0} r={BULLS_R1} fill="none" stroke={COLORS.actualRing} strokeWidth={1.2} opacity={0.5}/>
-          <circle cx={0} cy={0} r={BULLS_R2} fill="none" stroke={COLORS.actualRing} strokeWidth={1.3}/>
-          <circle cx={0} cy={0} r={BULLS_R3} fill={COLORS.actualDot} stroke={COLORS.actualRing} strokeWidth={0.8}/>
-          <line x1={-BULLS_R1-2} y1={0} x2={-BULLS_R1+3} y2={0} stroke={COLORS.actualRing} strokeWidth={1}/>
-          <line x1={ BULLS_R1-3} y1={0} x2={ BULLS_R1+2} y2={0} stroke={COLORS.actualRing} strokeWidth={1}/>
-          <line x1={0} y1={-BULLS_R1-2} x2={0} y2={-BULLS_R1+3} stroke={COLORS.actualRing} strokeWidth={1}/>
-          <line x1={0} y1={ BULLS_R1-3} x2={0} y2={ BULLS_R1+2} stroke={COLORS.actualRing} strokeWidth={1}/>
-        </g>}
-
-        {/* Distance badge (reveal only, if distance provided) */}
-        {revealMode && badgeXY && Number.isFinite(distanceKm) && <g transform={`translate(${badgeXY.x},${badgeXY.y - 14})`}>
-          <rect x={-28} y={-10} width={56} height={18} rx={9} ry={9} fill={COLORS.paper} stroke={COLORS.landStroke} strokeWidth={0.8}/>
-          <text x={0} y={3} textAnchor="middle" fontSize={11} fontWeight={600} fontFamily="'Inter',sans-serif" fill={COLORS.ink}>{fmtKm(distanceKm)}</text>
-        </g>}
       </svg>
     </div>
   );
