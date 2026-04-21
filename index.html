@@ -957,7 +957,8 @@ function SPEEDSExplorer() {
   // Keep submit ref fresh
   useEffect(()=>{subRef.current=()=>{
     if(!loc)return;
-    const d=pin?haversine(pin.lat,pin.lng,loc.lat,loc.lng):20000;
+    const lat=loc.coordinates?.lat ?? loc.lat, lng=loc.coordinates?.lng ?? loc.lng;
+    const d=pin?haversine(pin.lat,pin.lng,lat,lng):20000;
     setDist(Math.round(d));setLoc$(locPts(d));setPhase("reveal");
   };});
 
@@ -1134,7 +1135,8 @@ function SPEEDSExplorer() {
 
   const submitLoc = () => {
     if(!loc)return;
-    const d=pin?haversine(pin.lat,pin.lng,loc.lat,loc.lng):20000;
+    const lat=loc.coordinates?.lat ?? loc.lat, lng=loc.coordinates?.lng ?? loc.lng;
+    const d=pin?haversine(pin.lat,pin.lng,lat,lng):20000;
     setDist(Math.round(d));setLoc$(locPts(d));setPhase("reveal");setTimer(0);
   };
 
@@ -1648,7 +1650,7 @@ function SPEEDSExplorer() {
       <div style={S.bx}>
         <h1 style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:30,fontWeight:700,textAlign:"center",color:"#1A2130",margin:"0 0 2px",letterSpacing:0.5}}>{loc.name}</h1>
         <p style={{fontFamily:"'Inter',sans-serif",textAlign:"center",fontSize:13,color:"#6B4A2D",margin:"0 0 14px",letterSpacing:0.8,textTransform:"uppercase",fontWeight:500}}>{loc.region}</p>
-        <WorldMap onClick={()=>{}} guess={pin} actual={{lat:loc.lat,lng:loc.lng,name:loc.name}} showActual distanceKm={dist} revealMode/>
+        <WorldMap onClick={()=>{}} guess={pin} actual={{lat:loc.coordinates?.lat ?? loc.lat,lng:loc.coordinates?.lng ?? loc.lng,name:loc.name}} showActual distanceKm={dist} revealMode/>
         <div style={{display:"flex",gap:10,flexWrap:"wrap",margin:"14px 0"}}>
           {[["Observations",obs$,"#2a9d8f"],["Coverage","+"+covBonus(),"#6a4c93"],["Location"+(dist?` (${dist}km)`:""),loc$,"#A07548"]].map(([l,v,c])=>
             <div key={l} style={{flex:1,textAlign:"center",minWidth:100,background:"#FFFFFF",border:"1px solid #D9CDB3",borderRadius:10,padding:"14px 10px"}}>
