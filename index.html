@@ -588,6 +588,90 @@ const shouldFireClarification = (input, loc) => {
   return locHasTier1Reference(trigger, loc);
 };
 
+// =============================================================================
+// LOCATION PRIORITIZATION — weighted picker for round selection
+// Newly-added locations should show up more often until students have seen
+// them; well-worn locations should show less until play counts even out.
+// Per-browser play counts live in localStorage so they persist across sessions
+// but stay on-device (no backend, no PII).
+// =============================================================================
+
+const PLAY_COUNT_KEY = "speeds_play_counts_v1";
+
+// Safe localStorage wrappers — fail silently if storage is unavailable
+// (private browsing, disabled, quota exceeded). Worst case: we fall back to
+// uniform random and nobody gets hurt.
+const loadPlayCounts = () => {
+  try {
+    const raw = localStorage.getItem(PLAY_COUNT_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch { return {}; }
+};
+const savePlayCounts = (counts) => {
+  try { localStorage.setItem(PLAY_COUNT_KEY, JSON.stringify(counts)); }
+  catch {}
+};
+const bumpPlayCount = (id) => {
+  const counts = loadPlayCounts();
+  counts[id] = (counts[id] || 0) + 1;
+  savePlayCounts(counts);
+};
+
+// Convert an optional addedDate string to a recency boost multiplier.
+// - ≤7 days old     → 6× weight (brand new, prioritize heavily)
+// - 8–30 days old   → 3× weight (recently added)
+// - >30 days or missing → 1× (baseline)
+// Invalid dates are treated as baseline rather than crashing the picker.
+const recencyBoost = (addedDate) => {
+  if (!addedDate) return 1;
+  const t = Date.parse(addedDate);
+  if (isNaN(t)) return 1;
+  const days = (Date.now() - t) / (1000 * 60 * 60 * 24);
+  if (days < 0) return 1;          // future-dated; treat as baseline
+  if (days <= 7) return 6;
+  if (days <= 30) return 3;
+  return 1;
+};
+
+// Compute a single location's pick weight. Combines recency boost with an
+// inverse function of play count so locations the student has already seen
+// rotate out of the foreground without ever going to zero weight (a student
+// should still eventually re-see old locations).
+const locationWeight = (loc, playCounts) => {
+  const boost = recencyBoost(loc.addedDate);
+  const plays = playCounts[loc.id] || 0;
+  return boost / (plays + 1);
+};
+
+// Weighted random selection of `n` locations without replacement. If the
+// supplied pool is smaller than n, returns the whole pool (still weighted
+// ordered, but capped). Falls back gracefully if all weights happen to be
+// zero (shouldn't happen, since our minimum weight is 1/(plays+1) > 0).
+const weightedPick = (locations, n, playCounts) => {
+  const pool = [...locations]; // don't mutate caller's array
+  const picks = [];
+  const take = Math.min(n, pool.length);
+  for (let i = 0; i < take; i++) {
+    const weights = pool.map(l => locationWeight(l, playCounts));
+    const total = weights.reduce((s, w) => s + w, 0);
+    if (total <= 0) {
+      // Degenerate case; pick uniformly at random from whatever's left
+      const idx = Math.floor(Math.random() * pool.length);
+      picks.push(pool.splice(idx, 1)[0]);
+      continue;
+    }
+    let r = Math.random() * total;
+    let idx = 0;
+    for (; idx < weights.length; idx++) {
+      r -= weights[idx];
+      if (r <= 0) break;
+    }
+    if (idx >= pool.length) idx = pool.length - 1; // float-rounding safety
+    picks.push(pool.splice(idx, 1)[0]);
+  }
+  return picks;
+};
+
 // ===== END INSERTION =====
 
 const fuzzyMatch = (input, keywords) => {
@@ -1029,7 +1113,14 @@ function SPEEDSExplorer() {
   },[]);
 
   const start = () => {
-    const picks = playable.sort(()=>Math.random()-0.5).slice(0,ROUNDS).map(l=>l.idx);
+    // Weighted selection: new locations (addedDate within 30 days) are boosted,
+    // and less-played locations are preferred over frequently-played ones.
+    // Play counts are bumped immediately so a student who abandons a round
+    // still has that location counted as "seen" for next session's weighting.
+    const playCounts = loadPlayCounts();
+    const chosen = weightedPick(playable, ROUNDS, playCounts);
+    const picks = chosen.map(l => l.idx);
+    chosen.forEach(l => bumpPlayCount(l.id));
     setOrder(picks);setRoundIdx(0);setScores([]);reset();setPhase("observe");
   };
   const reset = () => {
